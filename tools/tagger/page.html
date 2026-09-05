@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>PlayNight — session tagger</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #0B0D12; color: #F2F4F8;
+         font: 15px/1.5 ui-sans-serif, system-ui, sans-serif;
+         display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+  .wrap { width: 720px; max-width: 94vw; }
+  .bar { height: 6px; background: #1E2430; border-radius: 99px; overflow: hidden; margin-bottom: 8px; }
+  .bar > i { display: block; height: 100%; background: #6C5CE7; transition: width .2s; }
+  .meta { display: flex; justify-content: space-between; color: #8B93A3; font-size: 13px; margin-bottom: 20px; }
+  .card { display: flex; gap: 20px; background: #151922; border: 1px solid #2A3140;
+          border-radius: 16px; padding: 20px; }
+  .cover { width: 132px; height: 176px; border-radius: 10px; object-fit: cover;
+           background: #1E2430; flex: none; }
+  h1 { font-size: 22px; margin: 0 0 4px; }
+  .year { color: #8B93A3; font-size: 14px; margin-bottom: 12px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 6px; }
+  .tag { font-size: 12px; padding: 2px 8px; border-radius: 99px; background: #1E2430; color: #8B93A3; }
+  .tag.kw { background: #241f3d; color: #b3a8f5; }
+  .guess { margin-top: 14px; padding: 10px 12px; border-radius: 10px;
+           background: #1a1f2b; border: 1px solid #2A3140; font-size: 14px; }
+  .guess b { color: #8F82F0; }
+  .rows { margin-top: 18px; display: grid; gap: 10px; }
+  .row { display: flex; align-items: center; gap: 8px; }
+  .row > span.label { width: 132px; color: #8B93A3; font-size: 13px; }
+  .opt { padding: 7px 12px; border-radius: 9px; border: 1px solid #2A3140;
+         background: #151922; color: #8B93A3; font-size: 13px; }
+  .opt.on { border-color: #6C5CE7; background: rgba(108,92,231,.22); color: #F2F4F8; font-weight: 700; }
+  .opt kbd { font: inherit; color: #6C5CE7; margin-right: 5px; }
+  .help { margin-top: 18px; color: #8B93A3; font-size: 13px; }
+  .help kbd { background: #1E2430; border-radius: 5px; padding: 1px 6px; color: #F2F4F8; }
+  .msg { text-align: center; padding: 40px; color: #8B93A3; }
+  .warn { color: #F1C40F; }
+</style>
+</head>
+<body>
+<div class="wrap" id="app"><div class="msg">Loading the queue from IGDB…</div></div>
+<script>
+const BUCKETS = [
+  { key: '1', label: 'under 15 min', minutes: 10 },
+  { key: '2', label: '15–30 min', minutes: 20 },
+  { key: '3', label: '30–60 min', minutes: 45 },
+  { key: '4', label: '60 min +', minutes: 75 },
+];
+const bucketFor = (m) => BUCKETS.reduce((best, b) =>
+  Math.abs(b.minutes - m) < Math.abs(best.minutes - m) ? b : best, BUCKETS[0]);
+
+let games = [], total = 0, tagged = 0, i = 0, pending = null;
+const app = document.getElementById('app');
+const esc = (s) => String(s).replace(/[<>&]/g, (c) => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;' }[c]));
+
+function reset() {
+  const g = games[i];
+  pending = g ? { interruptible: g.guess.interruptible, minutes: g.guess.typicalMinutes } : null;
+}
+
+function render() {
+  if (i >= games.length) {
+    app.innerHTML = `<div class="msg">Done — ${tagged} games tagged.<br>Saved to seed/session-profiles.json</div>`;
+    return;
+  }
+  const g = games[i];
+  const b = bucketFor(pending.minutes);
+  const opts = (on, list) => list.map((o) =>
+    `<span class="opt ${o.on ? 'on' : ''}"><kbd>${o.key}</kbd>${o.label}</span>`).join(' ');
+
+  app.innerHTML = `
+    <div class="bar"><i style="width:${(tagged / total) * 100}%"></i></div>
+    <div class="meta"><span>${tagged} / ${total} tagged</span><span>${esc(g.ratingCount)} ratings</span></div>
+    <div class="card">
+      ${g.coverUrl ? `<img class="cover" src="${esc(g.coverUrl)}" alt="">` : '<div class="cover"></div>'}
+      <div style="flex:1;min-width:0">
+        <h1>${esc(g.name)}</h1>
+        <div class="year">${g.releaseYear ?? ''}</div>
+        <div class="tags">${g.genres.map((t) => `<span class="tag">${esc(t)}</span>`).join('')}</div>
+        <div class="tags">${g.keywords.slice(0, 8).map((t) => `<span class="tag kw">${esc(t)}</span>`).join('')}</div>
+        <div class="guess">Our guess: <b>${g.guess.archetype ?? 'unknown — conservative default'}</b>
+          — ${g.guess.typicalMinutes} min, ${g.guess.interruptible ? 'can stop anytime' : 'locked in'}
+          <span style="color:#8B93A3">(${g.guess.source})</span></div>
+        <div class="rows">
+          <div class="row"><span class="label">Can you stop?</span>
+            ${opts(0, [{ key: 'Y', label: 'anytime', on: pending.interruptible },
+                       { key: 'N', label: 'locked in', on: !pending.interruptible }])}</div>
+          <div class="row"><span class="label">Typical session</span>
+            ${opts(0, BUCKETS.map((x) => ({ key: x.key, label: x.label, on: x.minutes === b.minutes })))}</div>
+        </div>
+      </div>
+    </div>
+    <div class="help"><kbd>Enter</kbd> save &amp; next · <kbd>Y</kbd>/<kbd>N</kbd> and <kbd>1</kbd>–<kbd>4</kbd> to change ·
+      <kbd>S</kbd> skip · <kbd>&larr;</kbd> back</div>`;
+}
+
+async function commit() {
+  const g = games[i];
+  const agreed = pending.interruptible === g.guess.interruptible
+              && bucketFor(pending.minutes).minutes === bucketFor(g.guess.typicalMinutes).minutes;
+  await fetch('/tag', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ igdbId: g.igdbId, name: g.name, typicalMinutes: pending.minutes,
+      interruptible: pending.interruptible, guessedArchetype: g.guess.archetype, agreedWithGuess: agreed }) });
+  tagged += 1; i += 1; reset(); render();
+}
+
+document.addEventListener('keydown', (e) => {
+  if (i >= games.length || !pending) return;
+  const k = e.key.toLowerCase();
+  if (k === 'enter') { e.preventDefault(); return void commit(); }
+  if (k === 's') { i += 1; reset(); return render(); }
+  if (k === 'arrowleft') { i = Math.max(0, i - 1); reset(); return render(); }
+  if (k === 'y') pending.interruptible = true;
+  else if (k === 'n') pending.interruptible = false;
+  else { const b = BUCKETS.find((x) => x.key === k); if (!b) return; pending.minutes = b.minutes; }
+  render();
+});
+
+fetch('/queue').then((r) => r.json()).then((data) => {
+  if (data.error) { app.innerHTML = `<div class="msg warn">${esc(data.error)}</div>`; return; }
+  games = data.games; total = data.total; tagged = data.taggedCount; i = 0;
+  reset(); render();
+});
+</script>
+</body>
+</html>

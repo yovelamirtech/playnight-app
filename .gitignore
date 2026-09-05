@@ -41,3 +41,10 @@ example
 # generated native folders
 /ios
 /android
+
+# local env files
+.env
+.env.local
+
+# Manual seed produced by the tagging tool (npm run dev -> localhost:8788)
+seed/session-profiles.json

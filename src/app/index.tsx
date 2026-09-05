@@ -1,98 +1,57 @@
-import * as Device from 'expo-device';
-import { Platform, StyleSheet } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { useLiveQuery } from 'drizzle-orm/expo-sqlite';
+import { useRouter } from 'expo-router';
+import { Pressable, Text, View } from 'react-native';
 
-import { AnimatedIcon } from '@/components/animated-icon';
-import { HintRow } from '@/components/hint-row';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { WebBadge } from '@/components/web-badge';
-import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
-
-function getDevMenuHint() {
-  if (Platform.OS === 'web') {
-    return <ThemedText type="small">use browser devtools</ThemedText>;
-  }
-  if (Device.isDevice) {
-    return (
-      <ThemedText type="small">
-        shake device or press <ThemedText type="code">m</ThemedText> in terminal
-      </ThemedText>
-    );
-  }
-  const shortcut = Platform.OS === 'android' ? 'cmd+m (or ctrl+m)' : 'cmd+d';
-  return (
-    <ThemedText type="small">
-      press <ThemedText type="code">{shortcut}</ThemedText>
-    </ThemedText>
-  );
-}
+import { EmptyLibrary } from '@/components/home/EmptyLibrary';
+import { MoodPicker } from '@/components/home/MoodPicker';
+import { TimePicker } from '@/components/home/TimePicker';
+import { PrimaryButton } from '@/components/ui/PrimaryButton';
+import { Screen } from '@/components/ui/Screen';
+import { Title } from '@/components/ui/Title';
+import { t } from '@/i18n';
+import { db } from '@/db/client';
+import { userGames } from '@/db/schema';
+import { useDecisionStore } from '@/store/useDecisionStore';
 
 export default function HomeScreen() {
+  const router = useRouter();
+  const availableMinutes = useDecisionStore((state) => state.availableMinutes);
+  const mood = useDecisionStore((state) => state.mood);
+  const setAvailableMinutes = useDecisionStore((state) => state.setAvailableMinutes);
+  const toggleMood = useDecisionStore((state) => state.toggleMood);
+
+  // live query — הספרייה מקומית, אין קריאת רשת ואין ספינר.
+  const { data } = useLiveQuery(db.select({ id: userGames.id }).from(userGames));
+  const isEmpty = data.length === 0;
+
   return (
-    <ThemedView style={styles.container}>
-      <SafeAreaView style={styles.safeArea}>
-        <ThemedView style={styles.heroSection}>
-          <AnimatedIcon />
-          <ThemedText type="title" style={styles.title}>
-            Welcome to&nbsp;Expo
-          </ThemedText>
-        </ThemedView>
+    <Screen center>
+      {isEmpty ? (
+        <EmptyLibrary />
+      ) : (
+        <View className="gap-8">
+          <View className="gap-4">
+            <Title>{t.home.timeQuestion}</Title>
+            <TimePicker value={availableMinutes} onChange={setAvailableMinutes} />
+          </View>
 
-        <ThemedText type="code" style={styles.code}>
-          get started
-        </ThemedText>
+          <View className="gap-4">
+            <Title className="text-lg">{t.home.moodQuestion}</Title>
+            <MoodPicker value={mood} onToggle={toggleMood} />
+          </View>
 
-        <ThemedView type="backgroundElement" style={styles.stepContainer}>
-          <HintRow
-            title="Try editing"
-            hint={<ThemedText type="code">src/app/index.tsx</ThemedText>}
-          />
-          <HintRow title="Dev tools" hint={getDevMenuHint()} />
-          <HintRow
-            title="Fresh start"
-            hint={<ThemedText type="code">npm run reset-project</ThemedText>}
-          />
-        </ThemedView>
+          <PrimaryButton label={t.home.cta} onPress={() => router.push('/swipe')} />
+        </View>
+      )}
 
-        {Platform.OS === 'web' && <WebBadge />}
-      </SafeAreaView>
-    </ThemedView>
+      <View className="mt-10 flex-row justify-center gap-6">
+        <Pressable onPress={() => router.push('/library')}>
+          <Text className="text-base text-muted">{t.nav.library}</Text>
+        </Pressable>
+        <Pressable onPress={() => router.push('/settings')}>
+          <Text className="text-base text-muted">{t.nav.settings}</Text>
+        </Pressable>
+      </View>
+    </Screen>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    flexDirection: 'row',
-  },
-  safeArea: {
-    flex: 1,
-    paddingHorizontal: Spacing.four,
-    alignItems: 'center',
-    gap: Spacing.three,
-    paddingBottom: BottomTabInset + Spacing.three,
-    maxWidth: MaxContentWidth,
-  },
-  heroSection: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex: 1,
-    paddingHorizontal: Spacing.four,
-    gap: Spacing.four,
-  },
-  title: {
-    textAlign: 'center',
-  },
-  code: {
-    textTransform: 'uppercase',
-  },
-  stepContainer: {
-    gap: Spacing.three,
-    alignSelf: 'stretch',
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.four,
-    borderRadius: Spacing.four,
-  },
-});
