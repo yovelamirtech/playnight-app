@@ -43,7 +43,6 @@ export default function RootLayout() {
           contentStyle: { backgroundColor: palette.bg },
           animation: 'slide_from_right',
           gestureEnabled: true,
-          fullScreenGestureEnabled: true,
         }}
       />
     </SafeAreaProvider>
