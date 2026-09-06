@@ -1,5 +1,6 @@
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
+import * as SystemUI from 'expo-system-ui';
 import { useEffect } from 'react';
 import { Text, View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -10,6 +11,9 @@ import { t } from '@/i18n';
 import { useDatabaseReady } from '@/db/useDatabaseReady';
 
 SplashScreen.preventAutoHideAsync().catch(() => undefined);
+// המסך האנימציה של האפליקציה מציג לרגע את רקע החלון המקורי (לבן) מאחורי
+// המסכים בזמן המעברים — קובעים אותו לרקע הכהה של האפליקציה כדי למנוע הבהוב.
+SystemUI.setBackgroundColorAsync(palette.bg).catch(() => undefined);
 
 export default function RootLayout() {
   const { ready, error } = useDatabaseReady();
