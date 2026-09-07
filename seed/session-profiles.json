@@ -1,0 +1,2705 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "igdbId": 1020,
+      "name": "Grand Theft Auto V",
+      "typicalMinutes": 40,
+      "interruptible": false,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-05T16:10:57.899Z"
+    },
+    {
+      "igdbId": 1942,
+      "name": "The Witcher 3: Wild Hunt",
+      "typicalMinutes": 40,
+      "interruptible": false,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T18:55:07.514Z"
+    },
+    {
+      "igdbId": 72,
+      "name": "Portal 2",
+      "typicalMinutes": 10,
+      "interruptible": true,
+      "guessedArchetype": "puzzle",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T18:55:17.489Z"
+    },
+    {
+      "igdbId": 472,
+      "name": "The Elder Scrolls V: Skyrim",
+      "typicalMinutes": 20,
+      "interruptible": true,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T18:55:25.508Z"
+    },
+    {
+      "igdbId": 732,
+      "name": "Grand Theft Auto: San Andreas",
+      "typicalMinutes": 40,
+      "interruptible": false,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T18:55:29.413Z"
+    },
+    {
+      "igdbId": 71,
+      "name": "Portal",
+      "typicalMinutes": 10,
+      "interruptible": true,
+      "guessedArchetype": "puzzle",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T18:55:31.421Z"
+    },
+    {
+      "igdbId": 25076,
+      "name": "Red Dead Redemption 2",
+      "typicalMinutes": 40,
+      "interruptible": false,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T18:55:34.767Z"
+    },
+    {
+      "igdbId": 19560,
+      "name": "God of War",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": "jrpg",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T18:55:47.262Z"
+    },
+    {
+      "igdbId": 1009,
+      "name": "The Last of Us",
+      "typicalMinutes": 50,
+      "interruptible": false,
+      "guessedArchetype": "narrative_linear",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T18:55:48.901Z"
+    },
+    {
+      "igdbId": 233,
+      "name": "Half-Life 2",
+      "typicalMinutes": 40,
+      "interruptible": false,
+      "guessedArchetype": null,
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T18:55:57.185Z"
+    },
+    {
+      "igdbId": 20,
+      "name": "BioShock",
+      "typicalMinutes": 40,
+      "interruptible": false,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T18:55:58.561Z"
+    },
+    {
+      "igdbId": 127,
+      "name": "Assassin's Creed II",
+      "typicalMinutes": 40,
+      "interruptible": false,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T18:56:00.978Z"
+    },
+    {
+      "igdbId": 733,
+      "name": "Grand Theft Auto: Vice City",
+      "typicalMinutes": 40,
+      "interruptible": false,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T18:56:03.008Z"
+    },
+    {
+      "igdbId": 7346,
+      "name": "The Legend of Zelda: Breath of the Wild",
+      "typicalMinutes": 20,
+      "interruptible": true,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T18:56:06.980Z"
+    },
+    {
+      "igdbId": 231,
+      "name": "Half-Life",
+      "typicalMinutes": 10,
+      "interruptible": true,
+      "guessedArchetype": "puzzle",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T18:58:00.595Z"
+    },
+    {
+      "igdbId": 74,
+      "name": "Mass Effect 2",
+      "typicalMinutes": 45,
+      "interruptible": true,
+      "guessedArchetype": "jrpg",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T18:58:31.659Z"
+    },
+    {
+      "igdbId": 538,
+      "name": "BioShock Infinite",
+      "typicalMinutes": 50,
+      "interruptible": false,
+      "guessedArchetype": "narrative_linear",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T18:58:49.756Z"
+    },
+    {
+      "igdbId": 501,
+      "name": "Batman: Arkham City",
+      "typicalMinutes": 40,
+      "interruptible": false,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T18:59:28.171Z"
+    },
+    {
+      "igdbId": 7331,
+      "name": "Uncharted 4: A Thief's End",
+      "typicalMinutes": 50,
+      "interruptible": false,
+      "guessedArchetype": "narrative_linear",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:00:01.453Z"
+    },
+    {
+      "igdbId": 500,
+      "name": "Batman: Arkham Asylum",
+      "typicalMinutes": 40,
+      "interruptible": false,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:00:10.765Z"
+    },
+    {
+      "igdbId": 434,
+      "name": "Red Dead Redemption",
+      "typicalMinutes": 40,
+      "interruptible": false,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:00:12.289Z"
+    },
+    {
+      "igdbId": 73,
+      "name": "Mass Effect",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": "jrpg",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:00:13.755Z"
+    },
+    {
+      "igdbId": 11156,
+      "name": "Horizon Zero Dawn",
+      "typicalMinutes": 40,
+      "interruptible": false,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:00:36.793Z"
+    },
+    {
+      "igdbId": 16,
+      "name": "Fallout: New Vegas",
+      "typicalMinutes": 40,
+      "interruptible": true,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:00:57.517Z"
+    },
+    {
+      "igdbId": 1164,
+      "name": "Tomb Raider",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": "openWorldSandbox",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:01:28.315Z"
+    },
+    {
+      "igdbId": 119133,
+      "name": "Elden Ring",
+      "typicalMinutes": 75,
+      "interruptible": false,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:01:55.058Z"
+    },
+    {
+      "igdbId": 14593,
+      "name": "Hollow Knight",
+      "typicalMinutes": 50,
+      "interruptible": false,
+      "guessedArchetype": "narrative_linear",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:02:17.837Z"
+    },
+    {
+      "igdbId": 529,
+      "name": "Far Cry 3",
+      "typicalMinutes": 40,
+      "interruptible": false,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:02:32.626Z"
+    },
+    {
+      "igdbId": 565,
+      "name": "Uncharted 2: Among Thieves",
+      "typicalMinutes": 50,
+      "interruptible": false,
+      "guessedArchetype": "narrative_linear",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:02:36.360Z"
+    },
+    {
+      "igdbId": 19565,
+      "name": "Marvel's Spider-Man",
+      "typicalMinutes": 40,
+      "interruptible": false,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:02:42.977Z"
+    },
+    {
+      "igdbId": 1029,
+      "name": "The Legend of Zelda: Ocarina of Time",
+      "typicalMinutes": 20,
+      "interruptible": true,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:03:10.670Z"
+    },
+    {
+      "igdbId": 1074,
+      "name": "Super Mario 64",
+      "typicalMinutes": 20,
+      "interruptible": false,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:03:26.021Z"
+    },
+    {
+      "igdbId": 121,
+      "name": "Minecraft: Java Edition",
+      "typicalMinutes": 20,
+      "interruptible": true,
+      "guessedArchetype": "simulation",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:04:13.187Z"
+    },
+    {
+      "igdbId": 1070,
+      "name": "Super Mario World",
+      "typicalMinutes": 50,
+      "interruptible": false,
+      "guessedArchetype": "narrative_linear",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:05:06.295Z"
+    },
+    {
+      "igdbId": 11133,
+      "name": "Dark Souls III",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": "jrpg",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:05:19.978Z"
+    },
+    {
+      "igdbId": 7351,
+      "name": "Doom",
+      "typicalMinutes": 40,
+      "interruptible": false,
+      "guessedArchetype": null,
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:05:44.262Z"
+    },
+    {
+      "igdbId": 533,
+      "name": "Dishonored",
+      "typicalMinutes": 10,
+      "interruptible": true,
+      "guessedArchetype": "puzzle",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:06:19.037Z"
+    },
+    {
+      "igdbId": 731,
+      "name": "Grand Theft Auto IV",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:06:31.846Z"
+    },
+    {
+      "igdbId": 12517,
+      "name": "Undertale",
+      "typicalMinutes": 20,
+      "interruptible": false,
+      "guessedArchetype": "turnBasedStrategy",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:07:32.004Z"
+    },
+    {
+      "igdbId": 7599,
+      "name": "Life Is Strange",
+      "typicalMinutes": 10,
+      "interruptible": true,
+      "guessedArchetype": "puzzle",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:10:06.450Z"
+    },
+    {
+      "igdbId": 26758,
+      "name": "Super Mario Odyssey",
+      "typicalMinutes": 10,
+      "interruptible": true,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:10:13.387Z"
+    },
+    {
+      "igdbId": 1011,
+      "name": "Borderlands 2",
+      "typicalMinutes": 20,
+      "interruptible": false,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:11:20.802Z"
+    },
+    {
+      "igdbId": 7334,
+      "name": "Bloodborne",
+      "typicalMinutes": 40,
+      "interruptible": false,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:11:40.267Z"
+    },
+    {
+      "igdbId": 75,
+      "name": "Mass Effect 3",
+      "typicalMinutes": 60,
+      "interruptible": false,
+      "guessedArchetype": "turnBasedStrategy",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:12:04.367Z"
+    },
+    {
+      "igdbId": 623,
+      "name": "Call of Duty 4: Modern Warfare",
+      "typicalMinutes": 45,
+      "interruptible": true,
+      "guessedArchetype": "simulation",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:12:44.524Z"
+    },
+    {
+      "igdbId": 17000,
+      "name": "Stardew Valley",
+      "typicalMinutes": 20,
+      "interruptible": true,
+      "guessedArchetype": "simulation",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:12:50.048Z"
+    },
+    {
+      "igdbId": 1970,
+      "name": "Assassin's Creed IV Black Flag",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:13:14.517Z"
+    },
+    {
+      "igdbId": 26192,
+      "name": "The Last of Us Part II",
+      "typicalMinutes": 20,
+      "interruptible": true,
+      "guessedArchetype": "narrative_linear",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:14:07.228Z"
+    },
+    {
+      "igdbId": 18,
+      "name": "Max Payne",
+      "typicalMinutes": 20,
+      "interruptible": true,
+      "guessedArchetype": null,
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:15:30.103Z"
+    },
+    {
+      "igdbId": 128,
+      "name": "Assassin's Creed",
+      "typicalMinutes": 20,
+      "interruptible": false,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:15:40.724Z"
+    },
+    {
+      "igdbId": 15,
+      "name": "Fallout 3",
+      "typicalMinutes": 10,
+      "interruptible": true,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:15:55.819Z"
+    },
+    {
+      "igdbId": 9630,
+      "name": "Fallout 4",
+      "typicalMinutes": 10,
+      "interruptible": true,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:15:57.932Z"
+    },
+    {
+      "igdbId": 113112,
+      "name": "Hades",
+      "typicalMinutes": 20,
+      "interruptible": true,
+      "guessedArchetype": "roguelike",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:16:13.374Z"
+    },
+    {
+      "igdbId": 113,
+      "name": "Assassin's Creed Brotherhood",
+      "typicalMinutes": 20,
+      "interruptible": false,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:16:24.216Z"
+    },
+    {
+      "igdbId": 1871,
+      "name": "The Walking Dead",
+      "typicalMinutes": 20,
+      "interruptible": false,
+      "guessedArchetype": "visualNovel",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:16:40.250Z"
+    },
+    {
+      "igdbId": 76,
+      "name": "Dragon Age: Origins",
+      "typicalMinutes": 20,
+      "interruptible": true,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:16:49.472Z"
+    },
+    {
+      "igdbId": 1068,
+      "name": "Super Mario Bros. 3",
+      "typicalMinutes": 10,
+      "interruptible": true,
+      "guessedArchetype": "narrative_linear",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:17:10.550Z"
+    },
+    {
+      "igdbId": 2155,
+      "name": "Dark Souls",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": "jrpg",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:22:41.857Z"
+    },
+    {
+      "igdbId": 1026,
+      "name": "The Legend of Zelda: A Link to the Past",
+      "typicalMinutes": 10,
+      "interruptible": true,
+      "guessedArchetype": "puzzle",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:22:42.362Z"
+    },
+    {
+      "igdbId": 6036,
+      "name": "The Last of Us Remastered",
+      "typicalMinutes": 50,
+      "interruptible": false,
+      "guessedArchetype": "narrative_linear",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:22:42.394Z"
+    },
+    {
+      "igdbId": 375,
+      "name": "Metal Gear Solid",
+      "typicalMinutes": 50,
+      "interruptible": false,
+      "guessedArchetype": "narrative_linear",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:22:42.424Z"
+    },
+    {
+      "igdbId": 974,
+      "name": "Resident Evil 4",
+      "typicalMinutes": 50,
+      "interruptible": false,
+      "guessedArchetype": "narrative_linear",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:22:42.456Z"
+    },
+    {
+      "igdbId": 7342,
+      "name": "Inside",
+      "typicalMinutes": 10,
+      "interruptible": true,
+      "guessedArchetype": "puzzle",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:22:42.503Z"
+    },
+    {
+      "igdbId": 132,
+      "name": "Warcraft III: Reign of Chaos",
+      "typicalMinutes": 60,
+      "interruptible": false,
+      "guessedArchetype": "turnBasedStrategy",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:22:42.532Z"
+    },
+    {
+      "igdbId": 1877,
+      "name": "Cyberpunk 2077",
+      "typicalMinutes": 40,
+      "interruptible": false,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:22:42.566Z"
+    },
+    {
+      "igdbId": 427,
+      "name": "Final Fantasy VII",
+      "typicalMinutes": 60,
+      "interruptible": false,
+      "guessedArchetype": "turnBasedStrategy",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:22:42.597Z"
+    },
+    {
+      "igdbId": 1331,
+      "name": "Limbo",
+      "typicalMinutes": 10,
+      "interruptible": true,
+      "guessedArchetype": "puzzle",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:22:42.628Z"
+    },
+    {
+      "igdbId": 730,
+      "name": "Grand Theft Auto III",
+      "typicalMinutes": 40,
+      "interruptible": false,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:22:42.658Z"
+    },
+    {
+      "igdbId": 119171,
+      "name": "Baldur's Gate III",
+      "typicalMinutes": 60,
+      "interruptible": false,
+      "guessedArchetype": "turnBasedStrategy",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:22:42.688Z"
+    },
+    {
+      "igdbId": 126,
+      "name": "Diablo II",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": "jrpg",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:22:43.241Z"
+    },
+    {
+      "igdbId": 59,
+      "name": "The Elder Scrolls IV: Oblivion",
+      "typicalMinutes": 40,
+      "interruptible": false,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:22:43.432Z"
+    },
+    {
+      "igdbId": 11208,
+      "name": "NieR: Automata",
+      "typicalMinutes": 40,
+      "interruptible": false,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:22:43.600Z"
+    },
+    {
+      "igdbId": 559,
+      "name": "Call of Duty: Modern Warfare 2",
+      "typicalMinutes": 40,
+      "interruptible": false,
+      "guessedArchetype": null,
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:22:43.967Z"
+    },
+    {
+      "igdbId": 7344,
+      "name": "Ori and the Blind Forest",
+      "typicalMinutes": 10,
+      "interruptible": true,
+      "guessedArchetype": "puzzle",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:22:44.389Z"
+    },
+    {
+      "igdbId": 39,
+      "name": "Mafia",
+      "typicalMinutes": 40,
+      "interruptible": false,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:22:44.743Z"
+    },
+    {
+      "igdbId": 5503,
+      "name": "Batman: Arkham Knight",
+      "typicalMinutes": 40,
+      "interruptible": false,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:22:45.147Z"
+    },
+    {
+      "igdbId": 1266,
+      "name": "Assassin's Creed III",
+      "typicalMinutes": 75,
+      "interruptible": false,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:22:49.589Z"
+    },
+    {
+      "igdbId": 116,
+      "name": "Star Wars: Knights of the Old Republic",
+      "typicalMinutes": 75,
+      "interruptible": true,
+      "guessedArchetype": "turnBasedStrategy",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:23:17.665Z"
+    },
+    {
+      "igdbId": 26226,
+      "name": "Celeste",
+      "typicalMinutes": 50,
+      "interruptible": true,
+      "guessedArchetype": "narrative_linear",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:23:25.311Z"
+    },
+    {
+      "igdbId": 247,
+      "name": "Half-Life 2: Episode Two",
+      "typicalMinutes": 45,
+      "interruptible": true,
+      "guessedArchetype": "puzzle",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:23:35.144Z"
+    },
+    {
+      "igdbId": 512,
+      "name": "Uncharted 3: Drake's Deception",
+      "typicalMinutes": 75,
+      "interruptible": false,
+      "guessedArchetype": "narrative_linear",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:23:51.581Z"
+    },
+    {
+      "igdbId": 19686,
+      "name": "Resident Evil 2",
+      "typicalMinutes": 75,
+      "interruptible": false,
+      "guessedArchetype": "narrative_linear",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:24:02.599Z"
+    },
+    {
+      "igdbId": 3025,
+      "name": "Middle-earth: Shadow of Mordor",
+      "typicalMinutes": 40,
+      "interruptible": false,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:24:04.065Z"
+    },
+    {
+      "igdbId": 478,
+      "name": "The Witcher 2: Assassins of Kings",
+      "typicalMinutes": 45,
+      "interruptible": true,
+      "guessedArchetype": "jrpg",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:24:12.049Z"
+    },
+    {
+      "igdbId": 1802,
+      "name": "Chrono Trigger",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": "jrpg",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:24:23.437Z"
+    },
+    {
+      "igdbId": 76882,
+      "name": "Sekiro: Shadows Die Twice",
+      "typicalMinutes": 75,
+      "interruptible": false,
+      "guessedArchetype": "narrative_linear",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:24:37.376Z"
+    },
+    {
+      "igdbId": 7323,
+      "name": "Rise of the Tomb Raider",
+      "typicalMinutes": 40,
+      "interruptible": false,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:24:43.992Z"
+    },
+    {
+      "igdbId": 1372,
+      "name": "Counter-Strike: Global Offensive",
+      "typicalMinutes": 20,
+      "interruptible": false,
+      "guessedArchetype": null,
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:25:10.543Z"
+    },
+    {
+      "igdbId": 545,
+      "name": "Call of Duty: Black Ops",
+      "typicalMinutes": 40,
+      "interruptible": false,
+      "guessedArchetype": null,
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:26:03.120Z"
+    },
+    {
+      "igdbId": 2031,
+      "name": "Wolfenstein: The New Order",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": "narrative_linear",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:16.797Z"
+    },
+    {
+      "igdbId": 2207,
+      "name": "Shadow of the Colossus",
+      "typicalMinutes": 45,
+      "interruptible": true,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:16.807Z"
+    },
+    {
+      "igdbId": 358,
+      "name": "Super Mario Bros.",
+      "typicalMinutes": 10,
+      "interruptible": true,
+      "guessedArchetype": "narrative_linear",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:16.811Z"
+    },
+    {
+      "igdbId": 14362,
+      "name": "Detroit: Become Human",
+      "typicalMinutes": 20,
+      "interruptible": true,
+      "guessedArchetype": "narrative_linear",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:16.813Z"
+    },
+    {
+      "igdbId": 1077,
+      "name": "Super Mario Galaxy",
+      "typicalMinutes": 20,
+      "interruptible": true,
+      "guessedArchetype": "narrative_linear",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:16.817Z"
+    },
+    {
+      "igdbId": 379,
+      "name": "Metal Gear Solid 3: Snake Eater",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": "narrative_linear",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:16.821Z"
+    },
+    {
+      "igdbId": 1384,
+      "name": "Hotline Miami",
+      "typicalMinutes": 10,
+      "interruptible": true,
+      "guessedArchetype": "arcadeSession",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:16.824Z"
+    },
+    {
+      "igdbId": 40,
+      "name": "Mafia II",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:16.826Z"
+    },
+    {
+      "igdbId": 230,
+      "name": "StarCraft",
+      "typicalMinutes": 20,
+      "interruptible": false,
+      "guessedArchetype": "turnBasedStrategy",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:16.830Z"
+    },
+    {
+      "igdbId": 37,
+      "name": "Dead Space",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": "puzzle",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:16.834Z"
+    },
+    {
+      "igdbId": 537,
+      "name": "Assassin's Creed Revelations",
+      "typicalMinutes": 40,
+      "interruptible": false,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:16.837Z"
+    },
+    {
+      "igdbId": 11198,
+      "name": "Rocket League",
+      "typicalMinutes": 10,
+      "interruptible": true,
+      "guessedArchetype": "arcadeSession",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:16.838Z"
+    },
+    {
+      "igdbId": 1262,
+      "name": "South Park: The Stick of Truth",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": "turnBasedStrategy",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:16.840Z"
+    },
+    {
+      "igdbId": 2993,
+      "name": "The Wolf Among Us",
+      "typicalMinutes": 20,
+      "interruptible": true,
+      "guessedArchetype": "visualNovel",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:16.842Z"
+    },
+    {
+      "igdbId": 9730,
+      "name": "Firewatch",
+      "typicalMinutes": 45,
+      "interruptible": true,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:16.844Z"
+    },
+    {
+      "igdbId": 481,
+      "name": "Silent Hill 2",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": "puzzle",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:16.846Z"
+    },
+    {
+      "igdbId": 124,
+      "name": "Left 4 Dead 2",
+      "typicalMinutes": 20,
+      "interruptible": true,
+      "guessedArchetype": null,
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:16.849Z"
+    },
+    {
+      "igdbId": 431,
+      "name": "Uncharted: Drake's Fortune",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": "narrative_linear",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:16.853Z"
+    },
+    {
+      "igdbId": 8173,
+      "name": "Overwatch",
+      "typicalMinutes": 20,
+      "interruptible": false,
+      "guessedArchetype": "turnBasedStrategy",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:16.855Z"
+    },
+    {
+      "igdbId": 26472,
+      "name": "Disco Elysium",
+      "typicalMinutes": 75,
+      "interruptible": false,
+      "guessedArchetype": "jrpg",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:16.857Z"
+    },
+    {
+      "igdbId": 1352,
+      "name": "Journey",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": "narrative_linear",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:16.859Z"
+    },
+    {
+      "igdbId": 1985,
+      "name": "Metal Gear Solid V: The Phantom Pain",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:16.861Z"
+    },
+    {
+      "igdbId": 6801,
+      "name": "Far Cry 4",
+      "typicalMinutes": 40,
+      "interruptible": false,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:16.862Z"
+    },
+    {
+      "igdbId": 1121,
+      "name": "Watch Dogs",
+      "typicalMinutes": 40,
+      "interruptible": false,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:16.865Z"
+    },
+    {
+      "igdbId": 866,
+      "name": "Sid Meier's Civilization V",
+      "typicalMinutes": 75,
+      "interruptible": false,
+      "guessedArchetype": "turnBasedStrategy",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:16.868Z"
+    },
+    {
+      "igdbId": 979,
+      "name": "Call of Duty: Modern Warfare 3",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": "narrative_linear",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:16.869Z"
+    },
+    {
+      "igdbId": 960,
+      "name": "Max Payne 3",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": "openWorldSandbox",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:16.871Z"
+    },
+    {
+      "igdbId": 112875,
+      "name": "God of War Ragnarök",
+      "typicalMinutes": 75,
+      "interruptible": false,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:16.875Z"
+    },
+    {
+      "igdbId": 135243,
+      "name": "It Takes Two",
+      "typicalMinutes": 20,
+      "interruptible": true,
+      "guessedArchetype": "puzzle",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:16.877Z"
+    },
+    {
+      "igdbId": 239,
+      "name": "StarCraft II: Wings of Liberty",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": "turnBasedStrategy",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:16.879Z"
+    },
+    {
+      "igdbId": 493,
+      "name": "Heavy Rain",
+      "typicalMinutes": 20,
+      "interruptible": true,
+      "guessedArchetype": "narrative_linear",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:16.882Z"
+    },
+    {
+      "igdbId": 75235,
+      "name": "Ghost of Tsushima",
+      "typicalMinutes": 75,
+      "interruptible": false,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:16.884Z"
+    },
+    {
+      "igdbId": 9927,
+      "name": "Persona 5",
+      "typicalMinutes": 75,
+      "interruptible": false,
+      "guessedArchetype": "turnBasedStrategy",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:16.886Z"
+    },
+    {
+      "igdbId": 21,
+      "name": "BioShock 2",
+      "typicalMinutes": 40,
+      "interruptible": false,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:16.888Z"
+    },
+    {
+      "igdbId": 28540,
+      "name": "Assassin's Creed Origins",
+      "typicalMinutes": 75,
+      "interruptible": false,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:16.889Z"
+    },
+    {
+      "igdbId": 19562,
+      "name": "Resident Evil 7: Biohazard",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": "puzzle",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:16.891Z"
+    },
+    {
+      "igdbId": 7603,
+      "name": "Hellblade: Senua's Sacrifice",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": "simulation",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:16.893Z"
+    },
+    {
+      "igdbId": 418,
+      "name": "Final Fantasy X",
+      "typicalMinutes": 75,
+      "interruptible": false,
+      "guessedArchetype": "turnBasedStrategy",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:16.895Z"
+    },
+    {
+      "igdbId": 1627,
+      "name": "Super Smash Bros. Melee",
+      "typicalMinutes": 10,
+      "interruptible": true,
+      "guessedArchetype": "arcadeSession",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:16.897Z"
+    },
+    {
+      "igdbId": 1887,
+      "name": "Dragon Age: Inquisition",
+      "typicalMinutes": 75,
+      "interruptible": false,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:16.900Z"
+    },
+    {
+      "igdbId": 38,
+      "name": "Dead Space 2",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": "narrative_linear",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:16.902Z"
+    },
+    {
+      "igdbId": 343,
+      "name": "Battlefield 3",
+      "typicalMinutes": 20,
+      "interruptible": false,
+      "guessedArchetype": null,
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:16.904Z"
+    },
+    {
+      "igdbId": 622,
+      "name": "Call of Duty 2",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": null,
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:16.905Z"
+    },
+    {
+      "igdbId": 1103,
+      "name": "Super Metroid",
+      "typicalMinutes": 20,
+      "interruptible": true,
+      "guessedArchetype": "narrative_linear",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:16.907Z"
+    },
+    {
+      "igdbId": 3042,
+      "name": "Dying Light",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:16.909Z"
+    },
+    {
+      "igdbId": 1879,
+      "name": "Terraria",
+      "typicalMinutes": 45,
+      "interruptible": true,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:16.910Z"
+    },
+    {
+      "igdbId": 549,
+      "name": "God of War",
+      "typicalMinutes": 75,
+      "interruptible": false,
+      "guessedArchetype": "puzzle",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:16.912Z"
+    },
+    {
+      "igdbId": 19,
+      "name": "Max Payne 2: The Fall of Max Payne",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": null,
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:16.914Z"
+    },
+    {
+      "igdbId": 1033,
+      "name": "The Legend of Zelda: The Wind Waker",
+      "typicalMinutes": 20,
+      "interruptible": true,
+      "guessedArchetype": "puzzle",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:16.919Z"
+    },
+    {
+      "igdbId": 43,
+      "name": "Deus Ex: Human Revolution",
+      "typicalMinutes": 20,
+      "interruptible": true,
+      "guessedArchetype": "puzzle",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:16.921Z"
+    },
+    {
+      "igdbId": 109,
+      "name": "L.A. Noire",
+      "typicalMinutes": 45,
+      "interruptible": true,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:16.923Z"
+    },
+    {
+      "igdbId": 551,
+      "name": "God of War II",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": "narrative_linear",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:16.925Z"
+    },
+    {
+      "igdbId": 74701,
+      "name": "Star Wars Jedi: Fallen Order",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": "narrative_linear",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:16.927Z"
+    },
+    {
+      "igdbId": 327,
+      "name": "Age of Empires II: The Age of Kings",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": "turnBasedStrategy",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:16.929Z"
+    },
+    {
+      "igdbId": 498,
+      "name": "Borderlands",
+      "typicalMinutes": 20,
+      "interruptible": false,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:16.931Z"
+    },
+    {
+      "igdbId": 376,
+      "name": "Metal Gear Solid 2: Sons of Liberty",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": "narrative_linear",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:16.934Z"
+    },
+    {
+      "igdbId": 1062,
+      "name": "Alan Wake",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": "narrative_linear",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:16.936Z"
+    },
+    {
+      "igdbId": 115,
+      "name": "League of Legends",
+      "typicalMinutes": 30,
+      "interruptible": false,
+      "guessedArchetype": "moba",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:16.939Z"
+    },
+    {
+      "igdbId": 98,
+      "name": "Need for Speed: Most Wanted",
+      "typicalMinutes": 10,
+      "interruptible": true,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:16.942Z"
+    },
+    {
+      "igdbId": 1905,
+      "name": "Fortnite",
+      "typicalMinutes": 20,
+      "interruptible": false,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:16.943Z"
+    },
+    {
+      "igdbId": 11233,
+      "name": "What Remains of Edith Finch",
+      "typicalMinutes": 10,
+      "interruptible": true,
+      "guessedArchetype": "puzzle",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:16.945Z"
+    },
+    {
+      "igdbId": 3035,
+      "name": "The Stanley Parable",
+      "typicalMinutes": 10,
+      "interruptible": true,
+      "guessedArchetype": "narrative_linear",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:16.947Z"
+    },
+    {
+      "igdbId": 673,
+      "name": "Doom",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": null,
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:16.950Z"
+    },
+    {
+      "igdbId": 625,
+      "name": "Call of Duty: World at War",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": "narrative_linear",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:16.952Z"
+    },
+    {
+      "igdbId": 5606,
+      "name": "Assassin's Creed Unity",
+      "typicalMinutes": 40,
+      "interruptible": false,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:16.954Z"
+    },
+    {
+      "igdbId": 103054,
+      "name": "Assassin's Creed Odyssey",
+      "typicalMinutes": 75,
+      "interruptible": false,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:16.956Z"
+    },
+    {
+      "igdbId": 1051,
+      "name": "Mirror's Edge",
+      "typicalMinutes": 20,
+      "interruptible": true,
+      "guessedArchetype": "puzzle",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:16.958Z"
+    },
+    {
+      "igdbId": 421,
+      "name": "Final Fantasy IX",
+      "typicalMinutes": 75,
+      "interruptible": false,
+      "guessedArchetype": "turnBasedStrategy",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:16.960Z"
+    },
+    {
+      "igdbId": 103329,
+      "name": "Control",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": "narrative_linear",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:16.962Z"
+    },
+    {
+      "igdbId": 120,
+      "name": "Diablo III",
+      "typicalMinutes": 45,
+      "interruptible": true,
+      "guessedArchetype": "jrpg",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:16.964Z"
+    },
+    {
+      "igdbId": 90101,
+      "name": "Super Smash Bros. Ultimate",
+      "typicalMinutes": 10,
+      "interruptible": true,
+      "guessedArchetype": "arcadeSession",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:16.967Z"
+    },
+    {
+      "igdbId": 1078,
+      "name": "Super Mario Galaxy 2",
+      "typicalMinutes": 20,
+      "interruptible": true,
+      "guessedArchetype": "narrative_linear",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:16.969Z"
+    },
+    {
+      "igdbId": 305152,
+      "name": "Clair Obscur: Expedition 33",
+      "typicalMinutes": 75,
+      "interruptible": false,
+      "guessedArchetype": "turnBasedStrategy",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:16.971Z"
+    },
+    {
+      "igdbId": 8197,
+      "name": "Tetris",
+      "typicalMinutes": 10,
+      "interruptible": true,
+      "guessedArchetype": "puzzle",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:16.973Z"
+    },
+    {
+      "igdbId": 1122,
+      "name": "Call of Duty: Black Ops II",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": null,
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:16.975Z"
+    },
+    {
+      "igdbId": 9061,
+      "name": "Cuphead",
+      "typicalMinutes": 10,
+      "interruptible": true,
+      "guessedArchetype": "arcadeSession",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:16.977Z"
+    },
+    {
+      "igdbId": 1377,
+      "name": "Spec Ops: The Line",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": "narrative_linear",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:16.979Z"
+    },
+    {
+      "igdbId": 740,
+      "name": "Halo: Combat Evolved",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": null,
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:16.981Z"
+    },
+    {
+      "igdbId": 119388,
+      "name": "The Legend of Zelda: Tears of the Kingdom",
+      "typicalMinutes": 20,
+      "interruptible": true,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:16.986Z"
+    },
+    {
+      "igdbId": 1979,
+      "name": "Battlefield 4",
+      "typicalMinutes": 20,
+      "interruptible": false,
+      "guessedArchetype": "turnBasedStrategy",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:16.988Z"
+    },
+    {
+      "igdbId": 18320,
+      "name": "Battlefield 1",
+      "typicalMinutes": 20,
+      "interruptible": false,
+      "guessedArchetype": null,
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:16.989Z"
+    },
+    {
+      "igdbId": 19564,
+      "name": "Death Stranding",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:16.991Z"
+    },
+    {
+      "igdbId": 14,
+      "name": "Fallout 2",
+      "typicalMinutes": 20,
+      "interruptible": true,
+      "guessedArchetype": "turnBasedStrategy",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:16.993Z"
+    },
+    {
+      "igdbId": 123,
+      "name": "World of Warcraft",
+      "typicalMinutes": 75,
+      "interruptible": false,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:16.995Z"
+    },
+    {
+      "igdbId": 891,
+      "name": "Team Fortress 2",
+      "typicalMinutes": 20,
+      "interruptible": false,
+      "guessedArchetype": null,
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:16.997Z"
+    },
+    {
+      "igdbId": 338,
+      "name": "Half-Life 2: Episode One",
+      "typicalMinutes": 40,
+      "interruptible": false,
+      "guessedArchetype": null,
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.000Z"
+    },
+    {
+      "igdbId": 495,
+      "name": "Metro 2033",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": "jrpg",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.002Z"
+    },
+    {
+      "igdbId": 1105,
+      "name": "Metroid Prime",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.006Z"
+    },
+    {
+      "igdbId": 11737,
+      "name": "Outer Wilds",
+      "typicalMinutes": 20,
+      "interruptible": true,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:17.008Z"
+    },
+    {
+      "igdbId": 97,
+      "name": "Need for Speed: Underground 2",
+      "typicalMinutes": 10,
+      "interruptible": true,
+      "guessedArchetype": "arcadeSession",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.010Z"
+    },
+    {
+      "igdbId": 28552,
+      "name": "Far Cry 5",
+      "typicalMinutes": 40,
+      "interruptible": false,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.012Z"
+    },
+    {
+      "igdbId": 17447,
+      "name": "Titanfall 2",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": "narrative_linear",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.013Z"
+    },
+    {
+      "igdbId": 1030,
+      "name": "The Legend of Zelda: Majora's Mask",
+      "typicalMinutes": 20,
+      "interruptible": true,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:17.016Z"
+    },
+    {
+      "igdbId": 2368,
+      "name": "Dark Souls II",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": "jrpg",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.019Z"
+    },
+    {
+      "igdbId": 1221,
+      "name": "Kingdom Hearts II",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": "jrpg",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.021Z"
+    },
+    {
+      "igdbId": 56,
+      "name": "The Elder Scrolls III: Morrowind",
+      "typicalMinutes": 40,
+      "interruptible": false,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.022Z"
+    },
+    {
+      "igdbId": 3097,
+      "name": "The Walking Dead: Season Two",
+      "typicalMinutes": 20,
+      "interruptible": false,
+      "guessedArchetype": "visualNovel",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:17.024Z"
+    },
+    {
+      "igdbId": 621,
+      "name": "Call of Duty",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": null,
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.028Z"
+    },
+    {
+      "igdbId": 8263,
+      "name": "Assassin's Creed Syndicate",
+      "typicalMinutes": 40,
+      "interruptible": false,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.029Z"
+    },
+    {
+      "igdbId": 987,
+      "name": "Halo 3",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": "openWorldSandbox",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:17.031Z"
+    },
+    {
+      "igdbId": 1128,
+      "name": "Castlevania: Symphony of the Night",
+      "typicalMinutes": 20,
+      "interruptible": true,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:17.034Z"
+    },
+    {
+      "igdbId": 885,
+      "name": "Super Meat Boy",
+      "typicalMinutes": 10,
+      "interruptible": true,
+      "guessedArchetype": "narrative_linear",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:17.037Z"
+    },
+    {
+      "igdbId": 41,
+      "name": "Deus Ex",
+      "typicalMinutes": 20,
+      "interruptible": true,
+      "guessedArchetype": "jrpg",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:17.039Z"
+    },
+    {
+      "igdbId": 80,
+      "name": "The Witcher",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": "jrpg",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.040Z"
+    },
+    {
+      "igdbId": 96,
+      "name": "Need for Speed: Underground",
+      "typicalMinutes": 10,
+      "interruptible": true,
+      "guessedArchetype": "arcadeSession",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.043Z"
+    },
+    {
+      "igdbId": 2003,
+      "name": "Batman: Arkham Origins",
+      "typicalMinutes": 40,
+      "interruptible": false,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.045Z"
+    },
+    {
+      "igdbId": 847,
+      "name": "Resident Evil 5",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": "narrative_linear",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.046Z"
+    },
+    {
+      "igdbId": 118,
+      "name": "Star Wars: Knights of the Old Republic II - The Sith Lords",
+      "typicalMinutes": 75,
+      "interruptible": true,
+      "guessedArchetype": "turnBasedStrategy",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:17.051Z"
+    },
+    {
+      "igdbId": 204350,
+      "name": "The Last of Us Part I",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": "narrative_linear",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.053Z"
+    },
+    {
+      "igdbId": 27316,
+      "name": "A Plague Tale: Innocence",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": "narrative_linear",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.055Z"
+    },
+    {
+      "igdbId": 11118,
+      "name": "Dishonored 2",
+      "typicalMinutes": 20,
+      "interruptible": true,
+      "guessedArchetype": "jrpg",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:17.057Z"
+    },
+    {
+      "igdbId": 499,
+      "name": "God of War III",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": "narrative_linear",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.059Z"
+    },
+    {
+      "igdbId": 1334,
+      "name": "Brothers: A Tale of Two Sons",
+      "typicalMinutes": 10,
+      "interruptible": true,
+      "guessedArchetype": "puzzle",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.061Z"
+    },
+    {
+      "igdbId": 296,
+      "name": "Crysis",
+      "typicalMinutes": 40,
+      "interruptible": false,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.063Z"
+    },
+    {
+      "igdbId": 1342,
+      "name": "Beyond: Two Souls",
+      "typicalMinutes": 20,
+      "interruptible": true,
+      "guessedArchetype": "narrative_linear",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:17.064Z"
+    },
+    {
+      "igdbId": 836,
+      "name": "Prince of Persia: The Sands of Time",
+      "typicalMinutes": 20,
+      "interruptible": true,
+      "guessedArchetype": "puzzle",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:17.067Z"
+    },
+    {
+      "igdbId": 2963,
+      "name": "Dota 2",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": "moba",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:17.073Z"
+    },
+    {
+      "igdbId": 426,
+      "name": "Final Fantasy III",
+      "typicalMinutes": 75,
+      "interruptible": false,
+      "guessedArchetype": "turnBasedStrategy",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:17.076Z"
+    },
+    {
+      "igdbId": 122,
+      "name": "Left 4 Dead",
+      "typicalMinutes": 20,
+      "interruptible": true,
+      "guessedArchetype": null,
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:17.078Z"
+    },
+    {
+      "igdbId": 103298,
+      "name": "Doom Eternal",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": null,
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.080Z"
+    },
+    {
+      "igdbId": 19441,
+      "name": "Watch Dogs 2",
+      "typicalMinutes": 40,
+      "interruptible": false,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.082Z"
+    },
+    {
+      "igdbId": 241,
+      "name": "Counter-Strike",
+      "typicalMinutes": 20,
+      "interruptible": false,
+      "guessedArchetype": null,
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:17.085Z"
+    },
+    {
+      "igdbId": 1983,
+      "name": "Bastion",
+      "typicalMinutes": 20,
+      "interruptible": true,
+      "guessedArchetype": "jrpg",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:17.087Z"
+    },
+    {
+      "igdbId": 9174,
+      "name": "Little Nightmares",
+      "typicalMinutes": 10,
+      "interruptible": true,
+      "guessedArchetype": "puzzle",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.089Z"
+    },
+    {
+      "igdbId": 873,
+      "name": "Saints Row: The Third",
+      "typicalMinutes": 40,
+      "interruptible": false,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.091Z"
+    },
+    {
+      "igdbId": 380,
+      "name": "Metal Gear Solid 4: Guns of the Patriots",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": "narrative_linear",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.095Z"
+    },
+    {
+      "igdbId": 2033,
+      "name": "Call of Duty: Ghosts",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": null,
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.097Z"
+    },
+    {
+      "igdbId": 142,
+      "name": "Star Wars: Battlefront II",
+      "typicalMinutes": 20,
+      "interruptible": false,
+      "guessedArchetype": null,
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:17.098Z"
+    },
+    {
+      "igdbId": 110248,
+      "name": "Stray",
+      "typicalMinutes": 20,
+      "interruptible": true,
+      "guessedArchetype": "narrative_linear",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:17.101Z"
+    },
+    {
+      "igdbId": 7609,
+      "name": "Until Dawn",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": "narrative_linear",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.104Z"
+    },
+    {
+      "igdbId": 539,
+      "name": "Metro: Last Light",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": null,
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.106Z"
+    },
+    {
+      "igdbId": 1022,
+      "name": "The Legend of Zelda",
+      "typicalMinutes": 20,
+      "interruptible": true,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:17.107Z"
+    },
+    {
+      "igdbId": 4754,
+      "name": "Alien: Isolation",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": "narrative_linear",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.109Z"
+    },
+    {
+      "igdbId": 2935,
+      "name": "Papers, Please",
+      "typicalMinutes": 20,
+      "interruptible": true,
+      "guessedArchetype": "simulation",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.111Z"
+    },
+    {
+      "igdbId": 2909,
+      "name": "The Legend of Zelda: A Link Between Worlds",
+      "typicalMinutes": 20,
+      "interruptible": true,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:17.113Z"
+    },
+    {
+      "igdbId": 1279,
+      "name": "Hearthstone",
+      "typicalMinutes": 10,
+      "interruptible": false,
+      "guessedArchetype": "turnBasedStrategy",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:17.118Z"
+    },
+    {
+      "igdbId": 364,
+      "name": "Heroes of Might and Magic III: The Restoration of Erathia",
+      "typicalMinutes": 75,
+      "interruptible": false,
+      "guessedArchetype": "turnBasedStrategy",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:17.121Z"
+    },
+    {
+      "igdbId": 1073,
+      "name": "Super Mario World 2: Yoshi's Island",
+      "typicalMinutes": 20,
+      "interruptible": true,
+      "guessedArchetype": "narrative_linear",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:17.123Z"
+    },
+    {
+      "igdbId": 9066,
+      "name": "Cities: Skylines",
+      "typicalMinutes": 45,
+      "interruptible": true,
+      "guessedArchetype": "openWorldSandbox",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:17.124Z"
+    },
+    {
+      "igdbId": 1185,
+      "name": "Crash Bandicoot",
+      "typicalMinutes": 20,
+      "interruptible": true,
+      "guessedArchetype": null,
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:17.126Z"
+    },
+    {
+      "igdbId": 1910,
+      "name": "Outlast",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": "narrative_linear",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.128Z"
+    },
+    {
+      "igdbId": 19531,
+      "name": "Prey",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": "puzzle",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:17.130Z"
+    },
+    {
+      "igdbId": 1036,
+      "name": "The Legend of Zelda: Twilight Princess",
+      "typicalMinutes": 20,
+      "interruptible": true,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:17.132Z"
+    },
+    {
+      "igdbId": 45181,
+      "name": "Mass Effect Trilogy",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": "jrpg",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.134Z"
+    },
+    {
+      "igdbId": 37777,
+      "name": "Shadow of the Tomb Raider",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": "puzzle",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:17.138Z"
+    },
+    {
+      "igdbId": 78,
+      "name": "Dragon Age II",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": "jrpg",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.141Z"
+    },
+    {
+      "igdbId": 986,
+      "name": "Halo 2",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": null,
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.142Z"
+    },
+    {
+      "igdbId": 136625,
+      "name": "Hogwarts Legacy",
+      "typicalMinutes": 40,
+      "interruptible": false,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.145Z"
+    },
+    {
+      "igdbId": 37016,
+      "name": "Metro Exodus",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": "narrative_linear",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.147Z"
+    },
+    {
+      "igdbId": 2350,
+      "name": "Mario Kart 8",
+      "typicalMinutes": 10,
+      "interruptible": true,
+      "guessedArchetype": "arcadeSession",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.149Z"
+    },
+    {
+      "igdbId": 530,
+      "name": "Hitman: Absolution",
+      "typicalMinutes": 40,
+      "interruptible": false,
+      "guessedArchetype": "narrative_linear",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.152Z"
+    },
+    {
+      "igdbId": 1267,
+      "name": "Sleeping Dogs",
+      "typicalMinutes": 40,
+      "interruptible": false,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.155Z"
+    },
+    {
+      "igdbId": 132181,
+      "name": "Resident Evil 4",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": "puzzle",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:17.157Z"
+    },
+    {
+      "igdbId": 114283,
+      "name": "Persona 5 Royal",
+      "typicalMinutes": 75,
+      "interruptible": false,
+      "guessedArchetype": "jrpg",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:17.161Z"
+    },
+    {
+      "igdbId": 289,
+      "name": "Age of Empires",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": "turnBasedStrategy",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.163Z"
+    },
+    {
+      "igdbId": 9727,
+      "name": "Soma",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": "puzzle",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:17.165Z"
+    },
+    {
+      "igdbId": 990,
+      "name": "Halo: Reach",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": null,
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.168Z"
+    },
+    {
+      "igdbId": 1277,
+      "name": "Plants vs. Zombies",
+      "typicalMinutes": 10,
+      "interruptible": true,
+      "guessedArchetype": "turnBasedStrategy",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:17.170Z"
+    },
+    {
+      "igdbId": 36897,
+      "name": "A Way Out",
+      "typicalMinutes": 20,
+      "interruptible": true,
+      "guessedArchetype": "narrative_linear",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:17.173Z"
+    },
+    {
+      "igdbId": 119277,
+      "name": "Genshin Impact",
+      "typicalMinutes": 20,
+      "interruptible": true,
+      "guessedArchetype": "jrpg",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:17.175Z"
+    },
+    {
+      "igdbId": 114795,
+      "name": "Apex Legends",
+      "typicalMinutes": 20,
+      "interruptible": false,
+      "guessedArchetype": null,
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:17.176Z"
+    },
+    {
+      "igdbId": 3212,
+      "name": "The Sims 4",
+      "typicalMinutes": 20,
+      "interruptible": true,
+      "guessedArchetype": "simulation",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.178Z"
+    },
+    {
+      "igdbId": 1968,
+      "name": "Rayman Legends",
+      "typicalMinutes": 10,
+      "interruptible": true,
+      "guessedArchetype": "narrative_linear",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:17.181Z"
+    },
+    {
+      "igdbId": 13,
+      "name": "Fallout: A Post Nuclear Role Playing Game",
+      "typicalMinutes": 20,
+      "interruptible": true,
+      "guessedArchetype": "turnBasedStrategy",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:17.186Z"
+    },
+    {
+      "igdbId": 3225,
+      "name": "No Man's Sky",
+      "typicalMinutes": 45,
+      "interruptible": true,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:17.188Z"
+    },
+    {
+      "igdbId": 352,
+      "name": "Battlefield: Bad Company 2",
+      "typicalMinutes": 20,
+      "interruptible": false,
+      "guessedArchetype": "turnBasedStrategy",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:17.190Z"
+    },
+    {
+      "igdbId": 113114,
+      "name": "The Outer Worlds",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.192Z"
+    },
+    {
+      "igdbId": 36952,
+      "name": "Wolfenstein II: The New Colossus",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": "narrative_linear",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.194Z"
+    },
+    {
+      "igdbId": 25657,
+      "name": "Destiny 2",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.196Z"
+    },
+    {
+      "igdbId": 26855,
+      "name": "Dead Cells",
+      "typicalMinutes": 15,
+      "interruptible": true,
+      "guessedArchetype": "roguelike",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.197Z"
+    },
+    {
+      "igdbId": 260,
+      "name": "The Sims 3",
+      "typicalMinutes": 20,
+      "interruptible": true,
+      "guessedArchetype": "simulation",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.199Z"
+    },
+    {
+      "igdbId": 19130,
+      "name": "Sid Meier's Civilization VI",
+      "typicalMinutes": 75,
+      "interruptible": false,
+      "guessedArchetype": "turnBasedStrategy",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:17.201Z"
+    },
+    {
+      "igdbId": 471,
+      "name": "Crysis 2",
+      "typicalMinutes": 40,
+      "interruptible": false,
+      "guessedArchetype": "narrative_linear",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.204Z"
+    },
+    {
+      "igdbId": 6632,
+      "name": "Call of Duty: Advanced Warfare",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": null,
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.207Z"
+    },
+    {
+      "igdbId": 26764,
+      "name": "Mario Kart 8 Deluxe",
+      "typicalMinutes": 10,
+      "interruptible": true,
+      "guessedArchetype": "arcadeSession",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.209Z"
+    },
+    {
+      "igdbId": 3192,
+      "name": "Sonic the Hedgehog",
+      "typicalMinutes": 10,
+      "interruptible": true,
+      "guessedArchetype": null,
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:17.212Z"
+    },
+    {
+      "igdbId": 1517,
+      "name": "Pokémon Emerald Version",
+      "typicalMinutes": 20,
+      "interruptible": true,
+      "guessedArchetype": "turnBasedStrategy",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:17.214Z"
+    },
+    {
+      "igdbId": 28204,
+      "name": "Call of Duty: WWII",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": null,
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.216Z"
+    },
+    {
+      "igdbId": 27789,
+      "name": "PUBG: Battlegrounds",
+      "typicalMinutes": 20,
+      "interruptible": false,
+      "guessedArchetype": null,
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:17.218Z"
+    },
+    {
+      "igdbId": 19561,
+      "name": "Days Gone",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.221Z"
+    },
+    {
+      "igdbId": 11,
+      "name": "Vampire: The Masquerade - Bloodlines",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.223Z"
+    },
+    {
+      "igdbId": 4438,
+      "name": "Sonic the Hedgehog 2",
+      "typicalMinutes": 10,
+      "interruptible": true,
+      "guessedArchetype": null,
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:17.226Z"
+    },
+    {
+      "igdbId": 115115,
+      "name": "Resident Evil 3",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": "narrative_linear",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.228Z"
+    },
+    {
+      "igdbId": 359,
+      "name": "Final Fantasy XV",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.230Z"
+    },
+    {
+      "igdbId": 9254,
+      "name": "Subnautica",
+      "typicalMinutes": 45,
+      "interruptible": true,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:17.232Z"
+    },
+    {
+      "igdbId": 2853,
+      "name": "Braid",
+      "typicalMinutes": 10,
+      "interruptible": true,
+      "guessedArchetype": "turnBasedStrategy",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:17.234Z"
+    },
+    {
+      "igdbId": 1090,
+      "name": "Donkey Kong Country",
+      "typicalMinutes": 20,
+      "interruptible": true,
+      "guessedArchetype": null,
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:17.238Z"
+    },
+    {
+      "igdbId": 2342,
+      "name": "Mario Kart 64",
+      "typicalMinutes": 10,
+      "interruptible": true,
+      "guessedArchetype": "arcadeSession",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.240Z"
+    },
+    {
+      "igdbId": 125,
+      "name": "Diablo",
+      "typicalMinutes": 15,
+      "interruptible": true,
+      "guessedArchetype": "roguelike",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.242Z"
+    },
+    {
+      "igdbId": 9509,
+      "name": "Call of Duty: Black Ops III",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": "narrative_linear",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.245Z"
+    },
+    {
+      "igdbId": 55163,
+      "name": "Resident Evil Village",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": "narrative_linear",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.247Z"
+    },
+    {
+      "igdbId": 2183,
+      "name": "Mario Kart Wii",
+      "typicalMinutes": 10,
+      "interruptible": true,
+      "guessedArchetype": "arcadeSession",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.250Z"
+    },
+    {
+      "igdbId": 1561,
+      "name": "Pokémon Red Version",
+      "typicalMinutes": 20,
+      "interruptible": true,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:17.255Z"
+    },
+    {
+      "igdbId": 19164,
+      "name": "Borderlands 3",
+      "typicalMinutes": 20,
+      "interruptible": false,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:17.257Z"
+    },
+    {
+      "igdbId": 9498,
+      "name": "Deus Ex: Mankind Divided",
+      "typicalMinutes": 20,
+      "interruptible": true,
+      "guessedArchetype": "puzzle",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:17.259Z"
+    },
+    {
+      "igdbId": 1628,
+      "name": "Super Smash Bros. Brawl",
+      "typicalMinutes": 10,
+      "interruptible": true,
+      "guessedArchetype": "arcadeSession",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.261Z"
+    },
+    {
+      "igdbId": 880,
+      "name": "Resident Evil 2",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": "puzzle",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:17.263Z"
+    },
+    {
+      "igdbId": 111469,
+      "name": "Among Us",
+      "typicalMinutes": 10,
+      "interruptible": false,
+      "guessedArchetype": "turnBasedStrategy",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:17.266Z"
+    },
+    {
+      "igdbId": 11157,
+      "name": "Hitman",
+      "typicalMinutes": 40,
+      "interruptible": false,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.268Z"
+    },
+    {
+      "igdbId": 517,
+      "name": "F.E.A.R.",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": null,
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.271Z"
+    },
+    {
+      "igdbId": 61,
+      "name": "Monkey Island 2: LeChuck's Revenge",
+      "typicalMinutes": 20,
+      "interruptible": true,
+      "guessedArchetype": "visualNovel",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.274Z"
+    },
+    {
+      "igdbId": 134581,
+      "name": "Marvel's Spider-Man: Miles Morales",
+      "typicalMinutes": 40,
+      "interruptible": false,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.276Z"
+    },
+    {
+      "igdbId": 36926,
+      "name": "Monster Hunter: World",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": "jrpg",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.279Z"
+    },
+    {
+      "igdbId": 1981,
+      "name": "Saints Row IV",
+      "typicalMinutes": 40,
+      "interruptible": false,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.281Z"
+    },
+    {
+      "igdbId": 6707,
+      "name": "Tales from the Borderlands",
+      "typicalMinutes": 20,
+      "interruptible": true,
+      "guessedArchetype": "visualNovel",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.283Z"
+    },
+    {
+      "igdbId": 37001,
+      "name": "Ori and the Will of the Wisps",
+      "typicalMinutes": 10,
+      "interruptible": true,
+      "guessedArchetype": "narrative_linear",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:17.285Z"
+    },
+    {
+      "igdbId": 7570,
+      "name": "Assassin's Creed Rogue",
+      "typicalMinutes": 40,
+      "interruptible": false,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.288Z"
+    },
+    {
+      "igdbId": 1219,
+      "name": "Kingdom Hearts",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": "jrpg",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.290Z"
+    },
+    {
+      "igdbId": 133,
+      "name": "Warcraft III: The Frozen Throne",
+      "typicalMinutes": 60,
+      "interruptible": false,
+      "guessedArchetype": "turnBasedStrategy",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.292Z"
+    },
+    {
+      "igdbId": 2552,
+      "name": "Mad Max",
+      "typicalMinutes": 40,
+      "interruptible": false,
+      "guessedArchetype": "openWorldStory",
+      "agreedWithGuess": true,
+      "taggedAt": "2026-09-06T19:33:17.294Z"
+    },
+    {
+      "igdbId": 480,
+      "name": "Silent Hill",
+      "typicalMinutes": 45,
+      "interruptible": false,
+      "guessedArchetype": "puzzle",
+      "agreedWithGuess": false,
+      "taggedAt": "2026-09-06T19:33:17.298Z"
+    }
+  ]
+}
