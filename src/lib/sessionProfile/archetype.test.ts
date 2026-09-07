@@ -126,6 +126,32 @@ describe('regressions found while tagging real IGDB data', () => {
     const profile = resolveSessionProfile({ genres: ['Simulator'], themes: ['Sandbox'] });
     expect(profile.archetype).toBe('openWorldSandbox');
   });
+
+  it('does not read the broad "Strategy" genre as turn-based strategy', () => {
+    // מטען אמיתי מתיוג 300 המשחקים (seed): Overwatch ו-Battlefield מתויגים
+    // Strategy ב-IGDB בלי להיות משחקי אסטרטגיה מבוססי-תורות בכלל. Braid
+    // (פלטפורמר-פאזל אינדי) קיבל אותו ז'אנר וירד ל"עוד תור אחד" של 60 דק'.
+    const overwatch = resolveSessionProfile({ genres: ['Shooter', 'Strategy'] });
+    expect(overwatch.archetype).not.toBe('turnBasedStrategy');
+
+    const braid = resolveSessionProfile({
+      genres: ['Platform', 'Puzzle', 'Strategy', 'Adventure', 'Indie'],
+    });
+    expect(braid.archetype).toBe('puzzle');
+  });
+
+  it('still reads real turn-based/4X/RTS genres as turn-based strategy', () => {
+    // אמות מידה שכן צריכות להישאר turnBasedStrategy אחרי הסרת `strategy`
+    // הכללי: Civilization (TBS) ו-StarCraft II (RTS) — שני התגיות
+    // הספציפיות האלה עדיין נשארות במיפוי.
+    expect(
+      resolveSessionProfile({ genres: ['Simulator', 'Strategy', 'Turn-based strategy (TBS)'] })
+        .archetype,
+    ).toBe('turnBasedStrategy');
+    expect(
+      resolveSessionProfile({ genres: ['Real Time Strategy (RTS)', 'Strategy'] }).archetype,
+    ).toBe('turnBasedStrategy');
+  });
 });
 
 describe('short match-based games (arcadeSession)', () => {

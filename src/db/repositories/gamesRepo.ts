@@ -3,6 +3,7 @@ import { and, desc, eq } from 'drizzle-orm';
 import type { IgdbGame } from '@/lib/igdb';
 import { igdbGameId, localGameId, newId } from '@/lib/id';
 import { resolveSessionProfile } from '@/lib/sessionProfile/archetype';
+import { getSeedOverride } from '@/lib/sessionProfile/seedOverrides';
 
 import { LOCAL_USER_ID } from '../bootstrap';
 import { db } from '../client';
@@ -78,13 +79,17 @@ export async function addManualGame(input: ManualGameInput): Promise<string> {
 
 export async function addGameFromIgdb(game: IgdbGame, platform: string | null): Promise<string> {
   const gameId = igdbGameId(game.igdbId);
-  // פרופיל הסשן נקבע פעם אחת בייבוא מברירות המחדל של §4.4;
-  // §4.5 מחליף אותו בהמשך בנתוני סשנים אמיתיים.
-  const profile = resolveSessionProfile({
-    genres: game.genres,
-    themes: game.themes,
-    keywords: game.keywords,
-  });
+  // פרופיל הסשן נקבע פעם אחת בייבוא: תיוג ידני אמיתי (seed, §4.5) אם קיים
+  // למשחק הזה, אחרת ברירת המחדל של הארכיטיפ (§4.4). בשני המקרים §4.5
+  // ממשיך לאסוף דיווחי סשן אמיתיים ומחליף אותו בהדרגה.
+  const seedOverride = getSeedOverride(game.igdbId);
+  const profile =
+    seedOverride ??
+    resolveSessionProfile({
+      genres: game.genres,
+      themes: game.themes,
+      keywords: game.keywords,
+    });
 
   await db
     .insert(games)
