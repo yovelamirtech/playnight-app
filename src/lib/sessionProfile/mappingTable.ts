@@ -63,7 +63,10 @@ export const GENRE_TO_ARCHETYPE: Record<string, Archetype> = {
   'visual novel': 'visualNovel',
   'turn-based strategy (tbs)': 'turnBasedStrategy',
   'real time strategy (rts)': 'turnBasedStrategy',
-  strategy: 'turnBasedStrategy',
+  // אין `strategy`: זה ז'אנר-על שהוקצה גם ל-Overwatch, Battlefield ו-Mass
+  // Effect. נבדק מול 300 משחקים מתויגים (seed) — בלי הערך הרחב הזה,
+  // כל מקרה אחר או נשאר נכון (RTS/TBS/turn-based עדיין תופסים) או משתפר
+  // (המשחק נופל למיפוי הספציפי-לו הבא בתור: RPG/Adventure/Puzzle).
   // אין `tactical`: ב-IGDB זה "יורה טקטי" (Counter-Strike, Rainbow Six),
   // לא משחק תורות. המיפוי הקודם נתן ל-CS:GO 60 דקות של "עוד תור אחד".
   simulator: 'simulation',

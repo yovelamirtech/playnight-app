@@ -27,19 +27,21 @@
 - **הפרוקסי מכסה רק IGDB.** נתיבי Steam (ResolveVanityURL + GetOwnedGames)
   ייבנו יחד עם ייבוא Steam בשלב 2, באותו שרת.
 
-## כלי תיוג ידני (seed) — נבנה
+## כלי תיוג ידני (seed) — נבנה, הושלם ומחובר
 
 `tools/tagger`, נפתח ב-http://localhost:8788 כחלק מ-`npm run dev`.
 300 המשחקים המדורגים ביותר ב-IGDB, תיוג במקלדת, שמירה אחרי כל תשובה
-ל-`seed/session-profiles.json` (ב-.gitignore בינתיים).
+ל-`seed/session-profiles.json`.
 
-**החלטה שנותרה פתוחה:** האם ה-seed נשלח עם האפליקציה לכל המשתמשים.
-עד שיוחלט, הקובץ לא מחובר לאפליקציה — התיוג נאסף בלבד.
-אם מחברים: לכתוב ל-`games.typical_session_minutes` ו-`interruptible`
-בלי לסמן `is_calibrated`, כדי ש-§4.5 ימשיך לשאול ולהחליף בנתוני אמת.
+**הוכרע:** ה-seed מחובר. `addGameFromIgdb` (`src/db/repositories/gamesRepo.ts`)
+משתמש ב-`getSeedOverride(igdbId)` (`src/lib/sessionProfile/seedOverrides.ts`)
+לפני שהוא נופל לברירת המחדל של הארכיטיפ. `is_calibrated` נשאר `false`
+כמו שהומלץ — §4.5 ממשיך לאסוף דיווחי סשן אמיתיים גם על 300 אלה.
 
-**מדד לבדוק אחרי התיוג:** אחוז ה-`agreedWithGuess` בקובץ. כל אי-הסכמה
-היא באג פוטנציאלי בטבלת המיפוי.
+**נמדד אחרי התיוג:** 43.7% אי-הסכמה (131/300) מול הניחוש המקורי. פירוט
+מלא, מה תוקן בטבלת המיפוי ומה לא (ולמה) — ראה HANDOFF.md §5 ו-§7.
+`seed/session-profile-tags.json` (genres/themes/keywords אמיתיים מ-IGDB
+לכל 300 המשחקים) נשמר לצד ה-seed לצורך ניתוח וטסטים על נתוני אמת.
 
 ## רעיון עתידי — הצעת משחקים חינמיים (FreeToGame API)
 

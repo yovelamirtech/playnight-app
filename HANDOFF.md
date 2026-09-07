@@ -85,6 +85,9 @@ Tailwind 3 · Zustand 5 · expo-sqlite + Drizzle · vitest · tsx (לכלים)
 | 3 | **מיפוי ארכיטיפים: keywords → themes → genres → ברירת מחדל שמרנית** | ל-IGDB אין ז'אנר "roguelike". Hades מתויג `Role-playing (RPG)` בז'אנרים ו-`roguelike` ב-keywords. |
 | 4 | **נוסף ארכיטיפ `arcadeSession`** (10 דק', ניתן לעצירה) | **לא ב-SPEC.** §4.4 לא מכסה משחקים מבוססי-מאץ' קצר (Rocket League, Tekken). בלעדיו הם לא הוצעו לערב קצר — הפוך מהאמת. |
 | 5 | **בהתנגשות, הפרופיל הזהיר גובר** | טעות לכיוון "אל תציע" עולה למשתמש פחות מטעות לכיוון "תיכנס, יהיה בסדר". |
+| 6 | **ה-seed מחובר.** `addGameFromIgdb` (`src/db/repositories/gamesRepo.ts`) בודק `getSeedOverride(igdbId)` לפני שהוא נופל לברירת המחדל של הארכיטיפ | §6.1 הוכרעה (ראה §5 למטה — 43.7% מ-300 המשחקים לא הסכימו עם הניחוש). כמו שהומלץ: `is_calibrated` נשאר `false`, §4.5 ממשיך לאסוף דיווחים אמיתיים גם על המשחקים האלה. |
+| 7 | **הוסר `strategy` (הז'אנר הגס) מ-`GENRE_TO_ARCHETYPE`** | נבדק מול נתוני התיוג האמיתיים — הז'אנר הזה מקצה `turnBasedStrategy` (60 דק', נעול) גם ל-Overwatch, Battlefield ו-Braid. `turn-based strategy (tbs)`, `real time strategy (rts)`, וה-keyword `turn-based` עדיין תופסים משחקי אסטרטגיה אמיתיים. |
+| 8 | **`Real Time Strategy (RTS)` נשאר ממופה ל-`turnBasedStrategy`** | §6.3 (הישנה) העלתה ספק. נבדק מול הנתונים: StarCraft II, Age of Empires II ו-Warcraft III (RTS אמיתיים) **הסכימו** עם ברירת המחדל של 45–60 דק' נעולות. רק ה-StarCraft המקורי (1998) חרג. לא מספיק ראיות לשנות. |
 
 ---
 
@@ -98,10 +101,22 @@ Tailwind 3 · Zustand 5 · expo-sqlite + Drizzle · vitest · tsx (לכלים)
   ו-Skyrim מגיעים כך. מיפוי לא עקבי בין השדות נתן להם "20 דק', אפשר לעצור".
   אותו מושג חייב להוביל לאותו ארכיטיפ בכל שדה.
 - **ז'אנר `Tactical` = יורה טקטי** (Counter-Strike), לא משחק תורות.
+- **ז'אנר `Strategy` (הכללי) רועש מדי — הוסר.** ראה החלטה #7 למעלה.
 - **`permadeath` הוא סימן חלש** — Minecraft (hardcore) יצא roguelike.
 - **`keywords` הוא שדה רועש** (`netflix`, `you can pet the dog`, מועמדויות
   לפרסים). רק whitelist מפורש, אף פעם לא קבלה עיוורת.
 - מגבלת קצב: 4 בקשות/שנייה. יש debounce של 250ms בשדה החיפוש.
+- **ז'אנר `Puzzle` גם הוא רועש, ולא תוקן.** IGDB מתייגת בו גם משחקי
+  אימה-הישרדות עם אלמנטים של פאזל (Resident Evil, Silent Hill, Dead
+  Space, Prey, Soma — 8-9 מ-300 המשחקים). ניסיתי כלל לפי theme
+  `Horror`+`Survival`, אבל `Little Nightmares` (theme זהה, אבל פרופיל
+  קצר ופתוח בפועל) שובר אותו — אין כלל keyword/genre/theme נקי שמפריד
+  בין השתיים בלי overfitting למדגם. **זה בדיוק המקרה של seed override
+  (החלטה #6)** — לא ניסיון לתקן את הטבלה עוד.
+- **קטגוריית `openWorldStory` שבורה ל-4 תת-קבוצות אמיתיות** (מ-Zelda/Skyrim
+  הפתוחים ב-20 דק' ועד Elden Ring/AC Origins/WoW הנעולים ב-75), ואין
+  שילוב genres/themes/keywords שמפריד ביניהן באופן אמין (נבדק מול
+  38 דוגמאות אמיתיות). כנ"ל — seed override, לא תיקון טבלה.
 
 ### סביבה
 
@@ -124,27 +139,37 @@ Tailwind 3 · Zustand 5 · expo-sqlite + Drizzle · vitest · tsx (לכלים)
 
 ## 6. מה פתוח — צריך החלטת משתמש
 
-1. **האם ה-seed נשלח עם האפליקציה לכל המשתמשים?** ההמלצה שניתנה: כן,
-   אבל **כברירת מחדל שנכנעת** — למלא `typical_session_minutes` ו-`interruptible`
-   אבל להשאיר `is_calibrated = false` ו-`session_reports_count = 0`, כדי
-   ש-§4.5 ימשיך לשאול ונתוני אמת יחליפו. **טרם אושר.** עד שיוחלט,
-   `seed/session-profiles.json` לא מחובר לאפליקציה ונמצא ב-`.gitignore`.
-2. **ז'אנר `Platform`** לא ממופה. Celeste (שלבים קצרים) מול Mario Odyssey
+1. **ז'אנר `Platform`** לא ממופה. Celeste (שלבים קצרים) מול Mario Odyssey
    (עולם פתוח) — אין דרך להבדיל מהתגיות.
-3. **`Real Time Strategy (RTS)` ממופה כרגע ל-`turnBasedStrategy`** (60 דק').
-   מאץ' RTS הוא בפועל 20–40 דקות.
+
+(הוחלט: seed מחובר — החלטה #6 למעלה. הוחלט: RTS נשאר כמו שהוא —
+החלטה #8 למעלה.)
 
 ## 7. המשימה הבאה
 
-**המשתמש מתייג 300 משחקים** ב-`http://localhost:8788` (מקלדת: `Enter`
-מאשר את הניחוש, `Y`/`N` + `1`–`4` לתיקון, `S` דילוג, `←` אחורה. נשמר
-אחרי כל תשובה, אפשר לעצור ולחזור).
+**תיוג 300 המשחקים הושלם** (`seed/session-profiles.json`, ממוזג ב-#5/#6).
+נמדד: **43.7% אי-הסכמה** מול הניחוש המקורי — יותר גרוע מ"שליש" שכבר תועד
+בכלל התשיעי. נמשך תהליך מלא של תיקון על נתונים אמיתיים (לא ניחוש):
 
-**כשהתיוג מתקדם:** לבדוק את אחוז `agreedWithGuess` בקובץ. כל אי-הסכמה
-היא באג פוטנציאלי בטבלת המיפוי — זה מדד האיכות של `src/lib/sessionProfile`.
+1. משכתי genres/themes/keywords אמיתיים מ-IGDB לכל 300 המשחקים
+   (`seed/session-profile-tags.json` — נשמר כי אין בו שום דבר רגיש,
+   רק תגיות ציבוריות. אפשר למשוך מחדש בכל עת, אין צורך לשמור לצמיתות
+   אם ירצו למחוק).
+2. תוקן ה-bug השיטתי היחיד שהיה נקי, כללי, ומגובה בראיות: הוסר `strategy`
+   הגס מטבלת המיפוי (החלטה #7). שני דפוסים נוספים (רעש בז'אנר `Puzzle`,
+   פיצול `openWorldStory`) **לא** תוקנו בטבלה — אין להם כלל heuristic
+   נקי בלי overfitting למדגם (ראה §5).
+3. חובר ה-seed כ-override לכל משחק (החלטה #6) — זה הפתרון האמיתי
+   ל-2 הדפוסים שלא ניתן לתקן בטבלה: 300 המשחקים הפופולריים ביותר
+   מקבלים עכשיו את הנתון האמיתי, לא ניחוש.
+4. נוספו טסטים על **הנתונים האמיתיים** (`src/lib/sessionProfile/realData.test.ts`)
+   — לא נתונים שהומצאו (כלל תשיעי): `getSeedOverride` מוחזר נכון לכל
+   300 הרשומות, ו-guard נגד רגרסיה בשיעור ההסכמה של טבלת המיפוי.
+5. `npm run typecheck` + `npm test` (32 טסטים) + `expo export` לשתי
+   הפלטפורמות — כולם עברו.
 
-**ואז שלב 2 (§8):** ייבוא Steam · חיבור מסך הבית לנתונים · מנוע ההמלצה
-(§4.1, פונקציה טהורה עם טסטים) · מסך Swipe עם Reanimated.
+**עכשיו שלב 2 (§8 ב-SPEC):** ייבוא Steam · חיבור מסך הבית לנתונים · מנוע
+ההמלצה (§4.1, פונקציה טהורה עם טסטים) · מסך Swipe עם Reanimated.
 
 נתיבי Steam (`ResolveVanityURL` + `GetOwnedGames`) נבנים באותו פרוקסי,
 `tools/igdb-proxy` — התשתית והסודות כבר שם.
@@ -155,7 +180,7 @@ Tailwind 3 · Zustand 5 · expo-sqlite + Drizzle · vitest · tsx (לכלים)
 
 ```bash
 npm run typecheck   # אפליקציה + כלים. חייב exit 0
-npm test            # 25 טסטים
+npm test            # 32 טסטים
 npx expo export --platform android
 npx expo export --platform ios
 ```
