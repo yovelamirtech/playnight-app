@@ -53,7 +53,8 @@
     "test": "vitest run",
     "typecheck": "tsc --noEmit && tsc --noEmit -p tools/tsconfig.json",
     "db:generate": "drizzle-kit generate",
-    "dev": "tsx --env-file=.env tools/dev-server.ts"
+    "dev": "tsx --env-file=.env tools/dev-server.ts",
+    "vercel-build": "expo export -p web"
   },
   "private": true
 }
