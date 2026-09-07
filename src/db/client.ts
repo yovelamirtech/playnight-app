@@ -10,4 +10,7 @@ export const sqliteDb = openDatabaseSync(DATABASE_NAME, { enableChangeListener: 
 
 export const db = drizzle(sqliteDb, { schema });
 
+/** קיים גם ב-client.web.ts (שם זה ממתין לפתיחה אסינכרונית) לצורך API אחיד. */
+export const dbReady: Promise<typeof db> = Promise.resolve(db);
+
 export type Database = typeof db;

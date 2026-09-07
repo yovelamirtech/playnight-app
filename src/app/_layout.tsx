@@ -17,7 +17,10 @@ SplashScreen.preventAutoHideAsync().catch(() => undefined);
 SystemUI.setBackgroundColorAsync(palette.bg).catch(() => undefined);
 // האפליקציה כהה תמיד (§theme) — כופים מצב כהה גם על ה-trait הנייטיבי כדי
 // שה-status bar, פינות המסך ותצוגת מתג-האפליקציות לא ייראו לבנים.
-Appearance.setColorScheme('dark');
+// react-native-web לא מממש את ה-API הזה (§RN Web gap), אז מדלגים שם.
+if (typeof Appearance.setColorScheme === 'function') {
+  Appearance.setColorScheme('dark');
+}
 
 export default function RootLayout() {
   const { ready, error } = useDatabaseReady();
