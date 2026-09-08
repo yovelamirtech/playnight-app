@@ -21,6 +21,7 @@ export type LibraryEntry = {
   genres: string[];
   typicalSessionMinutes: number;
   interruptible: boolean;
+  hoursPlayed: number;
 };
 
 const LIBRARY_COLUMNS = {
@@ -34,6 +35,7 @@ const LIBRARY_COLUMNS = {
   genres: games.genres,
   typicalSessionMinutes: games.typicalSessionMinutes,
   interruptible: games.interruptible,
+  hoursPlayed: userGames.hoursPlayed,
 };
 
 export async function listLibrary(status?: UserGameStatus): Promise<LibraryEntry[]> {

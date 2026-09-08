@@ -71,6 +71,7 @@ export const en = {
 
   game: {
     notFound: 'Game not found',
+    hoursPlayed: (hours: number) => `${hours.toFixed(1)} hours played`,
     notesTitle: 'Where I stopped',
     noNotes: 'No notes yet.',
     sessionsTitle: 'Sessions',
