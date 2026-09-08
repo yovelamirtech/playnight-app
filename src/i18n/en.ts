@@ -34,9 +34,15 @@ export const en = {
 
   swipe: {
     title: 'What are we playing?',
-    placeholder: 'The recommendation engine arrives in phase 2.',
-    moodLine: (mood: string) => `Mood: ${mood}`,
-    noMood: 'any',
+    empty: "Nothing fits this window right now — try more time or a different mood.",
+    gestureHint: '← Not tonight   ·   Tap for details   ·   This! →',
+    hideHint: '↑ Not into this one',
+    sessionInterruptible: (minutes: number) => `~${minutes} min, stop anytime`,
+    sessionLocked: (minutes: number) => `~${minutes} min, best to finish once you start`,
+    untouchedLine: (timeAgo: string) => `Added ${timeAgo} ago, haven't touched it`,
+    stoppedLine: (timeAgo: string) => `Stopped ${timeAgo} ago`,
+    rating: (value: number) => `★ ${Math.round(value)}`,
+    exhaustedTitle: "That's everyone who fits",
     exhausted: '5 more options',
     changeFilters: 'Change filters',
   },
