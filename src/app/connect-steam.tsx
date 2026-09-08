@@ -20,6 +20,12 @@ type Status =
 
 const isSteamId64 = (value: string): boolean => /^\d{17}$/.test(value.trim());
 
+/** תומך בהדבקת URL מלא (steamcommunity.com/id/NAME) ולא רק שם הפרופיל. */
+const extractVanityName = (value: string): string => {
+  const match = value.trim().match(/steamcommunity\.com\/id\/([^/?#]+)/i);
+  return match ? match[1] : value.trim();
+};
+
 export default function ConnectSteamScreen() {
   const router = useRouter();
   const [input, setInput] = useState('');
@@ -34,7 +40,9 @@ export default function ConnectSteamScreen() {
     setStatus({ kind: 'resolving' });
     try {
       const gateway = getSteamGateway();
-      const steamId = isSteamId64(trimmed) ? trimmed : await gateway.resolveVanityUrl(trimmed);
+      const steamId = isSteamId64(trimmed)
+        ? trimmed
+        : await gateway.resolveVanityUrl(extractVanityName(trimmed));
       const ownedGames = await gateway.getOwnedGames(steamId);
 
       if (ownedGames.length === 0) {
@@ -66,7 +74,12 @@ export default function ConnectSteamScreen() {
           <Subtitle>{t.connectSteam.doneBody(status.imported, status.updated)}</Subtitle>
           <PrimaryButton
             label={t.connectSteam.backToLibrary}
-            onPress={() => router.replace('/library')}
+            onPress={() => {
+              // מנקה גם /settings מה-stack (אם הגענו דרך resync) כדי ש"back"
+              // מה-library יחזור ישר להום, לא להגדרות.
+              router.dismissAll();
+              router.push('/library');
+            }}
           />
         </View>
       ) : (

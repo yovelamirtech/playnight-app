@@ -49,6 +49,11 @@ export default function GameScreen() {
           {entry?.platform ? (
             <Text className="text-center text-base text-muted">{entry.platform}</Text>
           ) : null}
+          {entry && entry.hoursPlayed > 0 ? (
+            <Text className="text-center text-base text-muted">
+              {t.game.hoursPlayed(entry.hoursPlayed)}
+            </Text>
+          ) : null}
         </View>
 
         <View className="gap-2 rounded-2xl border border-border bg-surface p-4">

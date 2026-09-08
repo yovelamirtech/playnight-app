@@ -31,6 +31,7 @@ export default function LibraryScreen() {
         genres: games.genres,
         typicalSessionMinutes: games.typicalSessionMinutes,
         interruptible: games.interruptible,
+        hoursPlayed: userGames.hoursPlayed,
       })
       .from(userGames)
       .innerJoin(games, eq(userGames.gameId, games.id))
