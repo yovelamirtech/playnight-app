@@ -6,6 +6,8 @@ import { randomUUID } from 'expo-crypto';
  */
 export const igdbGameId = (igdbId: number): string => `igdb:${igdbId}`;
 
+export const steamGameId = (appId: number): string => `steam:${appId}`;
+
 export const localGameId = (): string => `local:${randomUUID()}`;
 
 export const newId = (): string => randomUUID();

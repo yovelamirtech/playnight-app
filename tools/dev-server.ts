@@ -31,12 +31,19 @@ if (!credentials.clientId || !credentials.clientSecret) {
   process.exit(1);
 }
 
+// אופציונלי בכוונה: מי שעדיין לא בנה ייבוא Steam ממשיך לעבוד בלי המפתח,
+// ורק נתיבי /steam/* מחזירים 501 (§4.3).
+const steamCredentials = process.env.STEAM_API_KEY ? { apiKey: process.env.STEAM_API_KEY } : null;
+if (!steamCredentials) {
+  console.warn('  STEAM_API_KEY not set — /steam/* routes will return 501.');
+}
+
 const lanAddress = (): string =>
   Object.values(networkInterfaces())
     .flat()
     .find((entry) => entry && entry.family === 'IPv4' && !entry.internal)?.address ?? 'localhost';
 
-createIgdbProxy({ credentials, port: IGDB_PORT }).listen();
+createIgdbProxy({ credentials, steamCredentials, port: IGDB_PORT }).listen();
 createCoepProxy({ port: WEB_PORT, targetPort: EXPO_PORT }).listen();
 createTagger({
   credentials,

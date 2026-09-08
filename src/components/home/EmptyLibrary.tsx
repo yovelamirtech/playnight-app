@@ -1,5 +1,5 @@
 import { useRouter } from 'expo-router';
-import { Text, View } from 'react-native';
+import { Pressable, Text, View } from 'react-native';
 
 import { PrimaryButton } from '@/components/ui/PrimaryButton';
 import { Subtitle, Title } from '@/components/ui/Title';
@@ -12,8 +12,10 @@ export function EmptyLibrary() {
     <View className="gap-6">
       <Title>{t.home.emptyTitle}</Title>
       <Subtitle>{t.home.emptyBody}</Subtitle>
-      <PrimaryButton label={t.home.emptyAdd} onPress={() => router.push('/add-game')} />
-      <Text className="text-center text-sm text-muted">{t.home.steamComingSoon}</Text>
+      <PrimaryButton label={t.home.emptyConnect} onPress={() => router.push('/connect-steam')} />
+      <Pressable onPress={() => router.push('/add-game')}>
+        <Text className="text-center text-sm text-muted">{t.home.emptyAdd}</Text>
+      </Pressable>
     </View>
   );
 }
