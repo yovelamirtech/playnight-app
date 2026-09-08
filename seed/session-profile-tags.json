@@ -23661,6 +23661,2122 @@
         "dualsense support for pc",
         "xbox cloud saves"
       ]
+    },
+    {
+      "igdbId": 2985,
+      "name": "Persona 4 Golden",
+      "genres": [
+        "Role-playing (RPG)",
+        "Adventure"
+      ],
+      "themes": [
+        "Fantasy",
+        "Comedy",
+        "Drama"
+      ],
+      "keywords": [
+        "life simulation",
+        "basketball",
+        "anime",
+        "cyberpunk",
+        "serial killer",
+        "detective",
+        "murder",
+        "investigation",
+        "magic",
+        "grinding",
+        "crime solving",
+        "dating",
+        "turn-based",
+        "summoning support",
+        "ps2",
+        "fishing",
+        "jrpg",
+        "21st century",
+        "death",
+        "robots",
+        "cooking",
+        "multiple protagonists",
+        "party-based combat",
+        "child protagonist",
+        "multiple endings",
+        "dialogue trees",
+        "crime",
+        "tank",
+        "billiards",
+        "good vs evil",
+        "party-based",
+        "turn-based combat",
+        "day/night cycle",
+        "harem",
+        "digital distribution",
+        "genie",
+        "throwing weapons",
+        "students",
+        "playstation trophies",
+        "leveling up",
+        "cat",
+        "broken english",
+        "human",
+        "polygonal 3d",
+        "shopping",
+        "love triangle",
+        "party system",
+        "original soundtrack release",
+        "descendants of other characters",
+        "save point",
+        "buddhism",
+        "treasure chest",
+        "moral decisions",
+        "branching storyline",
+        "optional boss",
+        "difficulty level",
+        "vending machine interaction",
+        "playstation tv support",
+        "coming of age",
+        "cross culture language skills",
+        "shinto",
+        "order and chaos",
+        "punctuation mark above head",
+        "hallucination",
+        "unskippable cutscene",
+        "alternate reality",
+        "power of friendship",
+        "not-so-bad guys",
+        "teenager",
+        "overweight character",
+        "new protagonist in sequel",
+        "day-based narrative",
+        "fake tv show",
+        "women in refrigerators syndrome",
+        "new game plus",
+        "resized enemy",
+        "dream sequence",
+        "interrogation",
+        "battle screen",
+        "adapted to - anime",
+        "pax prime 2012",
+        "status effects",
+        "timeskip",
+        "health from romance",
+        "j-pop",
+        "retroactive achievements",
+        "skull for a head",
+        "gender exclusive equipment",
+        "monomyth",
+        "inner-thoughts world",
+        "promotional drink tie-in",
+        "philosophical",
+        "turn-based rpg"
+      ]
+    },
+    {
+      "igdbId": 3277,
+      "name": "Rust",
+      "genres": [
+        "Shooter",
+        "Role-playing (RPG)",
+        "Adventure",
+        "Indie"
+      ],
+      "themes": [
+        "Action",
+        "Survival",
+        "Sandbox",
+        "Open world"
+      ],
+      "keywords": [
+        "helicopter",
+        "post-apocalyptic",
+        "bloody",
+        "animals",
+        "grinding",
+        "3d",
+        "shark",
+        "fishing",
+        "crafting",
+        "insects",
+        "pvp",
+        "death",
+        "procedural generation",
+        "resource management",
+        "caveman",
+        "horse",
+        "archery",
+        "cooking",
+        "chicken",
+        "driving",
+        "trains",
+        "online co-op",
+        "farming",
+        "forest",
+        "steam",
+        "flying",
+        "achievements",
+        "online",
+        "traps",
+        "building",
+        "steam trading cards",
+        "upgrade",
+        "snow",
+        "wolf",
+        "bugs",
+        "combat",
+        "base building",
+        "nudity",
+        "procedurally generated",
+        "melee combat",
+        "mining",
+        "bear",
+        "swimming",
+        "day/night cycle",
+        "inventory management",
+        "base defense",
+        "airplane",
+        "horse riding",
+        "vehicle combat",
+        "explosion",
+        "steam achievements",
+        "digital distribution",
+        "throwing weapons",
+        "pre-release public testing",
+        "steam workshop",
+        "polygonal 3d",
+        "bow and arrow",
+        "explosives",
+        "gun",
+        "armor",
+        "vehicle customization",
+        "sniping",
+        "resource gathering",
+        "melee",
+        "friendly fire",
+        "scientist",
+        "sleeping",
+        "valve anti-cheat",
+        "tech trees",
+        "guns and bullets",
+        "grind",
+        "burning",
+        "workbench mechanics",
+        "medical herb",
+        "status effects",
+        "raiding",
+        "horse archery",
+        "remote play",
+        "vehicles",
+        "defense",
+        "bug",
+        "in-app purchases",
+        "die and retry",
+        "open world survival craft",
+        "plant",
+        "horse taming",
+        "underground",
+        "storage",
+        "food",
+        "flowers",
+        "reskin",
+        "beach",
+        "bombs",
+        "research",
+        "ranged combat",
+        "bees",
+        "chainsaw",
+        "turret",
+        "lighthouse",
+        "farm",
+        "electricity",
+        "fish",
+        "health",
+        "weapon skins",
+        "jumping",
+        "proximity voice chat",
+        "eating",
+        "axe",
+        "boat",
+        "air combat",
+        "planting",
+        "upgrades",
+        "spear",
+        "explosive",
+        "cave",
+        "shotgun",
+        "pistol",
+        "swamp",
+        "upgrade tree",
+        "steam remote play"
+      ]
+    },
+    {
+      "igdbId": 7360,
+      "name": "Rainbow Six Siege",
+      "genres": [
+        "Shooter",
+        "Tactical"
+      ],
+      "themes": [
+        "Action",
+        "Warfare"
+      ],
+      "keywords": [
+        "modern warfare",
+        "espionage",
+        "achievements",
+        "hostages",
+        "crime",
+        "no jumping",
+        "digital distribution",
+        "playstation trophies",
+        "modern military",
+        "bink video",
+        "microtransaction",
+        "playstation experience 2016",
+        "kill feed",
+        "pax prime 2015",
+        "destructible environment",
+        "terrorists",
+        "sliding down ladders",
+        "enemy tagging",
+        "no respawn",
+        "objective-based team gameplay",
+        "bomb defusal mode",
+        "the game awards 2017",
+        "the game awards - nominee",
+        "the game awards 2016",
+        "the game awards - best multiplayer game - nominee",
+        "the game awards - best ongoing game - nominee"
+      ]
+    },
+    {
+      "igdbId": 11137,
+      "name": "Sea of Thieves",
+      "genres": [
+        "Simulator",
+        "Adventure"
+      ],
+      "themes": [
+        "Action",
+        "Fantasy",
+        "Open world"
+      ],
+      "keywords": [
+        "pirates",
+        "exploration",
+        "grinding",
+        "crafting",
+        "action-adventure",
+        "skeleton",
+        "treasure hunt",
+        "online",
+        "tropical",
+        "ships",
+        "digital distribution",
+        "pax west 2017",
+        "xbox play anywhere",
+        "xbox one x enhanced",
+        "skeletons",
+        "treasure chest",
+        "xbox live",
+        "gamescom 2016",
+        "the game awards 2017",
+        "4k ultra hd",
+        "xbox live cross-platform multiplayer",
+        "xbox live achievements",
+        "you can pet the dog",
+        "always online",
+        "the game awards - best multiplayer game - nominee"
+      ]
+    },
+    {
+      "igdbId": 27134,
+      "name": "Deep Rock Galactic",
+      "genres": [
+        "Shooter",
+        "Adventure",
+        "Indie"
+      ],
+      "themes": [
+        "Action",
+        "Science fiction"
+      ],
+      "keywords": [
+        "exploration",
+        "space mining",
+        "character customization",
+        "dark",
+        "3d",
+        "insects",
+        "procedural generation",
+        "voxel",
+        "achievements",
+        "pve",
+        "steam trading cards",
+        "atmospheric",
+        "combat",
+        "procedurally generated",
+        "dwarves",
+        "giant insects",
+        "mining",
+        "darkness",
+        "steam achievements",
+        "xbox controller support for pc",
+        "steam cloud",
+        "xbox play anywhere",
+        "xbox one x enhanced",
+        "gun",
+        "guns and bullets",
+        "remote play",
+        "controller support",
+        "looter",
+        "adult protagonist",
+        "looter shooter",
+        "xbox achievements",
+        "cross-platform",
+        "multiplayer fps",
+        "underground",
+        "online coop",
+        "action roguelike",
+        "beer",
+        "digging",
+        "dwarf",
+        "steam families",
+        "loot",
+        "cloud saves",
+        "alcohol",
+        "gold",
+        "xbox cloud saves",
+        "closed captions",
+        "cave"
+      ]
+    },
+    {
+      "igdbId": 40477,
+      "name": "Slay the Spire",
+      "genres": [
+        "Role-playing (RPG)",
+        "Strategy",
+        "Turn-based strategy (TBS)",
+        "Adventure",
+        "Indie",
+        "Card & Board Game"
+      ],
+      "themes": [
+        "Fantasy"
+      ],
+      "keywords": [
+        "management",
+        "vaporware",
+        "hip-hop",
+        "roguelite",
+        "deck-building"
+      ]
+    },
+    {
+      "igdbId": 101006,
+      "name": "Gran Turismo 7",
+      "genres": [
+        "Racing",
+        "Simulator",
+        "Sport"
+      ],
+      "themes": [
+        "Non-fiction"
+      ],
+      "keywords": [
+        "rally",
+        "vehicle simulation",
+        "horse racing",
+        "racing simulator",
+        "racing sim",
+        "sports cars",
+        "the game awards - best sports or racing game - winner",
+        "the game awards - best audio design - nominee",
+        "the game awards - best vr game - nominee"
+      ]
+    },
+    {
+      "igdbId": 112916,
+      "name": "Mortal Kombat 11",
+      "genres": [
+        "Fighting"
+      ],
+      "themes": [
+        "Action",
+        "Fantasy"
+      ],
+      "keywords": [
+        "violence",
+        "character customization",
+        "time manipulation",
+        "gore"
+      ]
+    },
+    {
+      "igdbId": 119313,
+      "name": "Fall Guys",
+      "genres": [
+        "Platform",
+        "Racing",
+        "Indie"
+      ],
+      "themes": [
+        "Action",
+        "Comedy",
+        "Party"
+      ],
+      "keywords": [
+        "game show",
+        "colorful",
+        "customization",
+        "last man standing",
+        "obstacle course",
+        "the game awards - best independent game - nominee",
+        "the game awards - best multiplayer game - nominee"
+      ]
+    },
+    {
+      "igdbId": 126459,
+      "name": "Valorant",
+      "genres": [
+        "Shooter",
+        "Tactical"
+      ],
+      "themes": [
+        "Action",
+        "Fantasy",
+        "Science fiction"
+      ],
+      "keywords": [
+        "class-based",
+        "cartoon graphics",
+        "free-to-play",
+        "kill feed",
+        "voice chat",
+        "text dialogue",
+        "bomb defusal mode",
+        "5v5",
+        "online pvp"
+      ]
+    },
+    {
+      "igdbId": 141503,
+      "name": "Forza Horizon 5",
+      "genres": [
+        "Racing"
+      ],
+      "themes": [
+        "Action",
+        "Open world"
+      ],
+      "keywords": [
+        "rally",
+        "character customization",
+        "vehicle simulation",
+        "mexico",
+        "racing sim",
+        "color customization",
+        "party system",
+        "realism",
+        "the game awards - best sports or racing game - winner",
+        "vehicles",
+        "ray tracing",
+        "the game awards - best audio design - winner",
+        "drag racing",
+        "automobile",
+        "dynamic weather",
+        "offroad"
+      ]
+    },
+    {
+      "igdbId": 151665,
+      "name": "Palworld",
+      "genres": [
+        "Shooter",
+        "Role-playing (RPG)",
+        "Hack and slash/Beat 'em up",
+        "Adventure",
+        "Indie"
+      ],
+      "themes": [
+        "Action",
+        "Survival",
+        "Sandbox",
+        "Open world"
+      ],
+      "keywords": [
+        "anime",
+        "3d",
+        "crafting",
+        "pve",
+        "cute",
+        "steam achievements",
+        "steam cloud",
+        "dragon riding",
+        "elicited lawsuit"
+      ]
+    },
+    {
+      "igdbId": 186725,
+      "name": "Vampire Survivors",
+      "genres": [
+        "Role-playing (RPG)",
+        "Adventure",
+        "Indie",
+        "Arcade"
+      ],
+      "themes": [
+        "Action",
+        "Fantasy",
+        "Survival"
+      ],
+      "keywords": [
+        "pixel graphics",
+        "increasing difficulty",
+        "roguelite",
+        "bullet heaven",
+        "danmaku"
+      ]
+    },
+    {
+      "igdbId": 191692,
+      "name": "Street Fighter 6",
+      "genres": [
+        "Fighting",
+        "Arcade"
+      ],
+      "themes": [
+        "Action",
+        "Fantasy"
+      ],
+      "keywords": [
+        "character customization",
+        "1v1",
+        "character creation",
+        "multiple playable characters",
+        "the game awards - best fighting game - winner",
+        "the game awards - best multiplayer game - nominee"
+      ]
+    },
+    {
+      "igdbId": 198581,
+      "name": "Sonic the Hedgehog",
+      "genres": [],
+      "themes": [
+        "Action"
+      ],
+      "keywords": []
+    },
+    {
+      "igdbId": 202256,
+      "name": "Sonic the Hedgehog 2",
+      "genres": [
+        "Platform",
+        "Arcade"
+      ],
+      "themes": [
+        "Action"
+      ],
+      "keywords": [
+        "sonic"
+      ]
+    },
+    {
+      "igdbId": 217590,
+      "name": "Tekken 8",
+      "genres": [
+        "Fighting"
+      ],
+      "themes": [
+        "Action"
+      ],
+      "keywords": [
+        "martial arts",
+        "ninja",
+        "character customization",
+        "wrestling",
+        "boxing",
+        "cyborg",
+        "steam",
+        "karate",
+        "achievements",
+        "multiple endings",
+        "steam trading cards",
+        "in-game currency",
+        "cross-platform multiplayer",
+        "playstation network",
+        "tournament",
+        "devil",
+        "great soundtrack",
+        "steam achievements",
+        "steam cloud",
+        "countdown timer",
+        "playstation trophies",
+        "pre-release public testing",
+        "alternate costumes",
+        "professional wrestler",
+        "60 fps on consoles",
+        "ranking system",
+        "microtransaction",
+        "unlockables",
+        "xbox live",
+        "auto-saving",
+        "difficulty level",
+        "laser",
+        "training mode",
+        "taekwondo",
+        "matchmaking",
+        "telekinesis",
+        "counter system",
+        "random character selection",
+        "bad parents",
+        "ranked match",
+        "random stage selection",
+        "no blood",
+        "60fps",
+        "angels",
+        "pre-order bonus",
+        "online ranking",
+        "capoeira",
+        "xbox achievements",
+        "family drama",
+        "robot"
+      ]
+    },
+    {
+      "igdbId": 228525,
+      "name": "Hades II",
+      "genres": [
+        "Role-playing (RPG)",
+        "Hack and slash/Beat 'em up",
+        "Adventure",
+        "Indie"
+      ],
+      "themes": [
+        "Action",
+        "Fantasy"
+      ],
+      "keywords": [
+        "greek mythology",
+        "roguelike",
+        "fast paced",
+        "dark fantasy",
+        "procedural generation",
+        "difficult",
+        "hand-to-hand combat",
+        "supernatural",
+        "stylized",
+        "multiple endings",
+        "combat",
+        "dungeon crawler",
+        "story rich",
+        "boss fight",
+        "loot gathering",
+        "skill tree",
+        "the game awards - best score or music - nominee",
+        "narrative",
+        "roguelite",
+        "the game awards - best action game - winner",
+        "the game awards - best art direction - nominee",
+        "the game awards - best game direction - nominee",
+        "the game awards - best independent game - nominee",
+        "the game awards - game of the year - nominee",
+        "weapons",
+        "action roguelike"
+      ]
+    },
+    {
+      "igdbId": 255788,
+      "name": "NBA 2K24",
+      "genres": [
+        "Simulator",
+        "Sport"
+      ],
+      "themes": [
+        "Non-fiction"
+      ],
+      "keywords": [
+        "basketball",
+        "previously on - xbox gamepass"
+      ]
+    },
+    {
+      "igdbId": 256092,
+      "name": "EA Sports FC 24",
+      "genres": [
+        "Simulator",
+        "Sport"
+      ],
+      "themes": [
+        "Non-fiction"
+      ],
+      "keywords": [
+        "soccer",
+        "football"
+      ]
+    },
+    {
+      "igdbId": 1911,
+      "name": "Path of Exile",
+      "genres": [
+        "Role-playing (RPG)",
+        "Hack and slash/Beat 'em up",
+        "Adventure"
+      ],
+      "themes": [
+        "Action",
+        "Fantasy",
+        "Horror"
+      ],
+      "keywords": [
+        "bloody",
+        "magic",
+        "3d",
+        "steam trading cards",
+        "free-to-play",
+        "leveling up",
+        "bink video",
+        "xbox one x enhanced",
+        "loot boxes",
+        "bow and arrow",
+        "active ability",
+        "potion",
+        "skill tree",
+        "mana",
+        "fast traveling",
+        "passive ability",
+        "steam trading",
+        "pax prime 2011",
+        "4k ultra hd"
+      ]
+    },
+    {
+      "igdbId": 2903,
+      "name": "Warframe",
+      "genres": [
+        "Shooter",
+        "Role-playing (RPG)",
+        "Adventure"
+      ],
+      "themes": [
+        "Action",
+        "Science fiction"
+      ],
+      "keywords": [
+        "space combat",
+        "ninja",
+        "character customization",
+        "crafting",
+        "upgradable weapons",
+        "robots",
+        "space travel",
+        "cyborg",
+        "steam",
+        "trading",
+        "achievements",
+        "hacking",
+        "steam trading cards",
+        "spaceship customization",
+        "over the shoulder",
+        "teleportation",
+        "free-to-play",
+        "boss fight",
+        "pax west 2017",
+        "pre-release public testing",
+        "customization",
+        "xbox one x enhanced",
+        "polygonal 3d",
+        "color customization",
+        "daily login rewards",
+        "loot gathering",
+        "randomly generated dungeons",
+        "original soundtrack release",
+        "hologram",
+        "escort mission",
+        "sabotage",
+        "downloadable content",
+        "player vs environment",
+        "xbox live",
+        "gravity control",
+        "shielded enemies",
+        "pax prime 2013",
+        "smartglass support",
+        "leaderboard",
+        "real-time waiting",
+        "level cap",
+        "skill tree",
+        "horde mode",
+        "super speed",
+        "super strength",
+        "weapon modification",
+        "swordsman",
+        "fire manipulation",
+        "dual wielding",
+        "telekinesis",
+        "guided by radio",
+        "cryokinesis",
+        "level by doing",
+        "steam trading",
+        "the game awards 2017",
+        "the game awards - nominee",
+        "the game awards - best ongoing game - nominee"
+      ]
+    },
+    {
+      "igdbId": 10919,
+      "name": "XCOM 2",
+      "genres": [
+        "Role-playing (RPG)",
+        "Simulator",
+        "Strategy",
+        "Turn-based strategy (TBS)",
+        "Tactical"
+      ],
+      "themes": [
+        "Science fiction"
+      ],
+      "keywords": [
+        "aliens",
+        "soccer",
+        "football",
+        "bloody",
+        "shark",
+        "guitar playing",
+        "soldier",
+        "robots",
+        "procedural generation",
+        "ufo",
+        "steam",
+        "bird",
+        "portals",
+        "hacking",
+        "base management",
+        "snow",
+        "easter egg",
+        "teleportation",
+        "sequel",
+        "silent protagonist",
+        "explosion",
+        "digital distribution",
+        "platform exclusive",
+        "playing cards",
+        "customizable characters",
+        "steam workshop",
+        "voice acting",
+        "bink video",
+        "mind control",
+        "xbox one x enhanced",
+        "polygonal 3d",
+        "upgradeable weapons",
+        "pop culture reference",
+        "motion blur",
+        "white noise",
+        "color separation",
+        "humble bundle",
+        "fake in-game advertising",
+        "corpse",
+        "faceless protagonist",
+        "character creation",
+        "resistance",
+        "melee",
+        "auto-saving",
+        "grapple",
+        "stat tracking",
+        "friendly fire",
+        "shielded enemies",
+        "difficulty level",
+        "fake glitch",
+        "self-referential humor",
+        "quicksaving",
+        "quickloading",
+        "liberation",
+        "tooltips",
+        "vending machine interaction",
+        "arcade cabinet",
+        "cover system",
+        "destructible environment",
+        "terrorists",
+        "scientist",
+        "british accent",
+        "jellyfish",
+        "disorientation",
+        "chessboard",
+        "mod support",
+        "one-handed gameplay",
+        "regenerating health",
+        "splash damage",
+        "in-engine cinematic",
+        "flashback",
+        "poisoning",
+        "scripted events",
+        "propaganda",
+        "infinite spawn",
+        "status effects",
+        "invented language",
+        "foreshadowing",
+        "point of no return",
+        "alien languages",
+        "breaking through windows",
+        "the game awards - nominee",
+        "the game awards 2016",
+        "xcom",
+        "the game awards - best strategy game - nominee"
+      ]
+    },
+    {
+      "igdbId": 11397,
+      "name": "Yakuza 0",
+      "genres": [
+        "Role-playing (RPG)",
+        "Simulator",
+        "Hack and slash/Beat 'em up",
+        "Adventure"
+      ],
+      "themes": [
+        "Action",
+        "Drama",
+        "Open world"
+      ],
+      "keywords": [
+        "pool",
+        "martial arts",
+        "1980s",
+        "murder",
+        "minigames",
+        "organized crime",
+        "prequel",
+        "gambling",
+        "karaoke",
+        "gangs",
+        "brawler",
+        "mahjong",
+        "action-adventure",
+        "multiple protagonists",
+        "japan",
+        "crime",
+        "yakuza",
+        "digital distribution",
+        "playstation trophies",
+        "60 fps on consoles",
+        "card collection",
+        "playstation experience 2016",
+        "side quests",
+        "melee",
+        "betrayal",
+        "arcade cabinet",
+        "interactive environments",
+        "dart",
+        "skill tree",
+        "motion capture animation",
+        "fast traveling",
+        "the 1980s",
+        "sex work",
+        "product placement",
+        "metagame",
+        "framing",
+        "male protagonist",
+        "collectathon",
+        "food",
+        "asian protagonist"
+      ]
+    },
+    {
+      "igdbId": 15536,
+      "name": "Escape from Tarkov",
+      "genres": [
+        "Shooter",
+        "Role-playing (RPG)",
+        "Simulator",
+        "Tactical"
+      ],
+      "themes": [
+        "Action",
+        "Survival",
+        "Sandbox",
+        "Warfare"
+      ],
+      "keywords": [
+        "modern warfare",
+        "death",
+        "modern military",
+        "squad based shooter",
+        "extraction",
+        "extraction shooter"
+      ]
+    },
+    {
+      "igdbId": 26765,
+      "name": "Octopath Traveler",
+      "genres": [
+        "Role-playing (RPG)",
+        "Adventure"
+      ],
+      "themes": [
+        "Fantasy"
+      ],
+      "keywords": [
+        "role playing",
+        "multiple protagonists",
+        "turn-based combat",
+        "turn-based rpg",
+        "hd2d",
+        "high fantasy"
+      ]
+    },
+    {
+      "igdbId": 28512,
+      "name": "Risk of Rain 2",
+      "genres": [
+        "Shooter",
+        "Adventure",
+        "Indie"
+      ],
+      "themes": [
+        "Action",
+        "Science fiction",
+        "Survival"
+      ],
+      "keywords": [
+        "bullet hell",
+        "roguelite",
+        "looter shooter",
+        "previously on - stadia pro"
+      ]
+    },
+    {
+      "igdbId": 115289,
+      "name": "Hollow Knight: Silksong",
+      "genres": [
+        "Platform",
+        "Adventure",
+        "Indie"
+      ],
+      "themes": [
+        "Action",
+        "Fantasy"
+      ],
+      "keywords": [
+        "exploration",
+        "sword",
+        "2d",
+        "metroidvania",
+        "insects",
+        "female protagonist",
+        "side-scrolling",
+        "achievements",
+        "steam trading cards",
+        "atmospheric",
+        "bugs",
+        "sequel",
+        "melee combat",
+        "hand-drawn",
+        "2d platformer",
+        "steam achievements",
+        "xbox controller support for pc",
+        "steam cloud",
+        "dualshock 4 support for pc",
+        "controller recommendation",
+        "melee",
+        "text dialogue",
+        "remote play",
+        "the game awards - best score or music - nominee",
+        "controller support",
+        "steam deck",
+        "the game awards - best action-adventure game - winner",
+        "the game awards - best art direction - nominee",
+        "the game awards - best independent game - nominee",
+        "the game awards - game of the year - nominee",
+        "interconnected-world",
+        "health",
+        "steam families",
+        "money",
+        "cloud saves",
+        "dualsense support for pc",
+        "save anytime",
+        "playable without timed input",
+        "stereo sound",
+        "keyboard only option",
+        "camera comfort"
+      ]
+    },
+    {
+      "igdbId": 125165,
+      "name": "Diablo IV",
+      "genres": [
+        "Role-playing (RPG)",
+        "Hack and slash/Beat 'em up"
+      ],
+      "themes": [
+        "Action",
+        "Fantasy",
+        "Horror"
+      ],
+      "keywords": [
+        "exploration",
+        "wizards",
+        "demon",
+        "character customization",
+        "magic",
+        "sword",
+        "dark fantasy",
+        "demons",
+        "gore",
+        "pve",
+        "dungeon crawling",
+        "dungeon crawler",
+        "story rich",
+        "violent",
+        "boss fight",
+        "battle",
+        "armor",
+        "character creation",
+        "dungeon fighter",
+        "bossfight",
+        "dungeon",
+        "bosses",
+        "the game awards - best multiplayer game - nominee",
+        "weapons",
+        "shield",
+        "monster"
+      ]
+    },
+    {
+      "igdbId": 131890,
+      "name": "Sea of Stars",
+      "genres": [
+        "Role-playing (RPG)",
+        "Adventure",
+        "Indie"
+      ],
+      "themes": [
+        "Fantasy",
+        "Open world"
+      ],
+      "keywords": [
+        "jrpg",
+        "overworld",
+        "pixel graphics",
+        "turn-based combat",
+        "crowdfunding - kickstarter",
+        "story rich",
+        "crowdfunding",
+        "turn-based rpg",
+        "party-based rpg",
+        "the game awards - best independent game - winner",
+        "the game awards - best roleplaying game - nominee"
+      ]
+    },
+    {
+      "igdbId": 139090,
+      "name": "Inscryption",
+      "genres": [
+        "Puzzle",
+        "Strategy",
+        "Adventure",
+        "Indie",
+        "Card & Board Game"
+      ],
+      "themes": [
+        "Horror",
+        "Mystery"
+      ],
+      "keywords": [
+        "weird",
+        "deck-building",
+        "roguelike deckbuilder"
+      ]
+    },
+    {
+      "igdbId": 143114,
+      "name": "Total War: Warhammer III",
+      "genres": [
+        "Real Time Strategy (RTS)",
+        "Strategy"
+      ],
+      "themes": [
+        "Action",
+        "Fantasy",
+        "Warfare"
+      ],
+      "keywords": [
+        "previously on - pc gamepass"
+      ]
+    },
+    {
+      "igdbId": 148241,
+      "name": "Lies of P",
+      "genres": [
+        "Role-playing (RPG)",
+        "Adventure"
+      ],
+      "themes": [
+        "Action",
+        "Horror",
+        "Open world"
+      ],
+      "keywords": [
+        "europe",
+        "20th century",
+        "steampunk",
+        "atmospheric",
+        "19th century",
+        "story rich",
+        "soulslike",
+        "male protagonist"
+      ]
+    },
+    {
+      "igdbId": 165351,
+      "name": "Cult of the Lamb",
+      "genres": [
+        "Role-playing (RPG)",
+        "Simulator",
+        "Strategy",
+        "Hack and slash/Beat 'em up",
+        "Adventure",
+        "Indie"
+      ],
+      "themes": [
+        "Action",
+        "Fantasy",
+        "Comedy"
+      ],
+      "keywords": [
+        "animals",
+        "dark",
+        "roguelike",
+        "multiple endings",
+        "cute",
+        "base building",
+        "cult",
+        "shared screen",
+        "roguelite",
+        "colony simulator",
+        "poop"
+      ]
+    },
+    {
+      "igdbId": 212089,
+      "name": "Lethal Company",
+      "genres": [
+        "Indie"
+      ],
+      "themes": [
+        "Action",
+        "Science fiction",
+        "Horror",
+        "Comedy"
+      ],
+      "keywords": [
+        "aliens",
+        "exploration",
+        "monsters",
+        "psychological horror",
+        "dystopian",
+        "dark humor",
+        "survival horror",
+        "space ship",
+        "4 player co-op",
+        "retro future",
+        "corporation",
+        "alien world",
+        "die and retry",
+        "looter",
+        "roguelike horror",
+        "absurd",
+        "action roguelike"
+      ]
+    },
+    {
+      "igdbId": 228535,
+      "name": "Remnant II",
+      "genres": [
+        "Shooter",
+        "Role-playing (RPG)",
+        "Adventure"
+      ],
+      "themes": [
+        "Action",
+        "Fantasy"
+      ],
+      "keywords": [
+        "post-apocalyptic",
+        "character customization",
+        "dark",
+        "invasion",
+        "dark fantasy",
+        "parallel worlds",
+        "corruption",
+        "soulslike",
+        "alien world"
+      ]
+    },
+    {
+      "igdbId": 250616,
+      "name": "Helldivers 2",
+      "genres": [
+        "Shooter",
+        "Tactical"
+      ],
+      "themes": [
+        "Action",
+        "Science fiction"
+      ],
+      "keywords": [
+        "aliens",
+        "friendly fire",
+        "squad based shooter",
+        "the game awards - best action game - nominee",
+        "the game awards - best multiplayer game - winner",
+        "the game awards - best ongoing game - winner"
+      ]
+    },
+    {
+      "igdbId": 251833,
+      "name": "Balatro",
+      "genres": [
+        "Strategy",
+        "Turn-based strategy (TBS)",
+        "Indie",
+        "Card & Board Game"
+      ],
+      "themes": [],
+      "keywords": [
+        "poker",
+        "roguelike",
+        "clowns",
+        "collecting card game - ccg",
+        "collaboration",
+        "the game awards - best debut indie game - winner",
+        "the game awards - best game direction - nominee",
+        "the game awards - best independent game - winner",
+        "the game awards - best mobile game - winner",
+        "the game awards - game of the year - nominee",
+        "available on - apple arcade"
+      ]
+    },
+    {
+      "igdbId": 294041,
+      "name": "Marvel Rivals",
+      "genres": [
+        "Shooter"
+      ],
+      "themes": [
+        "Action"
+      ],
+      "keywords": [
+        "pvp",
+        "marvel",
+        "team-based",
+        "free-to-play",
+        "superhero",
+        "online pvp"
+      ]
+    },
+    {
+      "igdbId": 325594,
+      "name": "Split Fiction",
+      "genres": [
+        "Platform",
+        "Puzzle",
+        "Adventure"
+      ],
+      "themes": [
+        "Action",
+        "Fantasy",
+        "Science fiction"
+      ],
+      "keywords": [
+        "dragons",
+        "couch co-op",
+        "local co-op",
+        "local multiplayer",
+        "controller support",
+        "cross-platform",
+        "steam deck",
+        "the game awards - best action-adventure game - nominee",
+        "the game awards - best family game - nominee",
+        "the game awards - best game direction - nominee",
+        "the game awards - best multiplayer game - nominee",
+        "online coop"
+      ]
+    },
+    {
+      "igdbId": 7046,
+      "name": "Factorio",
+      "genres": [
+        "Simulator",
+        "Strategy",
+        "Indie"
+      ],
+      "themes": [
+        "Science fiction",
+        "Survival",
+        "Sandbox"
+      ],
+      "keywords": [
+        "aliens",
+        "crafting",
+        "indiegogo",
+        "steam",
+        "crowdfunding - kickstarter",
+        "digital distribution",
+        "steam cloud",
+        "pre-release public testing",
+        "resource gathering",
+        "downloadable content",
+        "mod support",
+        "automation"
+      ]
+    },
+    {
+      "igdbId": 15698,
+      "name": "Metroid Dread",
+      "genres": [
+        "Shooter",
+        "Platform",
+        "Adventure"
+      ],
+      "themes": [
+        "Action",
+        "Science fiction"
+      ],
+      "keywords": [
+        "exploration",
+        "2d",
+        "metroidvania",
+        "fast paced",
+        "robots",
+        "difficult",
+        "female protagonist",
+        "action-adventure",
+        "side-scrolling",
+        "stylized",
+        "backtracking",
+        "atmospheric",
+        "amiibo",
+        "exploration driven",
+        "boss fight",
+        "platform exclusive",
+        "parrying",
+        "development hell",
+        "invisibility",
+        "persistent enemy",
+        "suspense",
+        "precision platforming",
+        "boss rush",
+        "the game awards - best action-adventure game - winner",
+        "the game awards - game of the year - nominee",
+        "power-ups"
+      ]
+    },
+    {
+      "igdbId": 16992,
+      "name": "Human: Fall Flat",
+      "genres": [
+        "Platform",
+        "Puzzle",
+        "Simulator",
+        "Adventure",
+        "Indie"
+      ],
+      "themes": [
+        "Action",
+        "Comedy",
+        "Sandbox"
+      ],
+      "keywords": [
+        "physics",
+        "steam",
+        "achievements",
+        "user generated content",
+        "steam achievements",
+        "digital distribution",
+        "steam cloud",
+        "customizable characters",
+        "voice acting",
+        "playstation experience 2016",
+        "pax east 2016",
+        "auto-saving",
+        "breaking through windows",
+        "apple arcade",
+        "available on - apple arcade",
+        "previously on - stadia pro"
+      ]
+    },
+    {
+      "igdbId": 23248,
+      "name": "Frostpunk",
+      "genres": [
+        "Simulator",
+        "Strategy",
+        "Indie"
+      ],
+      "themes": [
+        "Survival",
+        "Drama"
+      ],
+      "keywords": [
+        "steampunk",
+        "digital distribution",
+        "pax west 2017"
+      ]
+    },
+    {
+      "igdbId": 82117,
+      "name": "Two Point Hospital",
+      "genres": [
+        "Simulator",
+        "Strategy",
+        "Indie"
+      ],
+      "themes": [
+        "Comedy",
+        "Business"
+      ],
+      "keywords": [
+        "retro",
+        "management",
+        "hospital",
+        "family friendly",
+        "cartoony",
+        "previously on - prime gaming",
+        "available on - luna plus"
+      ]
+    },
+    {
+      "igdbId": 90558,
+      "name": "Satisfactory",
+      "genres": [
+        "Simulator",
+        "Strategy",
+        "Adventure"
+      ],
+      "themes": [
+        "Science fiction",
+        "Sandbox",
+        "Open world"
+      ],
+      "keywords": [
+        "crafting",
+        "base building",
+        "factory"
+      ]
+    },
+    {
+      "igdbId": 104967,
+      "name": "Valheim",
+      "genres": [
+        "Role-playing (RPG)",
+        "Adventure",
+        "Indie"
+      ],
+      "themes": [
+        "Action",
+        "Fantasy",
+        "Survival",
+        "Sandbox",
+        "Open world"
+      ],
+      "keywords": [
+        "exploration",
+        "norse mythology",
+        "viking mythology",
+        "crafting",
+        "mythology",
+        "nordic mythology",
+        "building",
+        "base building",
+        "open world survival craft"
+      ]
+    },
+    {
+      "igdbId": 109462,
+      "name": "Animal Crossing: New Horizons",
+      "genres": [
+        "Simulator"
+      ],
+      "themes": [
+        "Sandbox",
+        "Kids",
+        "Open world"
+      ],
+      "keywords": [
+        "life simulation",
+        "dinosaurs",
+        "casual",
+        "animals",
+        "character customization",
+        "collecting",
+        "photography",
+        "fishing",
+        "insects",
+        "fashion",
+        "gardening",
+        "management",
+        "farming",
+        "nature",
+        "social",
+        "cute",
+        "kid friendly",
+        "bugs",
+        "economy",
+        "relaxing",
+        "talking animals",
+        "day/night cycle",
+        "time management",
+        "anthropomorphism",
+        "animal companions",
+        "real time game clock",
+        "seasons",
+        "friendship",
+        "collect insects",
+        "wholesome",
+        "cozy",
+        "social simulation",
+        "collectathon",
+        "animal crossing",
+        "interior design",
+        "islands",
+        "gifting",
+        "decoration",
+        "the game awards - best family game - winner",
+        "the game awards - best multiplayer game - nominee",
+        "the game awards - game of the year - nominee",
+        "beach",
+        "ocean",
+        "bees",
+        "fossil",
+        "fossils",
+        "slingshot"
+      ]
+    },
+    {
+      "igdbId": 117271,
+      "name": "Chained Echoes",
+      "genres": [
+        "Role-playing (RPG)",
+        "Strategy",
+        "Adventure",
+        "Indie"
+      ],
+      "themes": [
+        "Action",
+        "Fantasy"
+      ],
+      "keywords": [
+        "story driven",
+        "jrpg",
+        "turn-based rpg",
+        "party-based rpg"
+      ]
+    },
+    {
+      "igdbId": 125624,
+      "name": "Grounded",
+      "genres": [
+        "Role-playing (RPG)",
+        "Adventure"
+      ],
+      "themes": [
+        "Action",
+        "Survival"
+      ],
+      "keywords": [
+        "bugs",
+        "spider",
+        "tiny protagonist"
+      ]
+    },
+    {
+      "igdbId": 127346,
+      "name": "Sons of the Forest",
+      "genres": [
+        "Simulator",
+        "Adventure",
+        "Indie"
+      ],
+      "themes": [
+        "Action",
+        "Horror",
+        "Survival"
+      ],
+      "keywords": [
+        "crafting",
+        "survival horror",
+        "base building"
+      ]
+    },
+    {
+      "igdbId": 135818,
+      "name": "Pizza Tower",
+      "genres": [
+        "Platform",
+        "Adventure",
+        "Indie"
+      ],
+      "themes": [
+        "Action",
+        "Comedy"
+      ],
+      "keywords": [
+        "surrealism",
+        "fast paced",
+        "cartoon graphics",
+        "pizza",
+        "cartoony",
+        "ranking system",
+        "original soundtrack release",
+        "in-game achievement menu",
+        "cartoon violence",
+        "surreal comedy"
+      ]
+    },
+    {
+      "igdbId": 136879,
+      "name": "Black Myth: Wukong",
+      "genres": [
+        "Role-playing (RPG)",
+        "Hack and slash/Beat 'em up",
+        "Adventure"
+      ],
+      "themes": [
+        "Action",
+        "Fantasy"
+      ],
+      "keywords": [
+        "the game awards - best action game - winner",
+        "the game awards - best art direction - nominee",
+        "the game awards - best game direction - nominee",
+        "the game awards - game of the year - nominee",
+        "journey to the west",
+        "chinese mythology"
+      ]
+    },
+    {
+      "igdbId": 143613,
+      "name": "Splatoon 3",
+      "genres": [
+        "Shooter",
+        "Platform"
+      ],
+      "themes": [
+        "Action",
+        "Science fiction",
+        "Comedy"
+      ],
+      "keywords": [
+        "character customization",
+        "story mode",
+        "platform exclusive",
+        "octopus",
+        "the game awards - best family game - nominee",
+        "the game awards - best multiplayer game - winner"
+      ]
+    },
+    {
+      "igdbId": 164290,
+      "name": "Frostpunk 2",
+      "genres": [
+        "Simulator",
+        "Strategy",
+        "Indie"
+      ],
+      "themes": [
+        "Survival"
+      ],
+      "keywords": [
+        "exploration",
+        "steampunk",
+        "city builder",
+        "the game awards - best strategy game - winner",
+        "available on - pc gamepass"
+      ]
+    },
+    {
+      "igdbId": 203722,
+      "name": "Dave the Diver",
+      "genres": [
+        "Role-playing (RPG)",
+        "Simulator",
+        "Adventure"
+      ],
+      "themes": [
+        "Action",
+        "Business"
+      ],
+      "keywords": [
+        "exploration",
+        "monsters",
+        "underwater",
+        "story driven",
+        "2d",
+        "shark",
+        "fishing",
+        "crafting",
+        "upgradable weapons",
+        "resource management",
+        "cooking",
+        "management",
+        "giant monsters",
+        "farming",
+        "simulation",
+        "achievements",
+        "restaurant",
+        "steam trading cards",
+        "funny",
+        "upgrade",
+        "pixel art",
+        "pixel graphics",
+        "otaku",
+        "agriculture",
+        "mermaid",
+        "story rich",
+        "upgradable equipment",
+        "time management",
+        "boss fight",
+        "steam achievements",
+        "xbox controller support for pc",
+        "steam cloud",
+        "dualshock 4 support for pc",
+        "upgradeable weapons",
+        "loot gathering",
+        "resource gathering",
+        "underwater gameplay",
+        "octopus",
+        "crab",
+        "giant squid",
+        "controller support",
+        "roguelite",
+        "farming simulator",
+        "diving",
+        "male protagonist",
+        "adult protagonist",
+        "pixel art game",
+        "animated cutscenes",
+        "steam deck",
+        "restaurant management",
+        "food",
+        "transport",
+        "ocean",
+        "sushi",
+        "fish",
+        "steam families",
+        "money",
+        "boat",
+        "cloud saves",
+        "dualsense support for pc",
+        "harpoon",
+        "upgrades",
+        "available on - luna plus",
+        "knife",
+        "spear fishing"
+      ]
+    },
+    {
+      "igdbId": 204627,
+      "name": "Cocoon",
+      "genres": [
+        "Puzzle",
+        "Adventure",
+        "Indie"
+      ],
+      "themes": [
+        "Science fiction"
+      ],
+      "keywords": [
+        "insects",
+        "alien world"
+      ]
+    },
+    {
+      "igdbId": 233585,
+      "name": "Hi-Fi Rush",
+      "genres": [
+        "Music",
+        "Platform",
+        "Hack and slash/Beat 'em up",
+        "Adventure"
+      ],
+      "themes": [
+        "Action"
+      ],
+      "keywords": [
+        "music and rhythm"
+      ]
+    },
+    {
+      "igdbId": 298526,
+      "name": "Kingdom Come: Deliverance II",
+      "genres": [
+        "Role-playing (RPG)",
+        "Simulator",
+        "Adventure"
+      ],
+      "themes": [
+        "Action",
+        "Historical",
+        "Open world"
+      ],
+      "keywords": [
+        "medieval",
+        "kingdom",
+        "steam trading cards",
+        "alchemy",
+        "steam achievements",
+        "steam cloud",
+        "using dialogue to avoid combat",
+        "pickpocketing",
+        "lock picking",
+        "character models based on actual people",
+        "the game awards - best narrative - nominee",
+        "the game awards - best roleplaying game - nominee",
+        "the game awards - game of the year - nominee",
+        "steam families",
+        "available on - luna plus",
+        "available on - luna gog"
+      ]
+    },
+    {
+      "igdbId": 300976,
+      "name": "Assassin's Creed Shadows",
+      "genres": [
+        "Role-playing (RPG)",
+        "Adventure"
+      ],
+      "themes": [
+        "Action",
+        "Historical",
+        "Stealth",
+        "Open world"
+      ],
+      "keywords": [
+        "ninja",
+        "samurai",
+        "multiple protagonists",
+        "japan",
+        "feudal japan",
+        "historical japan"
+      ]
+    },
+    {
+      "igdbId": 11800,
+      "name": "Divinity: Original Sin II",
+      "genres": [
+        "Role-playing (RPG)",
+        "Strategy",
+        "Adventure"
+      ],
+      "themes": [
+        "Fantasy"
+      ],
+      "keywords": [
+        "turn-based combat",
+        "crowdfunding - kickstarter",
+        "sword & sorcery",
+        "digital distribution",
+        "pax west 2017",
+        "pre-release public testing",
+        "bink video",
+        "pax south 2017",
+        "pax east 2016",
+        "pax prime 2015",
+        "reptilian humanoid",
+        "the game awards 2017",
+        "the game awards - nominee",
+        "turn-based rpg",
+        "the game awards - best roleplaying game - nominee"
+      ]
+    },
+    {
+      "igdbId": 26401,
+      "name": "Star Wars Battlefront II",
+      "genres": [
+        "Shooter",
+        "Adventure"
+      ],
+      "themes": [
+        "Action",
+        "Fantasy",
+        "Science fiction",
+        "Warfare"
+      ],
+      "keywords": [
+        "aliens",
+        "death",
+        "military",
+        "robots",
+        "spaceship",
+        "flight",
+        "space battle",
+        "war",
+        "steam",
+        "based on - movie",
+        "class-based",
+        "campaign",
+        "artificial intelligence",
+        "capture the flag",
+        "king of the hill",
+        "snow",
+        "tank",
+        "over the shoulder",
+        "sequel",
+        "pilot",
+        "explosion",
+        "death match",
+        "xbox controller support for pc",
+        "licensed game",
+        "throwing weapons",
+        "split-screen multiplayer",
+        "game critics awards",
+        "rivaling factions",
+        "bink video",
+        "human",
+        "xbox one x enhanced",
+        "loot boxes",
+        "polygonal 3d",
+        "microtransaction",
+        "cameo appearance",
+        "ea app",
+        "wasd movement",
+        "humble bundle",
+        "sprinting mechanics",
+        "falling damage",
+        "saving the world",
+        "resistance",
+        "downloadable content",
+        "xbox live",
+        "melee",
+        "kill feed",
+        "real-time combat",
+        "stormtrooper",
+        "wilhelm scream",
+        "respawning",
+        "playstation tv support",
+        "galactic civil war",
+        "squad",
+        "rebels",
+        "villain",
+        "invisible wall",
+        "controversy",
+        "clone",
+        "tie-in",
+        "dolby digital",
+        "x-wing",
+        "griefing",
+        "camping",
+        "bots",
+        "genocide",
+        "trilogy",
+        "conquest mode",
+        "greatest hits",
+        "galactic empire",
+        "gunship",
+        "no blood",
+        "grip mechanic",
+        "xbox 360 backwards compatibility",
+        "canon star wars"
+      ]
     }
   ]
 }
