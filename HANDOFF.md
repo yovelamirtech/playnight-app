@@ -145,45 +145,63 @@ Tailwind 3 · Zustand 5 · expo-sqlite + Drizzle · vitest · tsx (לכלים)
 (הוחלט: seed מחובר — החלטה #6 למעלה. הוחלט: RTS נשאר כמו שהוא —
 החלטה #8 למעלה.)
 
-## 7. המשימה הבאה
+## 7. שלב 2 — התקדמות
 
-**תיוג 300 המשחקים הושלם** (`seed/session-profiles.json`, ממוזג ב-#5/#6).
-נמדד: **43.7% אי-הסכמה** מול הניחוש המקורי — יותר גרוע מ"שליש" שכבר תועד
-בכלל התשיעי. נמשך תהליך מלא של תיקון על נתונים אמיתיים (לא ניחוש):
+### ייבוא Steam — הושלם
 
-1. משכתי genres/themes/keywords אמיתיים מ-IGDB לכל 300 המשחקים
-   (`seed/session-profile-tags.json` — נשמר כי אין בו שום דבר רגיש,
-   רק תגיות ציבוריות. אפשר למשוך מחדש בכל עת, אין צורך לשמור לצמיתות
-   אם ירצו למחוק).
-2. תוקן ה-bug השיטתי היחיד שהיה נקי, כללי, ומגובה בראיות: הוסר `strategy`
-   הגס מטבלת המיפוי (החלטה #7). שני דפוסים נוספים (רעש בז'אנר `Puzzle`,
-   פיצול `openWorldStory`) **לא** תוקנו בטבלה — אין להם כלל heuristic
-   נקי בלי overfitting למדגם (ראה §5).
-3. חובר ה-seed כ-override לכל משחק (החלטה #6) — זה הפתרון האמיתי
-   ל-2 הדפוסים שלא ניתן לתקן בטבלה: 300 המשחקים הפופולריים ביותר
-   מקבלים עכשיו את הנתון האמיתי, לא ניחוש.
-4. נוספו טסטים על **הנתונים האמיתיים** (`src/lib/sessionProfile/realData.test.ts`)
-   — לא נתונים שהומצאו (כלל תשיעי): `getSeedOverride` מוחזר נכון לכל
-   300 הרשומות, ו-guard נגד רגרסיה בשיעור ההסכמה של טבלת המיפוי.
-5. `npm run typecheck` + `npm test` (32 טסטים) + `expo export` לשתי
-   הפלטפורמות — כולם עברו.
+- `tools/igdb-proxy/steam.ts` — `resolveVanityUrl` + `getOwnedGames` מול
+  Steam Web API, על אותו פרוקסי (`tools/igdb-proxy/server.ts`, נתיבים
+  `/steam/resolve` ו-`/steam/games`). `STEAM_API_KEY` אופציונלי ב-`.env`:
+  אם חסר, שאר הפרוקסי ממשיך לעבוד ורק נתיבי `/steam/*` מחזירים 501.
+- `src/lib/steam/` — gateway בצד הקליינט, אותו דפוס בדיוק כמו
+  `src/lib/igdb/` (mock בלי פרוקסי, http מולו, `getSteamGateway()`
+  כנקודת כניסה יחידה). טסטים ב-`steam.test.ts`.
+- `src/db/repositories/steamImportRepo.ts` — `importSteamGames` יוצר שורת
+  קטלוג יציבה (`steam:<appid>`, מקביל ל-`igdb:<id>`), מקשר ל-`user_games`
+  עם `hoursPlayed` אמיתי מ-Steam, ואידמפוטנטי (ריצה חוזרת מעדכנת שעות
+  במקום ליצור כפילויות).
+- **בכוונה בלי העשרת ז'אנר/ארכיטיפ מ-IGDB בשלב הזה** (§4.3: "אל
+  תיתקע פה") — משחקי Steam מתחילים בברירת המחדל השמרנית (§4.4 החלטה
+  #5), בדיוק כמו הוספה ידנית. §4.5 ממשיך לאסוף דיווחי סשן אמיתיים.
+  שיפור עתידי אפשרי: התאמה ל-IGDB לפי שם, לתגי ז'אנר — נרשם ב-IDEAS.md,
+  לא נבנה עכשיו.
+- מסך חדש `src/app/connect-steam.tsx`: קלט Steam ID (17 ספרות) או שם
+  פרופיל מותאם, resolve אם צריך, ואז ייבוא עם progress טקסטואלי
+  ("Importing X/Y games…") — בלי ספינר, לפי §8 שלב 2 ("טעינה ברקע עם
+  progress indicator"). נגיש מ-empty state של מסך הבית (`emptyConnect`,
+  היה כפתור מת עם טקסט "coming soon") ומ-מסך ההגדרות (לresync חוזר,
+  כי ה-empty state נעלם אחרי ייבוא ראשון).
+- נוסף `'Steam'` ל-`PLATFORMS` (`src/constants/session.ts`) — לצד
+  `Epic`/`GOG` שהם גם הם חנויות ולא חומרה, לא רק `PC`.
 
-**עכשיו שלב 2 (§8 ב-SPEC):** ייבוא Steam · חיבור מסך הבית לנתונים · מנוע
-ההמלצה (§4.1, פונקציה טהורה עם טסטים) · מסך Swipe עם Reanimated.
+## 8. המשימה הבאה
 
-נתיבי Steam (`ResolveVanityURL` + `GetOwnedGames`) נבנים באותו פרוקסי,
-`tools/igdb-proxy` — התשתית והסודות כבר שם.
+ייבוא Steam (§7 למעלה) הושלם ונבדק (typecheck + 38 טסטים + expo export
+לשתי הפלטפורמות — כולם עברו). **עדיין לא נבדק בפועל על הטלפון** —
+צריך `STEAM_API_KEY` אמיתי ב-`.env` וסריקת QR כדי לוודא זרימה מקצה
+לקצה (resolve → import → מופיע בספרייה עם hoursPlayed נכון).
+
+נשארו משלב 2 (§8 ב-SPEC):
+
+1. **חיבור מסך הבית לנתונים אמיתיים** — TimePicker/MoodPicker כבר
+   כותבים ל-Zustand, אבל שום דבר עדיין לא קורא מהם כדי להציע משחקים.
+2. **מנוע ההמלצה** (§4.1, פונקציה טהורה ב-`src/lib/recommendation.ts`
+   עם unit tests) — הכי קריטי. חייב את `sessionFit` בדיוק לפי §4.4
+   (לא את ה-`timeFit` הישן), כולל טסטים על משחק מכויל ולא-מכויל.
+3. **מסך Swipe עם Reanimated** — 3–5 כרטיסים מבוססי מנוע ההמלצה,
+   `useSharedValue`/`runOnJS` (לא ה-Animated הישן), בלי ספינרים.
 
 ---
 
-## 8. בדיקות לפני שמכריזים "עובד"
+## 9. בדיקות לפני שמכריזים "עובד"
 
 ```bash
 npm run typecheck   # אפליקציה + כלים. חייב exit 0
-npm test            # 32 טסטים
+npm test            # 38 טסטים
 npx expo export --platform android
 npx expo export --platform ios
 ```
 
-ואז הרצה בפועל על הטלפון. **אין קומיטים** — הריפו מכיל רק את
-`Initial commit` של התבנית, וכל העבודה עדיין ב-working tree.
+ואז הרצה בפועל על הטלפון (`npx expo start` + סריקת QR) — במיוחד
+לפני שמכריזים על ייבוא Steam "עובד": הבדיקות למעלה לא נוגעות ב-Steam
+API האמיתי.

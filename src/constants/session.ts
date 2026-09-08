@@ -16,6 +16,15 @@ export const MOODS = [
 export type MoodId = (typeof MOODS)[number]['id'];
 
 /** פלטפורמות שהמשתמש יכול לשייך אליהן עותק (§3.1, §4.3). */
-export const PLATFORMS = ['PC', 'PlayStation', 'Xbox', 'Switch', 'Epic', 'GOG', 'Mobile'] as const;
+export const PLATFORMS = [
+  'PC',
+  'Steam',
+  'PlayStation',
+  'Xbox',
+  'Switch',
+  'Epic',
+  'GOG',
+  'Mobile',
+] as const;
 
 export type PlatformName = (typeof PLATFORMS)[number];

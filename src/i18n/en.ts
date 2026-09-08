@@ -30,7 +30,6 @@ export const en = {
     emptyBody: "Add a game and we'll take it from there.",
     emptyConnect: 'Connect Steam',
     emptyAdd: 'Add a game',
-    steamComingSoon: 'Steam import arrives in phase 2.',
   },
 
   swipe: {
@@ -78,9 +77,26 @@ export const en = {
     noSessions: "You haven't played this yet.",
   },
 
+  connectSteam: {
+    title: 'Connect Steam',
+    inputLabel: 'Steam ID or profile name',
+    inputHint: 'Find your 17-digit Steam ID at steamid.io, or use your custom profile URL name.',
+    importCta: 'Import my library',
+    importing: (done: number, total: number) => `Importing ${done}/${total} games…`,
+    resolving: 'Looking up your profile…',
+    emptyLibrary: "That profile doesn't have any games, or its game details are private.",
+    doneTitle: 'Library imported',
+    doneBody: (imported: number, updated: number) =>
+      updated > 0
+        ? `Added ${imported} new games, updated ${updated} already in your library.`
+        : `Added ${imported} games to your library.`,
+    backToLibrary: 'Go to library',
+  },
+
   settings: {
     title: 'Settings',
-    placeholder: 'Settings arrive in a later phase.',
+    connectSteam: 'Connect / re-sync Steam',
+    placeholder: 'More settings arrive in a later phase.',
   },
 
   nav: {

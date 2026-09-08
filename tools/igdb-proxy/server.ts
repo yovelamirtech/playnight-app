@@ -2,6 +2,8 @@ import { createServer } from 'node:http';
 import type { ServerResponse } from 'node:http';
 
 import { searchGames } from './igdb';
+import { getOwnedGames, resolveVanityUrl } from './steam';
+import type { SteamCredentials } from './steam';
 import type { IgdbCredentials } from './token';
 
 /**
@@ -23,29 +25,66 @@ const sendJson = (res: ServerResponse, status: number, payload: unknown): void =
   res.end(body);
 };
 
-export function createIgdbProxy({ credentials, port }: { credentials: IgdbCredentials; port: number }) {
+export function createIgdbProxy({
+  credentials,
+  steamCredentials,
+  port,
+}: {
+  credentials: IgdbCredentials;
+  steamCredentials: SteamCredentials | null;
+  port: number;
+}) {
   const server = createServer(async (req, res) => {
     const url = new URL(req.url ?? '/', `http://${req.headers.host}`);
 
     if (url.pathname === '/health') return sendJson(res, 200, { ok: true });
-    if (url.pathname !== '/search') return sendJson(res, 404, { error: 'Not found' });
 
-    const query = url.searchParams.get('q')?.trim();
-    if (!query) return sendJson(res, 200, []);
+    if (url.pathname === '/search') {
+      const query = url.searchParams.get('q')?.trim();
+      if (!query) return sendJson(res, 200, []);
 
-    try {
-      const results = await searchGames({
-        query,
-        limit: Number(url.searchParams.get('limit') ?? 20),
-        credentials,
-      });
-      console.log(`  igdb: "${query}" -> ${results.length} result(s)`);
-      return sendJson(res, 200, results);
-    } catch (error) {
-      const message = error instanceof Error ? error.message : String(error);
-      console.error(`  igdb: ${message}`);
-      return sendJson(res, 502, { error: message });
+      try {
+        const results = await searchGames({
+          query,
+          limit: Number(url.searchParams.get('limit') ?? 20),
+          credentials,
+        });
+        console.log(`  igdb: "${query}" -> ${results.length} result(s)`);
+        return sendJson(res, 200, results);
+      } catch (error) {
+        const message = error instanceof Error ? error.message : String(error);
+        console.error(`  igdb: ${message}`);
+        return sendJson(res, 502, { error: message });
+      }
     }
+
+    if (url.pathname === '/steam/resolve' || url.pathname === '/steam/games') {
+      if (!steamCredentials) {
+        return sendJson(res, 501, { error: 'Steam API key not configured (STEAM_API_KEY in .env)' });
+      }
+
+      try {
+        if (url.pathname === '/steam/resolve') {
+          const vanityUrl = url.searchParams.get('vanityUrl')?.trim();
+          if (!vanityUrl) return sendJson(res, 400, { error: 'Missing vanityUrl' });
+          const steamId = await resolveVanityUrl(vanityUrl, steamCredentials);
+          console.log(`  steam: resolved "${vanityUrl}" -> ${steamId}`);
+          return sendJson(res, 200, { steamId });
+        }
+
+        const steamId = url.searchParams.get('steamId')?.trim();
+        if (!steamId) return sendJson(res, 400, { error: 'Missing steamId' });
+        const games = await getOwnedGames(steamId, steamCredentials);
+        console.log(`  steam: ${steamId} -> ${games.length} game(s)`);
+        return sendJson(res, 200, { games });
+      } catch (error) {
+        const message = error instanceof Error ? error.message : String(error);
+        console.error(`  steam: ${message}`);
+        return sendJson(res, 502, { error: message });
+      }
+    }
+
+    return sendJson(res, 404, { error: 'Not found' });
   });
 
   return { server, listen: () => server.listen(port, '0.0.0.0') };
