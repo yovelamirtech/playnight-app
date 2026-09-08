@@ -176,20 +176,51 @@ Tailwind 3 · Zustand 5 · expo-sqlite + Drizzle · vitest · tsx (לכלים)
 
 ## 8. המשימה הבאה
 
-ייבוא Steam (§7 למעלה) הושלם ונבדק (typecheck + 38 טסטים + expo export
-לשתי הפלטפורמות — כולם עברו). **עדיין לא נבדק בפועל על הטלפון** —
-צריך `STEAM_API_KEY` אמיתי ב-`.env` וסריקת QR כדי לוודא זרימה מקצה
-לקצה (resolve → import → מופיע בספרייה עם hoursPlayed נכון).
+**שלב 2 (§8 ב-SPEC) הושלם במלואו:**
 
-נשארו משלב 2 (§8 ב-SPEC):
+1. ייבוא Steam — הושלם ונבדק (ראה §7). **עדיין לא נבדק בפועל על
+   הטלפון עם `STEAM_API_KEY` אמיתי** — נשאר פתוח.
+2. **מנוע ההמלצה** (`src/lib/recommendation/`) — פונקציה טהורה,
+   `sessionFit` לפי §4.4, טסטים מלאים. הושלם בסשן קודם.
+3. **מסך הבית מחובר לנתונים אמיתיים + מסך Swipe עם Reanimated** —
+   הושלם בסשן הזה:
+   - `src/db/repositories/swipeRepo.ts` — `getSwipeCandidates()` (JOIN
+     `user_games`+`games`, בונה `SessionProfile` מ-`typicalSessionMinutes`/
+     `interruptible`), `dismissForWeek()` (swipe שמאלה → `dismissedUntil`
+     +7 ימים), `hideForever()` (swipe למעלה → `isHidden`).
+   - `src/lib/timeAgo.ts` — עיצוב "לפני X ימים/חודשים/שנים" לשורת
+     ה-"אבק" בכרטיס (§3.3), עם טסטים.
+   - `src/components/swipe/SwipeCard.tsx` — כרטיס תצוגה (cover, שם,
+     שורת session fit, פלטפורמה, "קנית/עצרת לפני...", ציון קהילה,
+     עד 3 תגיות ז'אנר).
+   - `src/components/swipe/SwipeDeck.tsx` — מחסנית 3 כרטיסים, gesture
+     על העליון בלבד עם `Gesture.Pan`/`Gesture.Tap` + `useSharedValue`/
+     `runOnJS` (Reanimated, לא Animated הישן). ימינה/שמאלה/למעלה לפי
+     סף מרחק, tap פותח פרטים.
+   - `src/app/swipe.tsx` — טוען מועמדים פעם אחת, מריץ
+     `getRecommendations` עם `availableMinutes`/`mood` מה-store,
+     "5 more options" מושך עוד מהמאגר שעוד לא הוצג, "Change filters"
+     חוזר למסך הבית.
+   - `src/app/_layout.tsx` — נוסף `GestureHandlerRootView` (נדרש ל-
+     `react-native-gesture-handler`).
 
-1. **חיבור מסך הבית לנתונים אמיתיים** — TimePicker/MoodPicker כבר
-   כותבים ל-Zustand, אבל שום דבר עדיין לא קורא מהם כדי להציע משחקים.
-2. **מנוע ההמלצה** (§4.1, פונקציה טהורה ב-`src/lib/recommendation.ts`
-   עם unit tests) — הכי קריטי. חייב את `sessionFit` בדיוק לפי §4.4
-   (לא את ה-`timeFit` הישן), כולל טסטים על משחק מכויל ולא-מכויל.
-3. **מסך Swipe עם Reanimated** — 3–5 כרטיסים מבוססי מנוע ההמלצה,
-   `useSharedValue`/`runOnJS` (לא ה-Animated הישן), בלי ספינרים.
+   **החלטת scope:** swipe ימינה ("זה! בוא נשחק") פותח כרגע את מסך
+   פרטי המשחק הקיים, **לא** מסך אישור ייעודי — מסך האישור עם טיימר
+   הסשן ("איפה עצרתי") הוא §3.4, ומשויך לשלב 3 ("הלולאה"), לא שלב 2.
+   כנ"ל למסך הלוג המהיר (§3.5). לשנות בכוונה, לא לפתוח שוב בלי סיבה.
+
+   **נבדק:** typecheck + lint + 82 טסטים (75 היו, +7 ל-`timeAgo`) +
+   `expo export` לשתי הפלטפורמות — כולם עברו. **לא נבדק בפועל על
+   מכשיר** (סביבת הפיתוח הזו היא remote/headless, בלי טלפון לסרוק
+   QR) — הצעד הבא בפועל: להריץ `npx expo start` ולסרוק, לוודא
+   שהמחוות מרגישות מיידיות (§3.3) ושה-DB מתעדכן נכון אחרי swipe.
+
+נשאר לשלב 3 (§8 ב-SPEC, "הלולאה"):
+
+1. מסך אישור ("משחקים!") עם טיימר סשן + "איפה עצרתי" (§3.4).
+2. מסך לוג מהיר אחרי סשן (§3.5).
+3. **מנוע כיול** (§4.5) — שאלה #1 בלבד ל-MVP, סף 15 דיווחים.
+4. הספרייה עם פילטרים/מיון (חלק מ-§3.6 עדיין שלד).
 
 ---
 
@@ -197,7 +228,7 @@ Tailwind 3 · Zustand 5 · expo-sqlite + Drizzle · vitest · tsx (לכלים)
 
 ```bash
 npm run typecheck   # אפליקציה + כלים. חייב exit 0
-npm test            # 38 טסטים
+npm test            # 82 טסטים
 npx expo export --platform android
 npx expo export --platform ios
 ```
