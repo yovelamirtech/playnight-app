@@ -215,20 +215,72 @@ Tailwind 3 · Zustand 5 · expo-sqlite + Drizzle · vitest · tsx (לכלים)
    QR) — הצעד הבא בפועל: להריץ `npx expo start` ולסרוק, לוודא
    שהמחוות מרגישות מיידיות (§3.3) ושה-DB מתעדכן נכון אחרי swipe.
 
-נשאר לשלב 3 (§8 ב-SPEC, "הלולאה"):
+## 8. שלב 3 ("הלולאה") — הושלם
 
-1. מסך אישור ("משחקים!") עם טיימר סשן + "איפה עצרתי" (§3.4).
-2. מסך לוג מהיר אחרי סשן (§3.5).
-3. **מנוע כיול** (§4.5) — שאלה #1 בלבד ל-MVP, סף 15 דיווחים.
-4. הספרייה עם פילטרים/מיון (חלק מ-§3.6 עדיין שלד).
+כל 4 הפריטים שנשארו מ-§8 (הישן) הושלמו בסשן הזה:
+
+1. **מסך אישור** (§3.4) — `src/app/session-confirm.tsx`. Cover, שם,
+   כפתור "התחל סשן של X דק'" (X = `typicalSessionMinutes` של המשחק),
+   טיימר רץ עם ספירה יורדת, שדה "איפה עצרתי", "סיימתי לשחק".
+   **התראה עדינה בסוף הטיימר היא רק שינוי טקסט על המסך** (אין
+   push notification רקעי אמיתי) — לא נבנה background timer/notification
+   native, נשאר פתוח אם רוצים את זה בעתיד.
+2. **מסך לוג מהיר** (§3.5) — `src/app/session-log.tsx`. דירוג
+   😍/🙂/😐/😴 (`SESSION_RATINGS`), שאלת כיול מותנית (ראה #3), שדה
+   הערה (מוזן מראש מ-session-confirm), "סיימת?" כן/לא, כפתור דילוג
+   בולט שלא שומר כלום.
+3. **מנוע כיול** (§4.5), MVP = שאלה #1 בלבד —
+   `src/lib/calibration/pickQuestion.ts` (`shouldAskCalibrationQuestion`,
+   פונקציה טהורה + טסטים: סף 15 דיווחים למשחק, חסם 3 שאלות ביום,
+   opt-out). `src/lib/sessionLog/gameStats.ts` — עדכון `typicalSessionMinutes`
+   (ממוצע נע) ו-`interruptible` (רוב כן/לא) מנתונים אמיתיים, פונקציות
+   טהורות + טסטים. `src/db/repositories/sessionsRepo.ts.logSession()`
+   מחבר הכל: כותב ל-`sessions`, ל-`calibration_answers` (אם נענתה
+   שאלה #1), מעדכן צבירה ב-`games`, ומעדכן `user_games` (hoursPlayed,
+   lastPlayedAt, status → `playing`/`beaten`). הגדרות (`settings.tsx`)
+   כוללות את מתג "תפסיק לשאול אותי שאלות כיול" (§4.5.4).
+4. **פילטרים/מיון בספרייה** (§3.6) — `src/lib/library/filterSort.ts`
+   (פונקציות טהורות + טסטים): פילטר לפי פלטפורמה/ז'אנר/שנה, מיון לפי
+   נוסף לאחרונה / ציון קהילה / אלפביתי / **"אבק"** (הכי מזמן לא נגעו,
+   `lastPlayedAt ?? addedAt`). `src/components/library/LibraryFilters.tsx`
+   מציג chips שנגזרים מהנתונים בטאב הנוכחי. **"זמן להשלמה" (HLTB)
+   לא מומש** — אין מקור נתונים בסכימה כרגע (לא HLTB API, לא שדה ב-`games`);
+   לא ניסיון לתקן, רק לתעד שהוא חסר.
+
+בנוסף, לא ב-רשימה המקורית אבל דרוש כדי שהזרימה תיסגר: `game/[id].tsx`
+מציג עכשיו היסטוריית סשנים ו"איפה עצרתי" אמיתיים (`getSessionHistory`/
+`getStoppedNotes`), עם כפתור "אני משחק בזה" שנכנס למסך האישור גם
+בלי לעבור דרך ה-swipe. `useActiveSessionStore` (כמו `useDecisionStore`)
+מעביר את הסשן הפעיל בין המסכים בלי לגעת ב-DB עד "סיימתי לשחק".
+
+**נבדק:** typecheck + lint + 93 טסטים (82 היו, +11 חדשים) + `expo export`
+לשתי הפלטפורמות — כולם עברו. **לא נבדק בפועל על מכשיר** (סביבת הפיתוח
+הזו remote/headless) — הצעד הבא: `npx expo start`, לוודא שהטיימר
+מרגיש חי, שהלוג המהיר נשמר וש-`game/[id]` מציג את הסשן החדש.
+
+**סביבה:** הרצת `npm install` בסשן הזה גילתה שגיאת typecheck קיימת
+מראש שלא קשורה לשינויים כאן: `Cannot find module or type declarations
+for side-effect import of '../global.css'` ב-`_layout.tsx`. אומת מול
+`git stash` שהיא קיימת גם בלי השינויים — כנראה תלוי-סביבה (קובץ
+declaration שנוצר בזמן build/codegen ולא נמצא כאן). לא תוקן — לא
+קשור למשימה. אם זה חוזר בסשן הבא, לבדוק את `nativewind-env.d.ts`
+ואת שלב הקודג'ן של nativewind.
+
+## 9. מה נשאר פתוח לשלב 4+
+
+1. Timer notification אמיתי (push/background) בסוף סשן — כרגע רק
+   טקסט על המסך (ראה §8.1).
+2. "זמן להשלמה" (HLTB) — לא ב-DB, לא בפילטרים/מיון (ראה §8.4).
+3. Steam import — עדיין לא נבדק בפועל עם `STEAM_API_KEY` אמיתי (מ-§7).
+4. שאלות כיול 2-5 מבנק השאלות (§4.5) — MVP כלל רק שאלה #1, "בכוונה".
 
 ---
 
-## 9. בדיקות לפני שמכריזים "עובד"
+## 10. בדיקות לפני שמכריזים "עובד"
 
 ```bash
-npm run typecheck   # אפליקציה + כלים. חייב exit 0
-npm test            # 82 טסטים
+npm run typecheck   # אפליקציה + כלים. חייב exit 0 (מלבד global.css, ראה §8)
+npm test            # 93 טסטים
 npx expo export --platform android
 npx expo export --platform ios
 ```

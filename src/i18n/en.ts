@@ -1,4 +1,5 @@
 import type { MoodId } from '@/constants/session';
+import type { SessionRating } from '@/db/schema';
 
 /**
  * מקור האמת לכל טקסט ב-UI.
@@ -58,6 +59,18 @@ export const en = {
     },
     empty: 'Nothing here yet.',
     add: 'Add game',
+    filters: {
+      allPlatforms: 'All platforms',
+      allGenres: 'All genres',
+      allYears: 'All years',
+    },
+    sort: {
+      label: 'Sort',
+      recent: 'Recently added',
+      rating: 'Community rating',
+      alphabetical: 'A–Z',
+      dust: 'Dustiest first',
+    },
   },
 
   addGame: {
@@ -82,6 +95,53 @@ export const en = {
     noNotes: 'No notes yet.',
     sessionsTitle: 'Sessions',
     noSessions: "You haven't played this yet.",
+    playNow: "I'm playing this",
+    sessionEntry: (timeAgo: string, minutes: number | null) =>
+      minutes ? `${timeAgo} ago · ${minutes} min` : `${timeAgo} ago`,
+    ratingEmoji: {
+      loved: '😍',
+      liked: '🙂',
+      meh: '😐',
+      bored: '😴',
+    } satisfies Record<SessionRating, string>,
+  },
+
+  sessionConfirm: {
+    title: "Let's go",
+    enjoy: (name: string) => `Enjoy playing ${name}!`,
+    startSession: (minutes: number) => `Start a ${minutes} min session`,
+    running: (remaining: number) =>
+      remaining > 0 ? `${remaining} min left` : "Time's up — stop whenever you're ready",
+    noteLabel: 'Where did I stop?',
+    notePlaceholder: 'A note for future you…',
+    donePlaying: 'Done playing',
+  },
+
+  sessionLog: {
+    title: 'How was it?',
+    ratingQuestion: 'How was it?',
+    ratings: {
+      loved: 'Loved it',
+      liked: 'Liked it',
+      meh: 'It was okay',
+      bored: 'Bored',
+    } satisfies Record<SessionRating, string>,
+    calibrationQuestion:
+      'Could you stop anytime, or were you locked in until a specific point?',
+    calibrationOptions: {
+      yes: 'Yes, anytime',
+      no: 'No, I was locked in',
+      depends: 'Depends',
+    },
+    calibrationThanks: (gameName: string) =>
+      `Thanks — this helps other players get a better recommendation for ${gameName}.`,
+    noteLabel: 'Where did you stop?',
+    notePlaceholder: "Write something that'll help you in a month",
+    finishedQuestion: 'Did you finish the game?',
+    yes: 'Yes',
+    no: 'No',
+    submit: 'Save',
+    skip: 'Skip',
   },
 
   connectSteam: {
@@ -103,6 +163,9 @@ export const en = {
   settings: {
     title: 'Settings',
     connectSteam: 'Connect / re-sync Steam',
+    calibrationOptOut: 'Stop asking me calibration questions',
+    calibrationOptOutHint:
+      "You'll still benefit from what other players contribute (§4.5).",
     placeholder: 'More settings arrive in a later phase.',
   },
 
