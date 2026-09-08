@@ -12,6 +12,7 @@ import { dismissForWeek, getSwipeCandidates, hideForever } from '@/db/repositori
 import type { SwipeCandidate } from '@/db/repositories/swipeRepo';
 import { getRecommendations } from '@/lib/recommendation';
 import type { RecommendationInput } from '@/lib/recommendation';
+import { useActiveSessionStore } from '@/store/useActiveSessionStore';
 import { useDecisionStore } from '@/store/useDecisionStore';
 
 /** מוציאה עד 5 כרטיסים חדשים (§4.1) מתוך מה שעוד לא הוצג בערב הזה. */
@@ -56,8 +57,15 @@ export default function SwipeScreen() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const beginSession = useActiveSessionStore((state) => state.begin);
+
   const goToDetails = (candidate: SwipeCandidate) => {
     router.push({ pathname: '/game/[id]', params: { id: candidate.userGameId } });
+  };
+
+  const goToConfirm = (candidate: SwipeCandidate) => {
+    beginSession(candidate.userGameId);
+    router.push('/session-confirm');
   };
 
   const handleSwipe = (candidate: SwipeCandidate, direction: SwipeDirection) => {
@@ -65,9 +73,8 @@ export default function SwipeScreen() {
 
     if (direction === 'left') void dismissForWeek(candidate.userGameId);
     else if (direction === 'up') void hideForever(candidate.userGameId);
-    // right = "זה! בוא נשחק" — מסך האישור הייעודי (§3.4) הוא שלב 3;
-    // בינתיים פותחים את פרטי המשחק, כמו tap.
-    else goToDetails(candidate);
+    // right = "זה! בוא נשחק" (§3.3) → מסך האישור (§3.4).
+    else goToConfirm(candidate);
   };
 
   const handleMoreOptions = () => {
