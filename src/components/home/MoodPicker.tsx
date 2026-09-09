@@ -21,7 +21,8 @@ export function MoodPicker({ value, onToggle }: MoodPickerProps) {
           {row.map((mood) => (
             <ChoiceChip
               key={mood.id}
-              label={`${mood.emoji} ${t.home.moods[mood.id]}`}
+              icon={mood.icon}
+              label={t.home.moods[mood.id]}
               selected={value === mood.id}
               onPress={() => onToggle(mood.id)}
             />

@@ -98,12 +98,6 @@ export const en = {
     playNow: "I'm playing this",
     sessionEntry: (timeAgo: string, minutes: number | null) =>
       minutes ? `${timeAgo} ago · ${minutes} min` : `${timeAgo} ago`,
-    ratingEmoji: {
-      loved: '😍',
-      liked: '🙂',
-      meh: '😐',
-      bored: '😴',
-    } satisfies Record<SessionRating, string>,
   },
 
   sessionConfirm: {

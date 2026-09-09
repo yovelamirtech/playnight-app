@@ -1,9 +1,13 @@
 import { Image } from 'expo-image';
+import { BarChart3, Gamepad2, Timer } from 'lucide-react-native';
 import { Text, View } from 'react-native';
 
 import { t } from '@/i18n';
 import type { SwipeCandidate } from '@/db/repositories/swipeRepo';
 import { formatTimeAgo } from '@/lib/timeAgo';
+
+const ACCENT_SOFT = '#8F82F0';
+const MUTED_COLOR = '#8B93A3';
 
 const MAX_GENRE_TAGS = 3;
 
@@ -46,12 +50,23 @@ export function SwipeCard({ candidate, now = new Date() }: SwipeCardProps) {
         <Text className="text-xl font-bold text-text" numberOfLines={2}>
           {candidate.name}
         </Text>
-        <Text className="text-base font-bold text-accentSoft">{`⏱ ${sessionLine}`}</Text>
+        <View className="flex-row items-center gap-1.5">
+          <Timer size={16} color={ACCENT_SOFT} />
+          <Text className="text-base font-bold text-accentSoft">{sessionLine}</Text>
+        </View>
 
         {candidate.platform ? (
-          <Text className="text-sm text-muted">{`🎮 ${candidate.platform}`}</Text>
+          <View className="flex-row items-center gap-1.5">
+            <Gamepad2 size={14} color={MUTED_COLOR} />
+            <Text className="text-sm text-muted">{candidate.platform}</Text>
+          </View>
         ) : null}
-        {dust ? <Text className="text-sm text-muted">{`📊 ${dust}`}</Text> : null}
+        {dust ? (
+          <View className="flex-row items-center gap-1.5">
+            <BarChart3 size={14} color={MUTED_COLOR} />
+            <Text className="text-sm text-muted">{dust}</Text>
+          </View>
+        ) : null}
         {candidate.communityRating != null ? (
           <Text className="text-sm text-muted">{t.swipe.rating(candidate.communityRating)}</Text>
         ) : null}
