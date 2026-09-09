@@ -110,6 +110,8 @@ export const en = {
     title: "Let's go",
     enjoy: (name: string) => `Enjoy playing ${name}!`,
     startSession: (minutes: number) => `Start a ${minutes} min session`,
+    durationLabel: 'How long do you want to play?',
+    minutesLabel: (minutes: number) => `${minutes} min`,
     running: (remaining: number) =>
       remaining > 0 ? `${remaining} min left` : "Time's up — stop whenever you're ready",
     noteLabel: 'Where did I stop?',

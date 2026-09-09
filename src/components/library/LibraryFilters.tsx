@@ -20,11 +20,11 @@ function ChipRow<TValue extends string | number>({
   onChange,
 }: ChipRowProps<TValue>) {
   return (
-    <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerClassName="gap-2">
+    <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerClassName="gap-1.5">
       <Pressable
         onPress={() => onChange(null)}
         accessibilityRole="button"
-        className={`h-9 justify-center rounded-full border px-3 ${
+        className={`h-7 justify-center rounded-full border px-2.5 ${
           value === null ? 'border-accent bg-accent/20' : 'border-border bg-surface'
         }`}
       >
@@ -37,7 +37,7 @@ function ChipRow<TValue extends string | number>({
           key={option}
           onPress={() => onChange(option)}
           accessibilityRole="button"
-          className={`h-9 justify-center rounded-full border px-3 ${
+          className={`h-7 justify-center rounded-full border px-2.5 ${
             value === option ? 'border-accent bg-accent/20' : 'border-border bg-surface'
           }`}
         >
@@ -77,7 +77,7 @@ export function LibraryFilters({
   onSortChange,
 }: LibraryFiltersProps) {
   return (
-    <View className="gap-2 pb-2">
+    <View className="gap-1 pb-1">
       <ChipRow
         allLabel={t.library.filters.allPlatforms}
         value={filters.platform}
@@ -102,7 +102,7 @@ export function LibraryFilters({
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
-        contentContainerClassName="items-center gap-2"
+        contentContainerClassName="items-center gap-1.5"
       >
         <Text className="text-xs text-muted">{t.library.sort.label}:</Text>
         {SORT_OPTIONS.map((option) => (
@@ -110,7 +110,7 @@ export function LibraryFilters({
             key={option}
             onPress={() => onSortChange(option)}
             accessibilityRole="button"
-            className={`h-9 justify-center rounded-full border px-3 ${
+            className={`h-7 justify-center rounded-full border px-2.5 ${
               sort === option ? 'border-accent bg-accent/20' : 'border-border bg-surface'
             }`}
           >
