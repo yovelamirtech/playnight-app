@@ -11,6 +11,10 @@ import { TextField } from '@/components/ui/TextField';
 import { t } from '@/i18n';
 import { getLibraryEntry } from '@/db/repositories/gamesRepo';
 import type { LibraryEntry } from '@/db/repositories/gamesRepo';
+import {
+  cancelSessionEndNotification,
+  scheduleSessionEndNotification,
+} from '@/lib/sessionTimer/notifications';
 import { useActiveSessionStore } from '@/store/useActiveSessionStore';
 
 const DURATION_PRESETS_MINUTES = [15, 20, 30, 45, 60];
@@ -30,6 +34,7 @@ export default function SessionConfirmScreen() {
   const [entry, setEntry] = useState<LibraryEntry | null>(null);
   const [nowTick, setNowTick] = useState(() => Date.now());
   const [selectedMinutes, setSelectedMinutes] = useState<number | null>(null);
+  const [notificationId, setNotificationId] = useState<string | null>(null);
 
   useEffect(() => {
     if (!userGameId) return;
@@ -48,18 +53,33 @@ export default function SessionConfirmScreen() {
     return () => clearInterval(id);
   }, [startedAt]);
 
+  useEffect(() => {
+    // מבטל אם המשתמש עוזב את המסך בלי "סיימתי לשחק" (למשל back) — לא
+    // רוצים התראה על סשן שכבר לא במעקב.
+    return () => {
+      cancelSessionEndNotification(notificationId);
+    };
+  }, [notificationId]);
+
   if (!userGameId || !entry) return <Screen>{null}</Screen>;
 
   const totalMinutes = selectedMinutes ?? entry.typicalSessionMinutes;
   const elapsedMinutes = startedAt !== null ? (nowTick - startedAt) / 60_000 : 0;
   const remainingMinutes = startedAt !== null ? Math.ceil(totalMinutes - elapsedMinutes) : null;
 
-  const goToLog = () => router.push('/session-log');
+  const goToLog = () => {
+    cancelSessionEndNotification(notificationId);
+    setNotificationId(null);
+    router.push('/session-log');
+  };
 
   const handleStart = () => {
     const now = Date.now();
     startTimer(now);
     setNowTick(now);
+    scheduleSessionEndNotification(entry.name, new Date(now + totalMinutes * 60_000)).then(
+      setNotificationId
+    );
   };
 
   return (

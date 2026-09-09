@@ -111,6 +111,8 @@ export const en = {
     noteLabel: 'Where did I stop?',
     notePlaceholder: 'A note for future you…',
     donePlaying: 'Done playing',
+    notificationTitle: 'Time to wrap up?',
+    notificationBody: (name: string) => `Your session with ${name} has run its course.`,
   },
 
   sessionLog: {
