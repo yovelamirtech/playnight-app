@@ -7,6 +7,7 @@ import { PrimaryButton } from '@/components/ui/PrimaryButton';
 import { Screen } from '@/components/ui/Screen';
 import { ScreenHeader } from '@/components/ui/ScreenHeader';
 import { TextField } from '@/components/ui/TextField';
+import { RATING_ICONS } from '@/constants/ratingIcons';
 import { t } from '@/i18n';
 import { getLibraryEntry } from '@/db/repositories/gamesRepo';
 import type { LibraryEntry } from '@/db/repositories/gamesRepo';
@@ -96,7 +97,8 @@ export default function SessionLogScreen() {
             {SESSION_RATINGS.map((value) => (
               <ChoiceChip
                 key={value}
-                label={`${t.game.ratingEmoji[value]} ${t.sessionLog.ratings[value]}`}
+                icon={RATING_ICONS[value]}
+                label={t.sessionLog.ratings[value]}
                 selected={rating === value}
                 onPress={() => setRating(value)}
               />
