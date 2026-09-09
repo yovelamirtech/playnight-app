@@ -65,6 +65,7 @@ const SORT_LABELS: Record<SortOption, string> = {
   rating: t.library.sort.rating,
   alphabetical: t.library.sort.alphabetical,
   dust: t.library.sort.dust,
+  completionTime: t.library.sort.completionTime,
 };
 
 export function LibraryFilters({

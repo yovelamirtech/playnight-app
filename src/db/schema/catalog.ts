@@ -20,6 +20,13 @@ export const games = sqliteTable('games', {
   sessionReportsCount: integer('session_reports_count').notNull().default(0),
   interruptibleReportsCount: integer('interruptible_reports_count').notNull().default(0),
   isCalibrated: integer('is_calibrated', { mode: 'boolean' }).notNull().default(false),
+  // "זמן להשלמה" (§3.6/§3.7) — HowLongToBeat, לא-רשמי. null = עוד לא נבדק
+  // או לא נמצאה התאמה; hltbLookedUpAt מסמן שהניסיון קרה כדי לא לשלוח
+  // בקשה חוזרת על כל משחק בכל טעינה (§4.3 "אל תיתקע פה", אותו עיקרון).
+  hltbMainStoryMinutes: integer('hltb_main_story_minutes'),
+  hltbMainExtraMinutes: integer('hltb_main_extra_minutes'),
+  hltbCompletionistMinutes: integer('hltb_completionist_minutes'),
+  hltbLookedUpAt: integer('hltb_looked_up_at', { mode: 'timestamp' }),
   createdAt: integer('created_at', { mode: 'timestamp' }).notNull(),
 });
 

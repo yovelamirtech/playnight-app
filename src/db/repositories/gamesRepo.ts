@@ -9,6 +9,7 @@ import { LOCAL_USER_ID } from '../bootstrap';
 import { db } from '../client';
 import { games, userGames } from '../schema';
 import type { UserGameStatus } from '../schema';
+import { enrichGameWithHltb } from './hltbRepo';
 
 export type LibraryEntry = {
   userGameId: string;
@@ -24,6 +25,9 @@ export type LibraryEntry = {
   hoursPlayed: number;
   sessionReportsCount: number;
   interruptibleReportsCount: number;
+  hltbMainStoryMinutes: number | null;
+  hltbMainExtraMinutes: number | null;
+  hltbCompletionistMinutes: number | null;
 };
 
 const LIBRARY_COLUMNS = {
@@ -40,6 +44,9 @@ const LIBRARY_COLUMNS = {
   hoursPlayed: userGames.hoursPlayed,
   sessionReportsCount: games.sessionReportsCount,
   interruptibleReportsCount: games.interruptibleReportsCount,
+  hltbMainStoryMinutes: games.hltbMainStoryMinutes,
+  hltbMainExtraMinutes: games.hltbMainExtraMinutes,
+  hltbCompletionistMinutes: games.hltbCompletionistMinutes,
 };
 
 export async function listLibrary(status?: UserGameStatus): Promise<LibraryEntry[]> {
@@ -80,6 +87,7 @@ export async function addManualGame(input: ManualGameInput): Promise<string> {
     releaseYear: input.releaseYear,
     createdAt: new Date(),
   });
+  void enrichGameWithHltb(gameId, input.name.trim());
   return linkGameToUser(gameId, input.platform);
 }
 
@@ -114,6 +122,7 @@ export async function addGameFromIgdb(game: IgdbGame, platform: string | null): 
     })
     .onConflictDoNothing();
 
+  void enrichGameWithHltb(gameId, game.name);
   return linkGameToUser(gameId, platform ?? game.platforms[0] ?? null);
 }
 
