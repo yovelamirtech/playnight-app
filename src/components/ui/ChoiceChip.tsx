@@ -22,15 +22,15 @@ export function ChoiceChip({ label, selected, onPress, icon: Icon, size = 'md' }
       accessibilityRole="button"
       accessibilityState={{ selected }}
       onPress={onPress}
-      className={`${height} flex-1 items-center justify-center rounded-2xl border ${
+      className={`${height} flex-1 items-center justify-center rounded-2xl border px-2 ${
         selected ? 'border-accent bg-accent/20' : 'border-border bg-surface'
       }`}
     >
       <View className="flex-row items-center gap-2">
         {Icon ? <Icon size={18} color={color} strokeWidth={selected ? 2.25 : 2} /> : null}
         <Text
-          className={`text-base ${selected ? 'font-bold text-text' : 'text-muted'}`}
-          numberOfLines={1}
+          className={`text-center text-sm ${selected ? 'font-bold text-text' : 'text-muted'}`}
+          numberOfLines={2}
         >
           {label}
         </Text>

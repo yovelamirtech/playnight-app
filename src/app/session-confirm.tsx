@@ -3,6 +3,7 @@ import { useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
 
+import { ChoiceChip } from '@/components/ui/ChoiceChip';
 import { PrimaryButton } from '@/components/ui/PrimaryButton';
 import { Screen } from '@/components/ui/Screen';
 import { ScreenHeader } from '@/components/ui/ScreenHeader';
@@ -11,6 +12,8 @@ import { t } from '@/i18n';
 import { getLibraryEntry } from '@/db/repositories/gamesRepo';
 import type { LibraryEntry } from '@/db/repositories/gamesRepo';
 import { useActiveSessionStore } from '@/store/useActiveSessionStore';
+
+const DURATION_PRESETS_MINUTES = [15, 20, 30, 45, 60];
 
 /**
  * §3.4 — מסך אישור "משחקים!". נכנסים אליו אחרי ש-useActiveSessionStore.begin
@@ -26,6 +29,7 @@ export default function SessionConfirmScreen() {
 
   const [entry, setEntry] = useState<LibraryEntry | null>(null);
   const [nowTick, setNowTick] = useState(() => Date.now());
+  const [selectedMinutes, setSelectedMinutes] = useState<number | null>(null);
 
   useEffect(() => {
     if (!userGameId) return;
@@ -46,11 +50,17 @@ export default function SessionConfirmScreen() {
 
   if (!userGameId || !entry) return <Screen>{null}</Screen>;
 
+  const totalMinutes = selectedMinutes ?? entry.typicalSessionMinutes;
   const elapsedMinutes = startedAt !== null ? (nowTick - startedAt) / 60_000 : 0;
-  const remainingMinutes =
-    startedAt !== null ? Math.ceil(entry.typicalSessionMinutes - elapsedMinutes) : null;
+  const remainingMinutes = startedAt !== null ? Math.ceil(totalMinutes - elapsedMinutes) : null;
 
   const goToLog = () => router.push('/session-log');
+
+  const handleStart = () => {
+    const now = Date.now();
+    startTimer(now);
+    setNowTick(now);
+  };
 
   return (
     <Screen>
@@ -68,10 +78,24 @@ export default function SessionConfirmScreen() {
         </Text>
 
         {startedAt === null ? (
-          <PrimaryButton
-            label={t.sessionConfirm.startSession(entry.typicalSessionMinutes)}
-            onPress={startTimer}
-          />
+          <View className="w-full items-center gap-3">
+            <Text className="text-sm text-muted">{t.sessionConfirm.durationLabel}</Text>
+            <View className="flex-row flex-wrap justify-center gap-2">
+              {DURATION_PRESETS_MINUTES.map((minutes) => (
+                <View key={minutes} style={{ width: 68 }}>
+                  <ChoiceChip
+                    label={t.sessionConfirm.minutesLabel(minutes)}
+                    selected={totalMinutes === minutes}
+                    onPress={() => setSelectedMinutes(minutes)}
+                  />
+                </View>
+              ))}
+            </View>
+            <PrimaryButton
+              label={t.sessionConfirm.startSession(totalMinutes)}
+              onPress={handleStart}
+            />
+          </View>
         ) : (
           <Text className="text-base text-accentSoft">
             {t.sessionConfirm.running(remainingMinutes ?? 0)}

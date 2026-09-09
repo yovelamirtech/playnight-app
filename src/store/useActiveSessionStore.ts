@@ -10,7 +10,7 @@ type ActiveSessionState = {
   startedAt: number | null;
   stoppedNote: string;
   begin: (userGameId: string) => void;
-  startTimer: () => void;
+  startTimer: (startedAt?: number) => void;
   setStoppedNote: (note: string) => void;
   clear: () => void;
 };
@@ -20,7 +20,7 @@ export const useActiveSessionStore = create<ActiveSessionState>((set) => ({
   startedAt: null,
   stoppedNote: '',
   begin: (userGameId) => set({ userGameId, startedAt: null, stoppedNote: '' }),
-  startTimer: () => set({ startedAt: Date.now() }),
+  startTimer: (startedAt = Date.now()) => set({ startedAt }),
   setStoppedNote: (stoppedNote) => set({ stoppedNote }),
   clear: () => set({ userGameId: null, startedAt: null, stoppedNote: '' }),
 }));
