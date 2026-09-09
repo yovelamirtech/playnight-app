@@ -38,6 +38,7 @@ export default function LibraryScreen() {
         interruptible: games.interruptible,
         hoursPlayed: userGames.hoursPlayed,
         sessionReportsCount: games.sessionReportsCount,
+        interruptibleReportsCount: games.interruptibleReportsCount,
         communityRating: games.communityRating,
         addedAt: userGames.addedAt,
         lastPlayedAt: userGames.lastPlayedAt,

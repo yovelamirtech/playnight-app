@@ -2,6 +2,7 @@ import { useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
 
+import { CalibrationQuestion } from '@/components/sessionLog/CalibrationQuestion';
 import { ChoiceChip } from '@/components/ui/ChoiceChip';
 import { PrimaryButton } from '@/components/ui/PrimaryButton';
 import { Screen } from '@/components/ui/Screen';
@@ -14,17 +15,17 @@ import type { LibraryEntry } from '@/db/repositories/gamesRepo';
 import {
   countCalibrationAnswersToday,
   getOptedOutOfCalibration,
+  getRotatingQuestionAnsweredCounts,
   logSession,
 } from '@/db/repositories/sessionsRepo';
-import type { CalibrationAnswerValue } from '@/db/repositories/sessionsRepo';
+import type { CalibrationAnswerRawValue } from '@/db/repositories/sessionsRepo';
 import { SESSION_RATINGS } from '@/db/schema';
 import type { SessionRating } from '@/db/schema';
-import { shouldAskCalibrationQuestion } from '@/lib/calibration/pickQuestion';
+import { pickCalibrationQuestionId, shouldAskCalibrationQuestion } from '@/lib/calibration/pickQuestion';
+import type { CalibrationQuestionId } from '@/lib/calibration/pickQuestion';
 import { useActiveSessionStore } from '@/store/useActiveSessionStore';
 
-const CALIBRATION_OPTIONS: CalibrationAnswerValue[] = ['yes', 'no', 'depends'];
-
-/** §3.5 — מסך לוג מהיר. שאלת הכיול #1 (§4.5) מוצגת רק כשהיא רלוונטית. */
+/** §3.5 — מסך לוג מהיר. שאלת כיול אחת (§4.5, רוטציה בין הבנק) מוצגת רק כשהיא רלוונטית. */
 export default function SessionLogScreen() {
   const router = useRouter();
   const userGameId = useActiveSessionStore((state) => state.userGameId);
@@ -33,9 +34,9 @@ export default function SessionLogScreen() {
   const clearActiveSession = useActiveSessionStore((state) => state.clear);
 
   const [entry, setEntry] = useState<LibraryEntry | null>(null);
-  const [askCalibration, setAskCalibration] = useState(false);
+  const [questionId, setQuestionId] = useState<CalibrationQuestionId | null>(null);
   const [rating, setRating] = useState<SessionRating | null>(null);
-  const [calibrationAnswer, setCalibrationAnswer] = useState<CalibrationAnswerValue | null>(null);
+  const [calibrationAnswer, setCalibrationAnswer] = useState<CalibrationAnswerRawValue | null>(null);
   const [note, setNote] = useState(initialNote);
   const [finished, setFinished] = useState<boolean | null>(null);
   const [submitting, setSubmitting] = useState(false);
@@ -47,14 +48,21 @@ export default function SessionLogScreen() {
       getLibraryEntry(userGameId),
       countCalibrationAnswersToday(),
       getOptedOutOfCalibration(),
-    ]).then(([libraryEntry, todayCount, optedOut]) => {
+    ]).then(async ([libraryEntry, todayCount, optedOut]) => {
       if (cancelled || !libraryEntry) return;
       setEntry(libraryEntry);
-      setAskCalibration(
-        shouldAskCalibrationQuestion({
-          gameSessionReportsCount: libraryEntry.sessionReportsCount,
-          calibrationQuestionsAnsweredTodayByUser: todayCount,
-          userOptedOutOfCalibration: optedOut,
+      const askCalibration = shouldAskCalibrationQuestion({
+        gameSessionReportsCount: libraryEntry.sessionReportsCount,
+        calibrationQuestionsAnsweredTodayByUser: todayCount,
+        userOptedOutOfCalibration: optedOut,
+      });
+      if (!askCalibration) return;
+      const rotatingCounts = await getRotatingQuestionAnsweredCounts(libraryEntry.gameId);
+      if (cancelled) return;
+      setQuestionId(
+        pickCalibrationQuestionId({
+          interruptibleReportsCount: libraryEntry.interruptibleReportsCount,
+          questionAnsweredCounts: rotatingCounts,
         })
       );
     });
@@ -75,7 +83,7 @@ export default function SessionLogScreen() {
       userGameId,
       startedAt: startedAt ? new Date(startedAt) : null,
       rating,
-      calibrationAnswer: askCalibration ? calibrationAnswer : null,
+      calibrationAnswer: questionId && calibrationAnswer ? { questionId, value: calibrationAnswer } : null,
       stoppedNote: note,
       finished,
     });
@@ -106,21 +114,16 @@ export default function SessionLogScreen() {
           </View>
         </View>
 
-        {askCalibration ? (
+        {questionId ? (
           <View className="gap-2">
             <Text className="text-base font-bold text-text">
-              {t.sessionLog.calibrationQuestion}
+              {t.sessionLog.calibrationQuestions[questionId].question}
             </Text>
-            <View className="flex-row gap-2">
-              {CALIBRATION_OPTIONS.map((value) => (
-                <ChoiceChip
-                  key={value}
-                  label={t.sessionLog.calibrationOptions[value]}
-                  selected={calibrationAnswer === value}
-                  onPress={() => setCalibrationAnswer(value)}
-                />
-              ))}
-            </View>
+            <CalibrationQuestion
+              questionId={questionId}
+              value={calibrationAnswer}
+              onChange={setCalibrationAnswer}
+            />
             {calibrationAnswer ? (
               <Text className="text-xs text-muted">
                 {t.sessionLog.calibrationThanks(entry.name)}

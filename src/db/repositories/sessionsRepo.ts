@@ -1,5 +1,12 @@
-import { and, desc, eq, gte, isNotNull, ne } from 'drizzle-orm';
+import { and, desc, eq, gte, inArray, isNotNull, ne } from 'drizzle-orm';
 
+import type { CalibrationQuestionId } from '@/lib/calibration/pickQuestion';
+import {
+  SESSION_LENGTH_BUCKET_MINUTES,
+  saveFrequencyLeansInterruptible,
+} from '@/lib/calibration/questionValues';
+import type { SaveFrequency, SessionLengthBucket, SessionStyle } from '@/lib/calibration/questionValues';
+import type { MoodId } from '@/constants/session';
 import { isCalibrated, nextInterruptible, nextTypicalMinutes } from '@/lib/sessionLog/gameStats';
 import { newId } from '@/lib/id';
 
@@ -8,19 +15,33 @@ import { db } from '../client';
 import { calibrationAnswers, games, sessions, userGames, users } from '../schema';
 import type { SessionRating, SessionRow, UserGameStatus } from '../schema';
 
-export type CalibrationAnswerValue = 'yes' | 'no' | 'depends';
+export type Question1AnswerValue = 'yes' | 'no' | 'depends';
+
+/** ערך תשובה יחיד לכל שאלות הכיול (§4.5, "בנק השאלות") — הערכים לא חופפים בין שאלה לשאלה. */
+export type CalibrationAnswerRawValue =
+  | Question1AnswerValue
+  | SessionLengthBucket
+  | SaveFrequency
+  | SessionStyle
+  | 'accurate'
+  | MoodId;
+
+export type CalibrationAnswerInput = {
+  questionId: CalibrationQuestionId;
+  value: CalibrationAnswerRawValue;
+};
 
 export type LogSessionInput = {
   userGameId: string;
   startedAt: Date | null;
   rating: SessionRating;
-  calibrationAnswer: CalibrationAnswerValue | null;
+  calibrationAnswer: CalibrationAnswerInput | null;
   stoppedNote: string;
   finished: boolean;
   now?: Date;
 };
 
-const COULD_STOP_ANYTIME: Record<CalibrationAnswerValue, boolean | null> = {
+const COULD_STOP_ANYTIME: Record<Question1AnswerValue, boolean | null> = {
   yes: true,
   no: false,
   depends: null,
@@ -54,6 +75,7 @@ export async function logSession(input: LogSessionInput): Promise<void> {
     : null;
 
   const sessionId = newId();
+  const calibration = input.calibrationAnswer;
   await db.insert(sessions).values({
     id: sessionId,
     userId: LOCAL_USER_ID,
@@ -63,44 +85,67 @@ export async function logSession(input: LogSessionInput): Promise<void> {
     durationMinutes,
     rating: input.rating,
     stoppedNote: input.stoppedNote.trim() || null,
-    couldStopAnytime: input.calibrationAnswer ? COULD_STOP_ANYTIME[input.calibrationAnswer] : null,
+    couldStopAnytime:
+      calibration?.questionId === 1
+        ? COULD_STOP_ANYTIME[calibration.value as Question1AnswerValue]
+        : null,
   });
 
-  if (input.calibrationAnswer) {
+  if (calibration) {
     await db.insert(calibrationAnswers).values({
       id: newId(),
       userId: LOCAL_USER_ID,
       gameId: current.gameId,
       sessionId,
-      questionId: 1,
-      answerValue: input.calibrationAnswer,
+      questionId: calibration.questionId,
+      answerValue: calibration.value,
       answeredAt: now,
     });
   }
 
-  const newSessionReportsCount =
-    durationMinutes !== null ? current.sessionReportsCount + 1 : current.sessionReportsCount;
-  const newTypicalSessionMinutes =
-    durationMinutes !== null
-      ? nextTypicalMinutes(current.typicalSessionMinutes, current.sessionReportsCount, durationMinutes)
-      : current.typicalSessionMinutes;
+  // שאלה #2 מזינה typical_session_minutes בדיוק כמו דיווח משך אמיתי (§4.5) —
+  // שתי ההזנות מצטברות ברצף אם שתיהן קרו באותו סשן.
+  let newSessionReportsCount = current.sessionReportsCount;
+  let newTypicalSessionMinutes = current.typicalSessionMinutes;
+  if (durationMinutes !== null) {
+    newTypicalSessionMinutes = nextTypicalMinutes(
+      newTypicalSessionMinutes,
+      newSessionReportsCount,
+      durationMinutes
+    );
+    newSessionReportsCount += 1;
+  }
+  if (calibration?.questionId === 2) {
+    const bucketMinutes = SESSION_LENGTH_BUCKET_MINUTES[calibration.value as SessionLengthBucket];
+    newTypicalSessionMinutes = nextTypicalMinutes(
+      newTypicalSessionMinutes,
+      newSessionReportsCount,
+      bucketMinutes
+    );
+    newSessionReportsCount += 1;
+  }
 
+  // שאלות #1 ו-#3 מזינות יחד את interruptible (§4.5: "תוסף ל-interruptible").
   let newInterruptibleReportsCount = current.interruptibleReportsCount;
   let newInterruptible = current.interruptible;
-  if (input.calibrationAnswer) {
+  if (calibration?.questionId === 1 || calibration?.questionId === 3) {
     newInterruptibleReportsCount += 1;
-    const yesRows = await db
-      .select({ id: calibrationAnswers.id })
+    const signalRows = await db
+      .select({
+        questionId: calibrationAnswers.questionId,
+        answerValue: calibrationAnswers.answerValue,
+      })
       .from(calibrationAnswers)
       .where(
-        and(
-          eq(calibrationAnswers.gameId, current.gameId),
-          eq(calibrationAnswers.questionId, 1),
-          eq(calibrationAnswers.answerValue, 'yes')
-        )
+        and(eq(calibrationAnswers.gameId, current.gameId), inArray(calibrationAnswers.questionId, [1, 3]))
       );
+    const leansInterruptibleCount = signalRows.filter((row) =>
+      row.questionId === 1
+        ? COULD_STOP_ANYTIME[row.answerValue as Question1AnswerValue] === true
+        : saveFrequencyLeansInterruptible(row.answerValue as SaveFrequency)
+    ).length;
     newInterruptible = nextInterruptible(
-      yesRows.length,
+      leansInterruptibleCount,
       newInterruptibleReportsCount,
       current.interruptible
     );
@@ -164,6 +209,23 @@ export async function getStoppedNotes(gameId: string): Promise<SessionRow[]> {
       )
     )
     .orderBy(desc(sessions.endedAt));
+}
+
+/** כמה תשובות כבר יש לכל אחת משאלות 2–5 עבור המשחק — מזין את הרוטציה המשוקללת (§4.5). */
+export async function getRotatingQuestionAnsweredCounts(
+  gameId: string
+): Promise<Partial<Record<2 | 3 | 4 | 5, number>>> {
+  const rows = await db
+    .select({ questionId: calibrationAnswers.questionId })
+    .from(calibrationAnswers)
+    .where(and(eq(calibrationAnswers.gameId, gameId), inArray(calibrationAnswers.questionId, [2, 3, 4, 5])));
+
+  const counts: Partial<Record<2 | 3 | 4 | 5, number>> = {};
+  for (const row of rows) {
+    const id = row.questionId as 2 | 3 | 4 | 5;
+    counts[id] = (counts[id] ?? 0) + 1;
+  }
+  return counts;
 }
 
 function startOfToday(now: Date): Date {
