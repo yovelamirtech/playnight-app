@@ -122,12 +122,45 @@ export const en = {
       meh: 'It was okay',
       bored: 'Bored',
     } satisfies Record<SessionRating, string>,
-    calibrationQuestion:
-      'Could you stop anytime, or were you locked in until a specific point?',
-    calibrationOptions: {
-      yes: 'Yes, anytime',
-      no: 'No, I was locked in',
-      depends: 'Depends',
+    calibrationQuestions: {
+      1: {
+        question: 'Could you stop anytime, or were you locked in until a specific point?',
+        options: {
+          yes: 'Yes, anytime',
+          no: 'No, I was locked in',
+          depends: 'Depends',
+        },
+      },
+      2: {
+        question: 'Roughly how long is a typical "chapter" in this game (not this session — in general)?',
+        options: {
+          short: 'Up to 15 min',
+          medium: '15–30 min',
+          long: '30–60 min',
+          veryLong: 'An hour+',
+        },
+      },
+      3: {
+        question: 'How often does this game save your progress?',
+        options: {
+          frequent: 'Every few minutes',
+          betweenChapters: 'Only between chapters',
+          rare: 'Very rarely',
+        },
+      },
+      4: {
+        question: 'Was this more of a "quick jump-in" or a "long sit-down"?',
+        options: {
+          quickJump: 'Quick jump-in',
+          longSit: 'Long sit-down',
+          both: 'Both work',
+        },
+      },
+      5: {
+        question: 'Did our tag for this game feel accurate?',
+        accurateOption: 'Yes, accurate',
+        inaccurateOption: "No, it's more...",
+      },
     },
     calibrationThanks: (gameName: string) =>
       `Thanks — this helps other players get a better recommendation for ${gameName}.`,

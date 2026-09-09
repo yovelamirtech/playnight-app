@@ -272,7 +272,50 @@ declaration שנוצר בזמן build/codegen ולא נמצא כאן). לא תו
    טקסט על המסך (ראה §8.1).
 2. "זמן להשלמה" (HLTB) — לא ב-DB, לא בפילטרים/מיון (ראה §8.4).
 3. Steam import — עדיין לא נבדק בפועל עם `STEAM_API_KEY` אמיתי (מ-§7).
-4. שאלות כיול 2-5 מבנק השאלות (§4.5) — MVP כלל רק שאלה #1, "בכוונה".
+4. ~~שאלות כיול 2-5 מבנק השאלות (§4.5)~~ — **הושלם בסשן הזה, ראה §11.**
+
+---
+
+## 11. שאלות כיול 2-5 — הושלם
+
+הרחבת מנוע הכיול (§4.5) מ-MVP (שאלה #1 בלבד) לבנק המלא:
+
+- `src/lib/calibration/pickQuestion.ts` — `pickCalibrationQuestionId`
+  (פונקציה טהורה + טסטים): שאלה #1 קודמת עד 8 תשובות, אחריה רוטציה
+  משוקללת בין 2–5 לפי "פער בנתונים" (בדיוק לפי הפסאודו-קוד ב-§4.5).
+  `random` מוזרק לטסט דטרמיניסטי.
+- `src/lib/calibration/questionValues.ts` — טווחי שאלה #2 (בקטים →
+  נקודת אמצע בדקות) ומיפוי שאלה #3 (תדירות שמירה → leans-interruptible),
+  פונקציות טהורות + טסטים.
+- `src/db/repositories/sessionsRepo.ts` — `logSession` מקבל עכשיו
+  `CalibrationAnswerInput` גנרי (`{questionId, value}`) במקום Q1 בלבד:
+  - שאלה #2 מזינה `typicalSessionMinutes`/`sessionReportsCount` באותו
+    ממוצע נע כמו דיווח משך אמיתי (מצטבר איתו ברצף אם שניהם קרו).
+  - שאלות #1 ו-#3 מזינות יחד את `interruptible`/`interruptibleReportsCount`
+    (רוב מצטבר על שתי השאלות, כמו שה-SPEC מציין ל-Q3: "תוסף ל-interruptible").
+  - שאלות #4 ו-#5 נשמרות גולמיות ל-`calibration_answers` **בלי** לעדכן
+    שדה ב-`games` אוטומטית — Q4 היא ולידציה הפוכה (§4.5) בלי שדה מטרה
+    ברור, ו-Q5 (תיקון תיוג מצב-רוח) בכוונה לא נכנס אוטומטית ל-mapping
+    table המשותפת מכל תשובת משתמש בודדת (בדיוק כמו שההחלטה על seed
+    override, §4 החלטה #6, נעשתה בעבודת נתונים ידנית ולא בכתיבה חיה).
+    שני אלה מצטברים ל-`calibration_answers` לסקירה עתידית.
+  - `getRotatingQuestionAnsweredCounts(gameId)` חדש — סופר תשובות לכל
+    אחת מ-2–5 להזנת המשקלים ברוטציה.
+- `src/components/sessionLog/CalibrationQuestion.tsx` — רכיב UI אחד
+  שמציג את השאלה הנבחרת (chips, כמו הדפוס הקיים ב-Q1/MoodPicker).
+  שאלה #5 היא דו-שלבית: כן/לא, וב"לא" נפתחת רשימת מצבי הרוח (`MOODS`).
+- `src/app/session-log.tsx` — במקום "askCalibration: boolean" קבוע
+  ל-Q1, טוען את הספירות מה-DB ובוחר שאלה בפועל דרך
+  `pickCalibrationQuestionId`, עדיין רק אחרי שהשער הכללי
+  (`shouldAskCalibrationQuestion`) אישר לשאול בכלל.
+- `src/i18n/en.ts` — `sessionLog.calibrationQuestion`/`calibrationOptions`
+  (Q1 בלבד) הפכו ל-`calibrationQuestions[1..5]` עם שאלה+אופציות לכל אחת.
+
+**נבדק:** typecheck + lint + 99 טסטים (93 היו, +6 חדשים) + `expo export`
+לשתי הפלטפורמות — כולם עברו. **לא נבדק בפועל על מכשיר** (הסביבה הזו
+remote/headless) — הצעד הבא בפועל: לשחק כמה סשנים אמיתיים על משחק
+לא-מכויל ולוודא שהשאלות מתחלפות (לא תמיד אותה שאלה), ושהתשובות
+משפיעות בהדרגה על `typicalSessionMinutes`/`interruptible` במסך המשחק.
 
 ---
 
