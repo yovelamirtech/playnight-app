@@ -47,7 +47,10 @@ export async function importSteamGames(
     const hoursPlayed = game.playtimeMinutes / 60;
     const existingUserGameId = existingByGameId.get(gameId);
     if (existingUserGameId) {
-      await db.update(userGames).set({ hoursPlayed }).where(eq(userGames.id, existingUserGameId));
+      await db
+        .update(userGames)
+        .set({ hoursPlayed, updatedAt: new Date() })
+        .where(eq(userGames.id, existingUserGameId));
       updated += 1;
     } else {
       await db.insert(userGames).values({
