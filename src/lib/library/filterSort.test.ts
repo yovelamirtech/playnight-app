@@ -11,6 +11,7 @@ const rows = [
     communityRating: 90,
     addedAt: new Date('2024-01-01'),
     lastPlayedAt: new Date('2024-06-01'),
+    hltbMainStoryMinutes: 22 * 60,
   },
   {
     name: 'Braid',
@@ -20,6 +21,7 @@ const rows = [
     communityRating: 80,
     addedAt: new Date('2024-03-01'),
     lastPlayedAt: null,
+    hltbMainStoryMinutes: 5 * 60,
   },
   {
     name: 'Celeste',
@@ -29,6 +31,7 @@ const rows = [
     communityRating: null,
     addedAt: new Date('2024-02-01'),
     lastPlayedAt: new Date('2024-02-15'),
+    hltbMainStoryMinutes: null,
   },
 ];
 
@@ -79,5 +82,13 @@ describe('sortLibrary', () => {
     // Braid: never played -> addedAt 2024-03-01. Celeste: lastPlayed 2024-02-15.
     // Hades: lastPlayed 2024-06-01. Oldest touch first: Celeste, Braid, Hades.
     expect(sortLibrary(rows, 'dust').map((r) => r.name)).toEqual(['Celeste', 'Braid', 'Hades']);
+  });
+
+  it('sorts by time to beat, shortest first, unknown last', () => {
+    expect(sortLibrary(rows, 'completionTime').map((r) => r.name)).toEqual([
+      'Braid',
+      'Hades',
+      'Celeste',
+    ]);
   });
 });

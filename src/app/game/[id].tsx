@@ -12,8 +12,14 @@ import { getLibraryEntry } from '@/db/repositories/gamesRepo';
 import type { LibraryEntry } from '@/db/repositories/gamesRepo';
 import { getSessionHistory, getStoppedNotes } from '@/db/repositories/sessionsRepo';
 import type { SessionRow } from '@/db/schema';
+import { formatHltbHours } from '@/lib/hltb/formatHours';
 import { formatTimeAgo } from '@/lib/timeAgo';
 import { useActiveSessionStore } from '@/store/useActiveSessionStore';
+
+const hasHltbData = (entry: LibraryEntry): boolean =>
+  entry.hltbMainStoryMinutes != null ||
+  entry.hltbMainExtraMinutes != null ||
+  entry.hltbCompletionistMinutes != null;
 
 export default function GameScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -76,6 +82,38 @@ export default function GameScreen() {
         </View>
 
         {entry ? <PrimaryButton label={t.game.playNow} onPress={playNow} /> : null}
+
+        {entry && hasHltbData(entry) ? (
+          <View className="gap-2 rounded-2xl border border-border bg-surface p-4">
+            <Text className="text-base font-bold text-text">{t.game.timeToBeatTitle}</Text>
+            <View className="flex-row justify-between">
+              {formatHltbHours(entry.hltbMainStoryMinutes) ? (
+                <View className="items-center gap-0.5">
+                  <Text className="text-sm font-bold text-text">
+                    {formatHltbHours(entry.hltbMainStoryMinutes)}
+                  </Text>
+                  <Text className="text-xs text-muted">{t.game.timeToBeatMain}</Text>
+                </View>
+              ) : null}
+              {formatHltbHours(entry.hltbMainExtraMinutes) ? (
+                <View className="items-center gap-0.5">
+                  <Text className="text-sm font-bold text-text">
+                    {formatHltbHours(entry.hltbMainExtraMinutes)}
+                  </Text>
+                  <Text className="text-xs text-muted">{t.game.timeToBeatExtra}</Text>
+                </View>
+              ) : null}
+              {formatHltbHours(entry.hltbCompletionistMinutes) ? (
+                <View className="items-center gap-0.5">
+                  <Text className="text-sm font-bold text-text">
+                    {formatHltbHours(entry.hltbCompletionistMinutes)}
+                  </Text>
+                  <Text className="text-xs text-muted">{t.game.timeToBeatCompletionist}</Text>
+                </View>
+              ) : null}
+            </View>
+          </View>
+        ) : null}
 
         <View className="gap-2 rounded-2xl border border-border bg-surface p-4">
           <Text className="text-base font-bold text-text">{t.game.notesTitle}</Text>

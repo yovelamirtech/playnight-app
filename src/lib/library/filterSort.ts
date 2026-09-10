@@ -10,7 +10,7 @@ export type LibraryFilters = {
 
 export const EMPTY_LIBRARY_FILTERS: LibraryFilters = { platform: null, genre: null, year: null };
 
-export const SORT_OPTIONS = ['recent', 'rating', 'alphabetical', 'dust'] as const;
+export const SORT_OPTIONS = ['recent', 'rating', 'alphabetical', 'dust', 'completionTime'] as const;
 export type SortOption = (typeof SORT_OPTIONS)[number];
 
 type FilterableRow = {
@@ -33,6 +33,7 @@ type SortableRow = {
   communityRating: number | null;
   addedAt: Date;
   lastPlayedAt: Date | null;
+  hltbMainStoryMinutes: number | null;
 };
 
 /** "אבק" (§3.6) — הכי מזמן לא נגעו קודם. */
@@ -51,6 +52,13 @@ export function sortLibrary<T extends SortableRow>(rows: T[], sort: SortOption):
       return sorted.sort((a, b) => a.name.localeCompare(b.name));
     case 'dust':
       return sorted.sort((a, b) => dustTimestamp(a) - dustTimestamp(b));
+    case 'completionTime':
+      // אין נתון (עוד לא נבדק מול HLTB, או אין התאמה) → בסוף הרשימה.
+      return sorted.sort((a, b) => {
+        if (a.hltbMainStoryMinutes == null) return b.hltbMainStoryMinutes == null ? 0 : 1;
+        if (b.hltbMainStoryMinutes == null) return -1;
+        return a.hltbMainStoryMinutes - b.hltbMainStoryMinutes;
+      });
     default:
       return sorted;
   }

@@ -1,6 +1,7 @@
 import { createServer } from 'node:http';
 import type { ServerResponse } from 'node:http';
 
+import { searchHltb } from './hltb';
 import { searchGames } from './igdb';
 import { getOwnedGames, resolveVanityUrl } from './steam';
 import type { SteamCredentials } from './steam';
@@ -80,6 +81,21 @@ export function createIgdbProxy({
       } catch (error) {
         const message = error instanceof Error ? error.message : String(error);
         console.error(`  steam: ${message}`);
+        return sendJson(res, 502, { error: message });
+      }
+    }
+
+    if (url.pathname === '/hltb/search') {
+      const query = url.searchParams.get('q')?.trim();
+      if (!query) return sendJson(res, 200, []);
+
+      try {
+        const results = await searchHltb(query);
+        console.log(`  hltb: "${query}" -> ${results.length} result(s)`);
+        return sendJson(res, 200, results);
+      } catch (error) {
+        const message = error instanceof Error ? error.message : String(error);
+        console.error(`  hltb: ${message}`);
         return sendJson(res, 502, { error: message });
       }
     }

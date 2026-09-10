@@ -70,6 +70,7 @@ export const en = {
       rating: 'Community rating',
       alphabetical: 'A–Z',
       dust: 'Dustiest first',
+      completionTime: 'Time to beat',
     },
   },
 
@@ -91,6 +92,10 @@ export const en = {
   game: {
     notFound: 'Game not found',
     hoursPlayed: (hours: number) => `${hours.toFixed(1)} hours played`,
+    timeToBeatTitle: 'Time to beat',
+    timeToBeatMain: 'Main Story',
+    timeToBeatExtra: 'Main + Extras',
+    timeToBeatCompletionist: 'Completionist',
     notesTitle: 'Where I stopped',
     noNotes: 'No notes yet.',
     sessionsTitle: 'Sessions',

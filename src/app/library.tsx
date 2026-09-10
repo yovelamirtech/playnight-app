@@ -42,6 +42,9 @@ export default function LibraryScreen() {
         communityRating: games.communityRating,
         addedAt: userGames.addedAt,
         lastPlayedAt: userGames.lastPlayedAt,
+        hltbMainStoryMinutes: games.hltbMainStoryMinutes,
+        hltbMainExtraMinutes: games.hltbMainExtraMinutes,
+        hltbCompletionistMinutes: games.hltbCompletionistMinutes,
       })
       .from(userGames)
       .innerJoin(games, eq(userGames.gameId, games.id))
