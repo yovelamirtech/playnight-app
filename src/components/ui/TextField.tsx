@@ -7,8 +7,9 @@ type TextFieldProps = {
   value: string;
   onChangeText: (value: string) => void;
   placeholder?: string;
-  keyboardType?: 'default' | 'number-pad';
+  keyboardType?: 'default' | 'number-pad' | 'email-address';
   autoFocus?: boolean;
+  autoCapitalize?: 'none' | 'sentences';
 };
 
 export function TextField({
@@ -18,6 +19,7 @@ export function TextField({
   placeholder,
   keyboardType = 'default',
   autoFocus = false,
+  autoCapitalize = 'sentences',
 }: TextFieldProps) {
   return (
     <View className="gap-2">
@@ -28,6 +30,7 @@ export function TextField({
         placeholder={placeholder}
         placeholderTextColor={palette.muted}
         keyboardType={keyboardType}
+        autoCapitalize={autoCapitalize}
         autoFocus={autoFocus}
         className="h-12 rounded-xl border border-border bg-surface px-4 text-base text-text"
       />

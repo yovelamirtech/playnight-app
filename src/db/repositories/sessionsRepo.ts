@@ -176,12 +176,17 @@ export async function logSession(input: LogSessionInput): Promise<void> {
     const priorHours = hoursRows[0]?.hoursPlayed ?? 0;
     await db
       .update(userGames)
-      .set({ lastPlayedAt: now, hoursPlayed: priorHours + durationMinutes / 60, status: newStatus })
+      .set({
+        lastPlayedAt: now,
+        hoursPlayed: priorHours + durationMinutes / 60,
+        status: newStatus,
+        updatedAt: now,
+      })
       .where(eq(userGames.id, input.userGameId));
   } else {
     await db
       .update(userGames)
-      .set({ lastPlayedAt: now, status: newStatus })
+      .set({ lastPlayedAt: now, status: newStatus, updatedAt: now })
       .where(eq(userGames.id, input.userGameId));
   }
 }
@@ -256,5 +261,8 @@ export async function getOptedOutOfCalibration(): Promise<boolean> {
 
 /** §4.5.4 — "תפסיק לשאול אותי שאלות כיול", מכובד לצמיתות. */
 export async function setOptedOutOfCalibration(value: boolean): Promise<void> {
-  await db.update(users).set({ optedOutOfCalibration: value }).where(eq(users.id, LOCAL_USER_ID));
+  await db
+    .update(users)
+    .set({ optedOutOfCalibration: value, updatedAt: new Date() })
+    .where(eq(users.id, LOCAL_USER_ID));
 }

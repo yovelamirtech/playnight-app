@@ -51,11 +51,11 @@ export async function getSwipeCandidates(): Promise<SwipeCandidate[]> {
 export async function dismissForWeek(userGameId: string, now: Date = new Date()): Promise<void> {
   await db
     .update(userGames)
-    .set({ dismissedUntil: new Date(now.getTime() + WEEK_MS) })
+    .set({ dismissedUntil: new Date(now.getTime() + WEEK_MS), updatedAt: now })
     .where(eq(userGames.id, userGameId));
 }
 
 /** Swipe למעלה (§3.3) — "לא בא לי מהמשחק הזה", מסתיר לתמיד. */
-export async function hideForever(userGameId: string): Promise<void> {
-  await db.update(userGames).set({ isHidden: true }).where(eq(userGames.id, userGameId));
+export async function hideForever(userGameId: string, now: Date = new Date()): Promise<void> {
+  await db.update(userGames).set({ isHidden: true, updatedAt: now }).where(eq(userGames.id, userGameId));
 }

@@ -205,6 +205,27 @@ export const en = {
     placeholder: 'More settings arrive in a later phase.',
   },
 
+  sync: {
+    title: 'Sync across devices',
+    hint: "Optional. Your library always works offline — this only backs it up and brings it to your other devices.",
+    emailLabel: 'Email',
+    emailPlaceholder: 'you@example.com',
+    sendCode: 'Send me a code',
+    codeLabel: 'Code from the email',
+    codePlaceholder: '123456',
+    verifyCode: 'Verify',
+    resendCode: 'Send a new code',
+    signedInAs: (email: string) => `Signed in as ${email}`,
+    syncNow: 'Sync now',
+    syncing: 'Syncing…',
+    signOut: 'Sign out',
+    lastSynced: (when: string) => `Last synced ${when}`,
+    neverSynced: 'Not synced yet',
+    syncError: (message: string) => `Sync failed: ${message}`,
+    requestCodeError: (message: string) => `Could not send the code: ${message}`,
+    verifyCodeError: (message: string) => `Wrong or expired code: ${message}`,
+  },
+
   nav: {
     home: 'What to play?',
     library: 'Library',

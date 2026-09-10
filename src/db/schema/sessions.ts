@@ -59,3 +59,5 @@ export const recommendationsLog = sqliteTable('recommendations_log', {
 
 export type SessionRow = typeof sessions.$inferSelect;
 export type NewSessionRow = typeof sessions.$inferInsert;
+export type CalibrationAnswerRow = typeof calibrationAnswers.$inferSelect;
+export type NewCalibrationAnswerRow = typeof calibrationAnswers.$inferInsert;

@@ -2,6 +2,7 @@ import { useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { Pressable, Text, View } from 'react-native';
 
+import { SyncSection } from '@/components/settings/SyncSection';
 import { Screen } from '@/components/ui/Screen';
 import { ScreenHeader } from '@/components/ui/ScreenHeader';
 import { t } from '@/i18n';
@@ -45,6 +46,8 @@ export default function SettingsScreen() {
           <Text className="text-base text-text">{t.settings.calibrationOptOut}</Text>
           <Text className="text-xs text-muted">{t.settings.calibrationOptOutHint}</Text>
         </Pressable>
+
+        <SyncSection />
       </View>
       <View className="flex-1 items-center justify-center">
         <Text className="text-base text-muted">{t.settings.placeholder}</Text>

@@ -17,6 +17,8 @@ export const users = sqliteTable('users', {
   optedOutOfCalibration: integer('opted_out_of_calibration', { mode: 'boolean' })
     .notNull()
     .default(false),
+  // §4 שלב 4 — Supabase sync (last-write-wins). כל כתיבה חייבת לרענן את זה.
+  updatedAt: integer('updated_at', { mode: 'timestamp' }).notNull().default(sql`(unixepoch())`),
 });
 
 export const USER_GAME_STATUSES = [
@@ -47,6 +49,7 @@ export const userGames = sqliteTable('user_games', {
   progressPercent: integer('progress_percent'),
   isHidden: integer('is_hidden', { mode: 'boolean' }).notNull().default(false),
   dismissedUntil: integer('dismissed_until', { mode: 'timestamp' }),
+  updatedAt: integer('updated_at', { mode: 'timestamp' }).notNull().default(sql`(unixepoch())`),
 });
 
 export type UserRow = typeof users.$inferSelect;

@@ -275,6 +275,11 @@ declaration שנוצר בזמן build/codegen ולא נמצא כאן). לא תו
 3. Steam import — עדיין לא נבדק בפועל עם `STEAM_API_KEY` אמיתי (מ-§7).
    דורש שהמשתמש יריץ את זה בעצמו על הטלפון.
 4. ~~שאלות כיול 2-5 מבנק השאלות (§4.5)~~ — **הושלם בסשן קודם, ראה §11.**
+5. **Supabase Auth + sync (§8 שלב 4)** — הושלם בסשן הזה, ראה §16.
+   **לא אומת מול פרויקט Supabase אמיתי בכלל** — אין עדיין פרויקט קיים,
+   צריך שהמשתמש ייצור אחד ויריץ את המיגרציה הידנית. §16 להוראות מלאות.
+6. עדיין לא בנוי משלב 4: RevenueCat (paywall), PostHog. לא התחלנו —
+   מחכה להחלטת המשתמש על סדר עדיפויות בתוך השלב.
 
 ---
 
@@ -425,11 +430,104 @@ null) — לא קורס, פשוט לא מציג כלום.
 
 ---
 
+## 16. Supabase Auth + Sync (§8 שלב 4) — הושלם, לא אומת מול פרויקט אמיתי
+
+פריט #5 מ-§9. המשתמש בחר במפורש להתחיל שלב 4 מ-Auth+sync, לפני
+RevenueCat/PostHog (עדיין לא נבנו — §9 פריט #6).
+
+**Scope שהוחלט בכוונה, אל תפתח מחדש בלי סיבה:** זה **גיבוי/שחזור
+אישי בין מכשירים של אותו משתמש**, **לא** הקטלוג המשותף-רב-משתמשים
+ש-SPEC §6 מתאר לטווח ארוך (איפה `typical_session_minutes` אמור
+להצטבר מכל המשתמשים בעולם, לא רק מכשיר אחד של משתמש אחד). לבנות את
+זה זה פיצ'ר נפרד, גדול משמעותית (aggregation חוצה-משתמשים, טבלת
+games שהיא באמת משותפת) — לא ב-scope כאן, ל-IDEAS.md אם רוצים
+בעתיד.
+
+- **Auth** — magic code באימייל (OTP), לא סיסמה: §2 ב-AGENTS.md אומר
+  שהמשתמש עובד בעיקר מהטלפון בלי טרמינל, אז "קוד באימייל" הוא הזרימה
+  הכי פשוטה שם, בלי לנהל סיסמאות. `src/lib/supabase/auth.ts` —
+  `requestSignInCode`/`verifySignInCode`/`signOut`/`getCurrentSession`/
+  `onAuthStateChange`, עוטפים `@supabase/supabase-js` ישירות (לא
+  פרוקסי כמו IGDB/Steam — ה-anon key מיועד להיות ציבורי, ה-RLS
+  בפרויקט Supabase הוא ההגנה). `src/lib/supabase/client.ts` — session
+  נשמר ב-`@react-native-async-storage/async-storage` (לא SecureStore
+  — ה-JWT/refresh token גדולים מ-2KB, המגבלה של SecureStore; זה
+  הדפוס הרשמי המומלץ ע"י Supabase ל-RN/Expo).
+- **אופציונלי לגמרי, לא onboarding חוסם** — `isSupabaseConfigured()`
+  (`src/lib/supabase/config.ts`, בודק `EXPO_PUBLIC_SUPABASE_URL`/
+  `EXPO_PUBLIC_SUPABASE_ANON_KEY`) קובע אם `SyncSection` (בהגדרות)
+  בכלל מוצג. ריק = האפליקציה ממשיכה בדיוק כמו לפני שלב 4, בלי לגעת
+  ברשת בכלל — AGENTS.md כלל 4 ("SQLite הוא מקור האמת").
+- **סכימה מקומית** — עמודת `updated_at` חדשה ב-`users` וב-`user_games`
+  (מיגרציה `drizzle/0002_odd_squadron_sinister.sql`), מתעדכנת בכל
+  UPDATE בפועל (`swipeRepo`/`steamImportRepo`/`sessionsRepo`) — זה
+  הבסיס ל-last-write-wins. `sessions`/`calibration_answers` הם
+  write-once, אז `ended_at`/`answered_at` הקיימים כבר מספיקים (אין
+  להם `updated_at` נפרד).
+- **מיפוי (`src/lib/sync/mapping.ts`, + טסטים)** — פונקציות טהורות
+  camelCase↔snake_case בין שורת SQLite מקומית לשורה מרוחקת. `userId`
+  המקומי הוא **תמיד** `LOCAL_USER_ID` הקבוע (`local-user`) — לא נוגעים
+  בו; ה-`auth.uid()` האמיתי נכנס רק ל-`user_id` המרוחק. ה-`id` של כל
+  שורה (user_games/sessions/calibration_answers) נשאר זהה מקומית
+  ומרוחקת — בלי טבלת מיפוי id נפרדת.
+- **פתרון קונפליקטים (`src/lib/sync/resolveConflict.ts`, + טסטים)** —
+  `shouldApplyRemote` (LWW לפי `updated_at`, לטבלאות שניתן לעדכן) ו-
+  `findMissingRemoteIds` (לטבלאות write-once — פשוט "מה עוד לא קיים
+  מקומית").
+- **אורקסטרציה (לא נבדק ביחידה, כמו כל repo אחר בפרויקט)** —
+  `src/db/repositories/syncPushRepo.ts` (push: profile → games
+  שהמשתמש מחזיק → user_games → sessions → calibration_answers, כל
+  שלב best-effort בנפרד) ו-`syncPullRepo.ts` (pull: אותו סדר הפוך,
+  עם שמירה על FK — לא מכניס session/calibration_answer שמצביע על
+  game_id שלא קיים מקומית). `syncRepo.ts.syncNow()` היא נקודת הכניסה
+  היחידה: push לפני pull בכוונה (כדי שה-LWW לא "יפסיד" לגרסה מקומית
+  ישנה יותר שכבר הייתה ב-Supabase), עוטף הכל ב-try/catch — כישלון
+  רשת לא הורס נתונים מקומיים, ה-DB המקומי נשאר תקין.
+- **`games` המרוחק הוא cache לקריאה בלבד, לא shared-write** — RLS
+  מרשה insert (עם `ignoreDuplicates: true` מה-client, כלומר "רק אם
+  עוד לא קיים") אבל **בלי policy ל-UPDATE בכלל**. המשמעות: כשמשתמש
+  מכייל משחק (typicalSessionMinutes משתנה מקומית), העדכון **לא**
+  מתפשט למכשיר השני עד שהמשחק נמחק ונוצר מחדש — זו מגבלה מכוונת של
+  ה-scope הזה (ראה למעלה), לא באג.
+- **UI** — `src/components/settings/SyncSection.tsx`, מוצג במסך
+  ההגדרות. לא מחובר → טופס אימייל+קוד. מחובר → "Sync now" + "Sign
+  out" + "סונכרן לאחרונה...". `src/i18n/en.ts` — `t.sync.*`.
+- **`supabase/migrations/0001_sync_tables.sql`** — SQL גולמי (לא
+  Drizzle, לא CLI מקושר) ליצירת `profiles`/`games`/`user_games`/
+  `sessions`/`calibration_answers` + כל ה-RLS policies בפרויקט
+  Supabase. **המשתמש חייב להריץ את זה ידנית** (Supabase Dashboard →
+  SQL Editor → הדבקה והרצה) אחרי יצירת פרויקט חדש.
+
+**לא אומת בכלל מול Supabase אמיתי — אין עדיין פרויקט קיים.** בניגוד
+ל-HLTB (שנחסם ע"י מדיניות רשת), כאן הבעיה שונה: אין credentials בכלל
+עדיין ליצור. **הצעד הבא בפועל, קריטי לפני שסומכים על זה:**
+1. ליצור פרויקט חדש ב-supabase.com (חינמי).
+2. Authentication → Providers → לוודא ש-Email OTP מופעל (מופעל
+   כברירת מחדל, אבל שווה לוודא ש"Confirm email" לא דורש redirect
+   URL שלא קיים לאפליקציית מובייל — לבדוק את Email Templates אם הקוד
+   לא מגיע).
+3. SQL Editor → להדביק ולהריץ את `supabase/migrations/0001_sync_tables.sql`.
+4. Project Settings → API → להעתיק את ה-URL וה-anon key ל-`.env`
+   (`EXPO_PUBLIC_SUPABASE_URL`/`EXPO_PUBLIC_SUPABASE_ANON_KEY`).
+5. `npx expo start`, להיכנס להגדרות, להזין אימייל אמיתי, לוודא שקוד
+   מגיע (לבדוק תיקיית ספאם), להזין קוד, ולבדוק "Sync now" לא זורק
+   שגיאה.
+6. **הבדיקה האמיתית:** להוסיף משחק/לשחק סשן במכשיר אחד, לסנכרן, ואז
+   על מכשיר/התקנה שנייה (אמולטור נוסף או מחיקת האפליקציה והתקנה
+   מחדש) להתחבר לאותו אימייל ולוודא שהספרייה/ההיסטוריה מופיעות.
+
+**נבדק:** typecheck (מלבד `global.css` הידוע) + lint + 118 טסטים
+(107 היו, +11 חדשים ל-mapping/resolveConflict) + `expo export`
+לשלוש הפלטפורמות (android/ios/web — web כי `vercel-build` תלוי בו) —
+כולם עברו. **המימוש עצמו לא נבדק מול Supabase חי בכלל**, ראה למעלה.
+
+---
+
 ## 10. בדיקות לפני שמכריזים "עובד"
 
 ```bash
 npm run typecheck   # אפליקציה + כלים. חייב exit 0 (מלבד global.css, ראה §8)
-npm test            # 107 טסטים
+npm test            # 118 טסטים
 npx expo export --platform android
 npx expo export --platform ios
 ```
@@ -480,6 +578,12 @@ API האמיתי.
    מופיע ב-`game/[id]` תוך כמה שניות. אם זה מחזיר 502 → ה-API
    הלא-רשמי של HLTB השתנה; ראה §15 להוראות תיקון (בדיקת
    Network tab ב-DevTools מול החיפוש האמיתי באתר).
+8. **Supabase Auth + Sync (§16, חדש בסשן הזה) — לא אומת בכלל, אין
+   עדיין פרויקט Supabase קיים.** דורש: יצירת פרויקט, הרצת המיגרציה
+   הידנית (`supabase/migrations/0001_sync_tables.sql`), מילוי `.env`,
+   ואז מ-2 מכשירים/התקנות: להתחבר לאותו אימייל, לוודא שקוד ה-OTP
+   מגיע, ושספרייה/היסטוריה שנוספו במכשיר אחד מופיעות בשני אחרי
+   "Sync now". §16 להוראות המלאות, שלב-שלב.
 
 ---
 
@@ -491,26 +595,36 @@ API האמיתי.
 קודם תקרא לפי הסדר:
 1. PLAYNIGHT_SPEC.md (האפיון המלא)
 2. HANDOFF.md (מצב נוכחי, החלטות, מלכודות) — במיוחד §9 (מה נשאר
-   פתוח), §15 (HLTB, חדש — לא אומת מול נתוני אמת בכלל, לא רק לא
-   במכשיר) ו-§13 (רשימה מרוכזת של כל מה שצריך לבדוק במכשיר אמיתי,
-   פריט #7 הוא הכי דחוף)
+   פתוח), §16 (Supabase Auth+sync, חדש — לא אומת מול פרויקט אמיתי
+   בכלל, אין עדיין פרויקט קיים), §15 (HLTB — עדיין לא אומת, חסימת
+   רשת) ו-§13 (רשימה מרוכזת של כל מה שצריך לבדוק במכשיר אמיתי, כולל
+   §16 כפריט #8 עכשיו)
 3. AGENTS.md (כללי עבודה קבועים)
 
-מצב נוכחי: שלבים 1-3 הושלמו במלואם. נוסף timer notification אמיתי
-(§12), שאלות כיול 2-5 (§11), ו"זמן להשלמה"/HLTB (§15) — האחרון
-לא-רשמי לגמרי, כי אין ל-HLTB API רשמי. typecheck + lint + 107 טסטים
-+ expo export עוברים. שום דבר מהרשימה ב-§13 עוד לא נבדק בפועל.
+מצב נוכחי: שלבים 1-3 הושלמו במלואם. שלב 4 (§8 SPEC) התחיל: Auth+sync
+מול Supabase (§16) הושלם בקוד, RevenueCat/PostHog עדיין לא נגעו בהם
+כלל. typecheck + lint + 118 טסטים + expo export (android/ios/web)
+עוברים. שום דבר מהרשימה ב-§13 עוד לא נבדק בפועל.
 
 מה שנשאר פתוח (HANDOFF.md §9):
-1. **HLTB (§15) לא אומת מול נתוני אמת בכלל** — הסביבה המרוחקת הזו
-   חסומה מגישה ל-howlongtobeat.com (org policy על ה-proxy היוצא),
-   אז חילוץ נתיב ה-API הדינמי (שמשתנה מדי כמה חודשים אצל HLTB עצמו)
-   לא נבדק אפילו פעם אחת. זה §13 פריט #7 — תעדוף ראשון אם יש לך
-   גישה לרשת. אם `http://localhost:8787/hltb/search?q=hades` מחזיר
-   502, ראה §15 להוראות תיקון (regex החילוץ ב-`tools/igdb-proxy/hltb.ts`).
-2. כל שאר סעיפי הרשימה ב-§13 — דורשים שאני ארוץ את זה בעצמי על
-   הטלפון. אם אני מדווח לך על תוצאה של אחד מהם (עבד/לא עבד/באג
-   ספציפי) — תתקן לפי הדיווח, אל תנחש בלי דיווח ממני.
+1. **Supabase Auth+sync (§16) לא אומת בכלל — אין עדיין פרויקט
+   Supabase קיים**, לא רק "לא נבדק". §16 נותן הוראות שלב-שלב ליצור
+   פרויקט, להריץ את `supabase/migrations/0001_sync_tables.sql`
+   (SQL גולמי, ידני — אין CLI מקושר), למלא `.env`, ולבדוק סנכרון
+   אמיתי בין 2 מכשירים/התקנות. **תעדוף את זה** אם יש לך גישה ליצור
+   פרויקט Supabase (למשל אם המשתמש נתן credentials) — אחרת זה מחכה
+   לדיווח מהמשתמש בדיוק כמו §13.
+2. **HLTB (§15) עדיין לא אומת מול נתוני אמת** — הסביבה המרוחקת
+   חסומה מגישה ל-howlongtobeat.com (org policy). נבדק שוב בסשן הזה,
+   עדיין חסום. אם `http://localhost:8787/hltb/search?q=hades` מחזיר
+   502, ראה §15 להוראות תיקון.
+3. כל שאר סעיפי הרשימה ב-§13 — דורשים שהמשתמש ירוץ את זה בעצמו על
+   הטלפון. אם הוא מדווח על תוצאה של אחד מהם (עבד/לא עבד/באג ספציפי)
+   — תתקן לפי הדיווח, אל תנחש בלי דיווח.
+4. RevenueCat + PostHog (שאר §8 שלב 4) — לא התחלנו. לשאול את המשתמש
+   באיזה סדר לפני שמתחילים (בדיוק כמו שנשאל על Auth+sync מול השאר
+   בתחילת הסשן הזה) — RevenueCat דורש Development Build שהמשתמש בונה
+   בעצמו על ה-Mac (§2 AGENTS.md), אז יש שם תלות דומה לזו של Steam/HLTB.
 
 לפני שמתחילים בפיצ'ר: הרץ npm install, npm run typecheck, npm test —
 ודא שהכל ירוק כמו שהיה בסוף הסשן הקודם (typecheck נכשל רק על
