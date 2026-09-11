@@ -52,7 +52,12 @@ export default function RootLayout() {
             headerShown: false,
             contentStyle: { backgroundColor: palette.bg },
             animation: 'slide_from_right',
-            gestureEnabled: true,
+            // כבוי בכוונה: מחוות ה-edge-swipe-back של iOS (native-stack)
+            // חושפות לרגע את רקע החלון המקורי (לבן) מתחת למסכים גם אחרי
+            // שה-root background וה-contentStyle נקבעו — ראה החלטה ב-
+            // HANDOFF.md §4. כפתור החזרה (ScreenHeader → router.back())
+            // עדיין מפעיל את אותה אנימציית slide_from_right.
+            gestureEnabled: false,
           }}
         />
       </SafeAreaProvider>
