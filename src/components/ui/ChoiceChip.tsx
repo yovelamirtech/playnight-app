@@ -2,10 +2,7 @@ import type { LucideIcon } from 'lucide-react-native';
 import { Pressable, Text, View } from 'react-native';
 
 import { selectedPillClassName } from '@/components/ui/selectedPill';
-
-// תואם לצבעי text/muted ב-tailwind.config.js — RN לא מיישם className על ה-stroke של אייקוני SVG.
-const TEXT_COLOR = '#F2F4F8';
-const MUTED_COLOR = '#8B93A3';
+import { palette } from '@/constants/theme';
 
 type ChoiceChipProps = {
   label: string;
@@ -18,7 +15,7 @@ type ChoiceChipProps = {
 
 export function ChoiceChip({ label, selected, onPress, icon: Icon, size = 'md' }: ChoiceChipProps) {
   const height = size === 'lg' ? 'h-14' : 'h-12';
-  const color = selected ? TEXT_COLOR : MUTED_COLOR;
+  const color = selected ? palette.text : palette.muted;
   return (
     <Pressable
       accessibilityRole="button"

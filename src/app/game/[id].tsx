@@ -8,6 +8,7 @@ import { Screen } from '@/components/ui/Screen';
 import { ScreenHeader } from '@/components/ui/ScreenHeader';
 import { Title } from '@/components/ui/Title';
 import { RATING_ICONS } from '@/constants/ratingIcons';
+import { palette } from '@/constants/theme';
 import { t } from '@/i18n';
 import { getLibraryEntry } from '@/db/repositories/gamesRepo';
 import type { LibraryEntry } from '@/db/repositories/gamesRepo';
@@ -141,7 +142,7 @@ export default function GameScreen() {
               const RatingIcon = session.rating ? RATING_ICONS[session.rating] : null;
               return (
                 <View key={session.id} className="flex-row items-center gap-1.5">
-                  {RatingIcon ? <RatingIcon size={14} color="#8B93A3" /> : null}
+                  {RatingIcon ? <RatingIcon size={14} color={palette.muted} /> : null}
                   <Text className="text-sm text-muted">
                     {t.game.sessionEntry(
                       formatTimeAgo(session.endedAt ?? session.startedAt),

@@ -2,12 +2,10 @@ import { Image } from 'expo-image';
 import { BarChart3, Gamepad2, Timer } from 'lucide-react-native';
 import { Text, View } from 'react-native';
 
+import { palette } from '@/constants/theme';
 import { t } from '@/i18n';
 import type { SwipeCandidate } from '@/db/repositories/swipeRepo';
 import { formatTimeAgo } from '@/lib/timeAgo';
-
-const ACCENT_SOFT = '#8F82F0';
-const MUTED_COLOR = '#8B93A3';
 
 const MAX_GENRE_TAGS = 3;
 
@@ -51,19 +49,19 @@ export function SwipeCard({ candidate, now = new Date() }: SwipeCardProps) {
           {candidate.name}
         </Text>
         <View className="flex-row items-center gap-1.5">
-          <Timer size={16} color={ACCENT_SOFT} />
+          <Timer size={16} color={palette.accentSoft} />
           <Text className="text-base font-bold text-accentSoft">{sessionLine}</Text>
         </View>
 
         {candidate.platform ? (
           <View className="flex-row items-center gap-1.5">
-            <Gamepad2 size={14} color={MUTED_COLOR} />
+            <Gamepad2 size={14} color={palette.muted} />
             <Text className="text-sm text-muted">{candidate.platform}</Text>
           </View>
         ) : null}
         {dust ? (
           <View className="flex-row items-center gap-1.5">
-            <BarChart3 size={14} color={MUTED_COLOR} />
+            <BarChart3 size={14} color={palette.muted} />
             <Text className="text-sm text-muted">{dust}</Text>
           </View>
         ) : null}
