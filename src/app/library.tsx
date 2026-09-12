@@ -5,6 +5,7 @@ import { useMemo, useState } from 'react';
 import { FlatList, Text, View } from 'react-native';
 
 import { GameTile } from '@/components/library/GameTile';
+import { LibraryBannerAd } from '@/components/library/LibraryBannerAd';
 import { LibraryFilters } from '@/components/library/LibraryFilters';
 import { LibraryTabs } from '@/components/library/LibraryTabs';
 import { Screen } from '@/components/ui/Screen';
@@ -95,6 +96,7 @@ export default function LibraryScreen() {
           )}
         />
       )}
+      <LibraryBannerAd />
     </Screen>
   );
 }

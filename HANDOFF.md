@@ -285,9 +285,9 @@ declaration שנוצר בזמן build/codegen ולא נמצא כאן). לא תו
    בפועל בכלל** (native module, דורש Dev Build + חשבון RevenueCat +
    מוצרים ב-App Store Connect/Google Play). PostHog עדיין לא התחיל —
    מחכה להחלטת המשתמש.
-7. **פרסומות (banner ads, §5)** — נדחו בכוונה למשימה נפרדת. אינטגרציה
-   עצמאית (AdMob, native module, חשבון+ad unit IDs משלה) — לא נבנתה
-   כחלק מ-RevenueCat. ל-IDEAS.md אם ירצו להתחיל.
+7. ~~פרסומות (banner ads, §5)~~ — **הושלם בקוד בסשן הזה, ראה §20. לא
+   נבדק בפועל בכלל** (native module, דורש Dev Build + חשבון AdMob +
+   Ad unit IDs — עוד לא נוצרו).
 
 ---
 
@@ -818,6 +818,66 @@ Google Play חי בכלל.**
 
 ---
 
+## 20. פרסומות באנר (§5) — הושלם בקוד, לא נבדק בפועל בכלל
+
+המשתמש בחר במפורש להתחיל את זה עכשיו (במקום PostHog/הקמת RevenueCat),
+למרות שגם זה תלוי ב-Dev Build. אותו דפוס בדיוק כמו RevenueCat/Supabase:
+קוד מוכן ב-mock-safe fallback, credentials אמיתיים חסרים.
+
+- **`react-native-google-mobile-ads`** (`^16.5.0`) — נוסף ל-dependencies
+  + plugin ב-`app.json` עם **App ID של בדיקה הרשמי של Google**
+  (`ca-app-pub-3940256099942544~3347511713`/`~1458002511`, אנדרואיד/iOS) —
+  לא חשבון AdMob אמיתי. **חייב להיות מוחלף** כשייווצר חשבון (ראה למטה).
+- **`src/lib/ads/config.ts`** — `EXPO_PUBLIC_ADMOB_ANDROID_BANNER_UNIT_ID`/
+  `_IOS_BANNER_UNIT_ID` אופציונליים ב-`.env`. ריק = נופל בחזרה ל-
+  `TestIds.BANNER` מהחבילה עצמה (מזהה בדיקה רשמי, מציג פרסומת בדיקה
+  אמיתית — לא כלום, לא שגיאה).
+- **`src/components/library/LibraryBannerAd.tsx`** — הרכיב היחיד שמציג
+  את הבאנר. `useIsPro()` (כבר קיים מ-RevenueCat, §19) קובע חסימה — Pro
+  לא רואה פרסומות בכלל (§5). קורא `mobileAds().initialize()` ב-`useEffect`
+  (best-effort, `.catch` בולע כשל בשקט).
+- **`src/components/library/AdErrorBoundary.tsx`** — עטיפה חדשה, לא
+  קיימת עדיין בפרויקט לפני זה. **הסיבה שהיא נחוצה, בשונה מ-RevenueCat:**
+  `<BannerAd>` הוא native **view**, לא רק קריאת API — אם ה-native module
+  לא רשום (Expo Go בלי Dev Build, בדיוק המצב הנוכחי, ראה AGENTS.md §2),
+  זה עלול לזרוק **בזמן render**, לא בזמן קריאה שאפשר לעטוף ב-try/catch
+  רגיל. Error boundary מחזיר `null` בשקט אם זה קורה — מסך הספרייה ממשיך
+  לעבוד בלי הבאנר, לא קורס.
+- **`LibraryBannerAd.web.tsx`** — אותו דפוס `.web.ts` בדיוק כמו
+  `nativeGateway.web.ts` (RevenueCat): Metro בוחר אותו אוטומטית ב-web,
+  מחזיר `null` בלי לייבא את החבילה בכלל. **אומת בפועל:**
+  `expo export --platform web` נבדק ישירות שהחבילה לא נכנסת ל-bundle
+  (`grep -c "react-native-google-mobile-ads" dist/.../entry-*.js` → `0`).
+- **מיקום מכוון:** רק ב-`library.tsx` (בתחתית המסך, אחרי ה-FlatList),
+  **לא** ב-`swipe.tsx`/`index.tsx` — §5 מפורש: "לא במסך ההחלטה — זה
+  קדוש", תואם כלל 6 ב-AGENTS.md.
+
+### מה המשתמש חייב לעשות ידנית לפני שזה עובד בפועל
+
+בדיוק כמו RevenueCat (§19) — קוד מוכן, אפס credentials אמיתיים:
+
+1. יצירת חשבון וapp ב-[admob.google.com](https://admob.google.com) (חינמי).
+2. יצירת יחידת פרסומת (Ad unit) מסוג **Banner** לכל פלטפורמה
+   (Android/iOS) בתוך ה-app ב-AdMob dashboard.
+3. **App ID** (מוצג ב-AdMob dashboard, בפורמט `ca-app-pub-XXXX~YYYY`) —
+   להחליף בשני המקומות ב-`app.json` (plugin `react-native-google-mobile-ads`,
+   `androidAppId`/`iosAppId`) **לפני** build — App ID נכנס ל-manifest
+   הנייטיבי בזמן prebuild, לא ניתן לשנות ב-runtime כמו מפתחות RevenueCat.
+4. **Ad unit ID** של כל יחידת באנר → `.env`:
+   `EXPO_PUBLIC_ADMOB_ANDROID_BANNER_UNIT_ID`/`_IOS_BANNER_UNIT_ID`.
+5. **Development Build על ה-Mac** (AGENTS.md §2 — native module, לא עובד
+   ב-Expo Go, אותה תלות בדיוק כמו RevenueCat).
+6. בדיקה בפועל: מסך הספרייה מציג באנר (Free), משתמש Pro לא רואה כלום,
+   מסכי הבית/סוואיפ **אף פעם** לא מציגים באנר.
+
+**לא נבדק בכלל מהסביבה הזו** — native module, אין Dev Build, אין חשבון
+AdMob. **נבדק בסשן הזה:** typecheck + lint + 130 טסטים (ללא שינוי — זו
+תוספת UI/native, לא לוגיקה טהורה, אין טסט יחידה חדש) +
+`expo export` לשלוש הפלטפורמות (android/ios/web) — כולם עברו, כולל
+אימות ישיר ש-web לא כולל את החבילה הנייטיבית.
+
+---
+
 ## 10. בדיקות לפני שמכריזים "עובד"
 
 ```bash
@@ -877,6 +937,10 @@ API האמיתי.
    מכשיר".** דורש גם חשבון RevenueCat + מוצרים בחנויות (עוד לא נוצרו)
    וגם Development Build (עוד לא נבנה). §19 מפרט את כל 7 הצעדים
    הידניים הנדרשים לפני שאפשר בכלל להתחיל לבדוק.
+10. **פרסומות באנר (§20, חדש) — לא נבדק בכלל, אותה סיבה בדיוק כמו
+    RevenueCat.** דורש חשבון AdMob + App ID אמיתי ב-`app.json` +
+    Development Build. §20 מפרט את כל 6 הצעדים. לבדוק גם ש-Pro לא
+    רואה באנר בכלל, וש-Free רואה אותו רק בספרייה (לא בבית/סוואיפ).
 
 ---
 
@@ -891,6 +955,7 @@ API האמיתי.
    פתוח), §17 (Supabase — אומת קצה-לקצה על מכשיר אמיתי, עובד), §18
    (HLTB — נבדק, נמצא שבור בגלל אנטי-בוט, הוחלט לוותר בינתיים), §19
    (RevenueCat + paywall — קוד מוכן, לא נבדק בכלל, 7 צעדים ידניים
+   נדרשים), §20 (פרסומות באנר — קוד מוכן, לא נבדק בכלל, 6 צעדים ידניים
    נדרשים) ו-§13 (רשימה מרוכזת של מה שנשאר לבדוק במכשיר אמיתי)
 3. AGENTS.md (כללי עבודה קבועים)
 
@@ -900,8 +965,10 @@ Supabase (§16-17) **הושלם ואומת בפועל על מכשיר אמיתי
 HLTB) — הוחלט **לוותר על סנכרון חי בינתיים**. RevenueCat + paywall
 (§5, §19) **הושלם בקוד — מגבלות חינם/Pro אוכפות קשיחה, מסך paywall,
 מנוע gateway עם mock, אבל לא נבדק בפועל בכלל** (לא native module, לא
-Dev Build, אין חשבון RevenueCat). פרסומות (banner ads) נדחו בכוונה
-למשימה נפרדת. PostHog עדיין לא התחיל. typecheck + lint + 130 טסטים +
+Dev Build, אין חשבון RevenueCat). פרסומות באנר (§5, §20) **הושלם
+בקוד — באנר בתחתית הספרייה בלבד, Pro חסום, error boundary + web
+fallback, אבל לא נבדק בפועל בכלל** (native module, לא Dev Build, אין
+חשבון AdMob). PostHog עדיין לא התחיל. typecheck + lint + 130 טסטים +
 expo export (android/ios/web) עוברים.
 
 מה שנשאר פתוח (HANDOFF.md §9, מעודכן):
@@ -909,9 +976,10 @@ expo export (android/ios/web) עוברים.
    Play, מוצרי מנוי, entitlement בשם **בדיוק** `pro`, API keys ל-`.env`,
    ואז Development Build על ה-Mac (§2 AGENTS.md). §19 מפרט את כל 7
    הצעדים. עד אז אי אפשר לבדוק רכישה בפועל בכלל.
-2. **PostHog (שאר §8 שלב 4)** — לא התחלנו.
-3. **פרסומות (banner ads, §5)** — נדחו בכוונה, לא ב-scope של RevenueCat.
-   אינטגרציה עצמאית (AdMob) — לשאול את המשתמש לפני שמתחילים.
+2. **הקמת AdMob בפועל (§20)** — חשבון, app, יחידות באנר לכל פלטפורמה,
+   App ID אמיתי ב-`app.json` (**לפני** build — לא runtime), ad unit
+   IDs ל-`.env`, ואז אותו Development Build. §20 מפרט את כל 6 הצעדים.
+3. **PostHog (שאר §8 שלב 4)** — לא התחלנו.
 4. **הבדיקה הדו-מכשירית המלאה ל-Supabase sync** (§17, פחות קריטי) —
    התקנה שנייה עם אותו אימייל, לוודא שספרייה קיימת מסתנכרנת חזרה.
 5. שאר סעיפי הרשימה ב-§13 (Steam import עם מפתח אמיתי, מחוות ה-swipe,
