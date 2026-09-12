@@ -1,24 +1,16 @@
 import { readFileSync } from 'node:fs';
 import { createServer } from 'node:http';
-import type { IncomingMessage, ServerResponse } from 'node:http';
+import type { IncomingMessage } from 'node:http';
 import { join } from 'node:path';
 
 import type { IgdbCredentials } from '../igdb-proxy/token';
+import { sendJson } from '../httpUtil';
 import { buildQueue } from './queue';
 import type { TagCandidate } from './queue';
 import { loadSeed, saveSeed, upsertEntry } from './store';
 import type { SeedEntry } from './store';
 
 const PAGE = join(import.meta.dirname, 'page.html');
-
-const sendJson = (res: ServerResponse, status: number, payload: unknown): void => {
-  const body = JSON.stringify(payload);
-  res.writeHead(status, {
-    'Content-Type': 'application/json; charset=utf-8',
-    'Content-Length': Buffer.byteLength(body),
-  });
-  res.end(body);
-};
 
 const readBody = async (req: IncomingMessage): Promise<unknown> => {
   const chunks: Buffer[] = [];

@@ -1,11 +1,11 @@
 import { createServer } from 'node:http';
-import type { ServerResponse } from 'node:http';
 
 import { searchHltb } from './hltb';
 import { searchGames } from './igdb';
 import { getOwnedGames, resolveVanityUrl } from './steam';
 import type { SteamCredentials } from './steam';
 import type { IgdbCredentials } from './token';
+import { sendJson as sendJsonRaw } from '../httpUtil';
 
 /**
  * פרוקסי פיתוח ל-IGDB.
@@ -13,18 +13,12 @@ import type { IgdbCredentials } from './token';
  * הסודות לא נכנסים לאפליקציה — היא מדברת רק מול השרת הזה.
  * בשלב 4 אותו חוזה (GET /search?q=) עובר ל-Supabase Edge Function,
  * וכל מה שמשתנה באפליקציה הוא EXPO_PUBLIC_IGDB_PROXY_URL.
+ *
+ * האפליקציה עשויה לרוץ בדפדפן בפיתוח, שם fetch כפוף ל-CORS — כלי פיתוח
+ * בלבד, לא נחשף החוצה, לכן תמיד עם Access-Control-Allow-Origin.
  */
-const sendJson = (res: ServerResponse, status: number, payload: unknown): void => {
-  const body = JSON.stringify(payload);
-  res.writeHead(status, {
-    'Content-Type': 'application/json; charset=utf-8',
-    'Content-Length': Buffer.byteLength(body),
-    // האפליקציה עשויה לרוץ בדפדפן בפיתוח, שם fetch כפוף ל-CORS.
-    // כלי פיתוח בלבד, לא נחשף החוצה.
-    'Access-Control-Allow-Origin': '*',
-  });
-  res.end(body);
-};
+const sendJson = (res: Parameters<typeof sendJsonRaw>[0], status: number, payload: unknown): void =>
+  sendJsonRaw(res, status, payload, { cors: true });
 
 export function createIgdbProxy({
   credentials,
