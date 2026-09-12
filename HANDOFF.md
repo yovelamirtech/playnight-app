@@ -285,9 +285,12 @@ declaration שנוצר בזמן build/codegen ולא נמצא כאן). לא תו
    בפועל בכלל** (native module, דורש Dev Build + חשבון RevenueCat +
    מוצרים ב-App Store Connect/Google Play). PostHog עדיין לא התחיל —
    מחכה להחלטת המשתמש.
-7. ~~פרסומות (banner ads, §5)~~ — **הושלם בקוד בסשן הזה, ראה §20. לא
-   נבדק בפועל בכלל** (native module, דורש Dev Build + חשבון AdMob +
+7. ~~פרסומות (banner ads, §5)~~ — **הושלם בקוד, ראה §20. לא נבדק
+   בפועל בכלל** (native module, דורש Dev Build + חשבון AdMob +
    Ad unit IDs — עוד לא נוצרו).
+8. ~~PostHog (§8 שלב 4)~~ — **הושלם בקוד בסשן הזה, ראה §21. לא נבדק
+   בפועל בכלל** (חסר רק חשבון PostHog + API key — בשונה מ-RevenueCat/
+   AdMob, לא דורש Dev Build). **זה סוגר את שלב 4 במלואו.**
 
 ---
 
@@ -878,6 +881,65 @@ AdMob. **נבדק בסשן הזה:** typecheck + lint + 130 טסטים (ללא �
 
 ---
 
+## 21. PostHog (§8 שלב 4) — הושלם בקוד, לא נבדק מול פרויקט אמיתי
+
+פריט #3 מ-§9 (הישן) — החלק האחרון שנשאר משלב 4. אותו דפוס בדיוק כמו
+Supabase/RevenueCat/AdMob: `src/lib/analytics/` (`config.ts` —
+`EXPO_PUBLIC_POSTHOG_API_KEY`/`_HOST`, אופציונלי — ריק = mock gateway,
+`mockGateway.ts`, `nativeGateway.ts` עוטף `posthog-react-native`,
+`index.ts` — `getAnalyticsGateway()`).
+
+- **בשונה מ-RevenueCat/AdMob — `posthog-react-native` הוא לא
+  native-only module.** persistence דרך AsyncStorage (כבר מותקן,
+  §16), כל שאר ה-peer deps האופציונליים (autocapture/session-replay
+  וכו') לא הותקנו ולא בשימוש — אין `nativeGateway.web.ts` נפרד ואין
+  צורך ב-Development Build כדי לבדוק אירועים בסיסיים (בניגוד ל-§19/§20).
+  **אומת בפועל:** `expo export` לשלוש הפלטפורמות עבר נקי.
+- **`src/lib/analytics/events.ts`** — מקור אמת יחיד לשמות האירועים
+  והשדות שלהם (טיפוס `AnalyticsEventProperties`, map מ-event name
+  ל-properties) כדי שלא יהיו שגיאות הקלדה חופשיות בין call site ל-call
+  site. **האירועים נבחרו לפי הלולאה המרכזית של המוצר (§3), לא מעקב
+  מסך-אחרי-מסך:** `game_added` (method: manual/igdb/steam),
+  `swipe_decision` (direction), `session_started` (plannedMinutes),
+  `session_logged` (rating, finished), `calibration_question_answered`
+  (questionId), `paywall_shown`/`paywall_purchase_completed`/
+  `paywall_restore_completed`, `sync_completed`.
+- **הקריאות נמצאות בשכבת ה-UI (מסכים/רכיבים), לא ב-repositories** —
+  אותה החלטה בדיוק כמו notifications ב-`session-confirm.tsx` (§12):
+  אנליטיקס הוא side-effect של I/O, לא לוגיקה עסקית טהורה (AGENTS.md
+  כלל 3), ו-`sessionsRepo.ts` כבר חרג מ-200 שורות לפני הסשן הזה (ראה
+  §19) — לא רציתי להוסיף עליו עוד.
+- **`identify`/`reset`** — `SyncSection.tsx` (§16) קורא להם לפי מצב
+  ה-Supabase session (מזהה משתמש אמיתי אחרי OTP, reset אחרי sign out).
+  לא קשור ל-`isPro`/RevenueCat בכוונה — PostHog לא צריך לדעת סטטוס
+  מנוי כדי "להבין מה אנשים באמת עושים" (המשפט המקורי מ-SPEC §8).
+- **אתחול** — `_layout.tsx` קורא ל-`getAnalyticsGateway().configure()`
+  פעם אחת בעלייה, best-effort (`.catch` בולע כשל בשקט) — בדיוק כמו כל
+  אינטגרציה חיצונית אחרת בפרויקט.
+
+### מה המשתמש חייב לעשות ידנית לפני שזה עובד בפועל
+
+בשונה מ-RevenueCat/AdMob (§19/§20) — **אין תלות ב-Dev Build**, רק
+בחשבון:
+
+1. יצירת חשבון וproject ב-[posthog.com](https://posthog.com) (free
+   tier — עד 1M אירועים/חודש).
+2. Project Settings → API Keys → project API key (public, בטוח
+   בבאנדל — בדיוק כמו anon key של Supabase) → `.env`:
+   `EXPO_PUBLIC_POSTHOG_API_KEY`. `EXPO_PUBLIC_POSTHOG_HOST` נשאר ריק
+   אלא אם הפרויקט הוא ב-EU cloud של PostHog.
+3. `npx expo start`, לנווט בלולאה המרכזית (הוספת משחק, swipe, סשן,
+   paywall), ולוודא ב-PostHog dashboard (Activity/Live events) שהאירועים
+   מגיעים עם השדות הנכונים.
+
+**לא נבדק בכלל מהסביבה הזו** — אין credentials (כמו Supabase לפני
+§17, לא כמו RevenueCat/AdMob שדורשים גם Dev Build). **נבדק בסשן הזה:**
+typecheck (מלבד `global.css` הידוע — מספר השגיאות זהה לפני/אחרי
+השינוי, 37) + lint + 130 טסטים (ללא שינוי — זו תוספת I/O, לא לוגיקה
+טהורה, אין טסט יחידה חדש) + `expo export` לשלוש הפלטפורמות — כולם עברו.
+
+---
+
 ## 10. בדיקות לפני שמכריזים "עובד"
 
 ```bash
@@ -941,6 +1003,9 @@ API האמיתי.
     RevenueCat.** דורש חשבון AdMob + App ID אמיתי ב-`app.json` +
     Development Build. §20 מפרט את כל 6 הצעדים. לבדוק גם ש-Pro לא
     רואה באנר בכלל, וש-Free רואה אותו רק בספרייה (לא בבית/סוואיפ).
+11. **PostHog (§21, חדש) — לא נבדק בכלל, אבל בשונה מ-RevenueCat/AdMob
+    לא דורש Dev Build.** רק חשבון PostHog + API key ל-`.env`. §21
+    מפרט את 3 הצעדים ואת רשימת האירועים שאמורים להופיע.
 
 ---
 
@@ -956,20 +1021,24 @@ API האמיתי.
    (HLTB — נבדק, נמצא שבור בגלל אנטי-בוט, הוחלט לוותר בינתיים), §19
    (RevenueCat + paywall — קוד מוכן, לא נבדק בכלל, 7 צעדים ידניים
    נדרשים), §20 (פרסומות באנר — קוד מוכן, לא נבדק בכלל, 6 צעדים ידניים
-   נדרשים) ו-§13 (רשימה מרוכזת של מה שנשאר לבדוק במכשיר אמיתי)
+   נדרשים), §21 (PostHog — קוד מוכן, לא נבדק בכלל, אבל לא דורש Dev
+   Build, רק 3 צעדים) ו-§13 (רשימה מרוכזת של מה שנשאר לבדוק במכשיר אמיתי)
 3. AGENTS.md (כללי עבודה קבועים)
 
-מצב נוכחי: שלבים 1-3 הושלמו במלואם. שלב 4 (§8 SPEC): Auth+sync מול
-Supabase (§16-17) **הושלם ואומת בפועל על מכשיר אמיתי — עובד**. HLTB
-(§15/§18) **נבדק מול האתר החי ונמצא שבור** (הגנת אנטי-בוט חדשה של
+מצב נוכחי: שלבים 1-3 הושלמו במלואם. **שלב 4 (§8 SPEC) הושלם במלואו
+בקוד** — Auth+sync מול Supabase (§16-17) **הושלם ואומת בפועל על
+מכשיר אמיתי — עובד**. HLTB (§15/§18, לא חלק רשמי משלב 4 אבל נבדק
+באותה תקופה) **נבדק מול האתר החי ונמצא שבור** (הגנת אנטי-בוט חדשה של
 HLTB) — הוחלט **לוותר על סנכרון חי בינתיים**. RevenueCat + paywall
 (§5, §19) **הושלם בקוד — מגבלות חינם/Pro אוכפות קשיחה, מסך paywall,
 מנוע gateway עם mock, אבל לא נבדק בפועל בכלל** (לא native module, לא
 Dev Build, אין חשבון RevenueCat). פרסומות באנר (§5, §20) **הושלם
 בקוד — באנר בתחתית הספרייה בלבד, Pro חסום, error boundary + web
 fallback, אבל לא נבדק בפועל בכלל** (native module, לא Dev Build, אין
-חשבון AdMob). PostHog עדיין לא התחיל. typecheck + lint + 130 טסטים +
-expo export (android/ios/web) עוברים.
+חשבון AdMob). **PostHog (§21) הושלם בקוד** — gateway עם mock, אירועי
+הליבה (הוספת משחק, swipe, סשן, כיול, paywall, sync) מחוברים ב-UI,
+**לא נבדק בכלל** (חסר רק חשבון + API key — לא דורש Dev Build).
+typecheck + lint + 130 טסטים + expo export (android/ios/web) עוברים.
 
 מה שנשאר פתוח (HANDOFF.md §9, מעודכן):
 1. **הקמת RevenueCat בפועל (§19)** — חשבון, App Store Connect/Google
@@ -979,7 +1048,9 @@ expo export (android/ios/web) עוברים.
 2. **הקמת AdMob בפועל (§20)** — חשבון, app, יחידות באנר לכל פלטפורמה,
    App ID אמיתי ב-`app.json` (**לפני** build — לא runtime), ad unit
    IDs ל-`.env`, ואז אותו Development Build. §20 מפרט את כל 6 הצעדים.
-3. **PostHog (שאר §8 שלב 4)** — לא התחלנו.
+3. **הקמת PostHog בפועל (§21)** — חשבון + project API key ל-`.env`.
+   **לא דורש Dev Build**, אפשר לבדוק גם ב-Expo Go/`npx expo start`.
+   §21 מפרט את 3 הצעדים ואת כל 9 האירועים שאמורים להופיע ב-dashboard.
 4. **הבדיקה הדו-מכשירית המלאה ל-Supabase sync** (§17, פחות קריטי) —
    התקנה שנייה עם אותו אימייל, לוודא שספרייה קיימת מסתנכרנת חזרה.
 5. שאר סעיפי הרשימה ב-§13 (Steam import עם מפתח אמיתי, מחוות ה-swipe,
@@ -988,6 +1059,9 @@ expo export (android/ios/web) עוברים.
 6. **HLTB (§18)** — לא לפתוח מחדש בלי סיבה טובה. אם המשתמש בכל זאת
    רוצה לנסות שוב, האפשרות היחידה שנשארה היא headless browser
    (Playwright) — לא ניסיון נוסף לחשב את ה-anti-bot hash ידנית.
+7. **שלב 5 (§8 SPEC, שחרור)** — עכשיו ששלב 4 נסגר בקוד, זו ההמשך
+   הטבעי הבא: TestFlight/Google Play Internal Testing, גיוס בודקים —
+   אבל תלוי בכל ה-Dev Build/חשבונות שנשארו פתוחים למעלה קודם.
 
 לפני שמתחילים בפיצ'ר: הרץ npm install, npm run typecheck, npm test —
 ודא שהכל ירוק (typecheck נכשל רק על global.css הידוע — לא קשור, ראה

@@ -8,6 +8,7 @@ import { Screen } from '@/components/ui/Screen';
 import { ScreenHeader } from '@/components/ui/ScreenHeader';
 import { selectedPillClassName } from '@/components/ui/selectedPill';
 import { t } from '@/i18n';
+import { getAnalyticsGateway } from '@/lib/analytics';
 import { addGameFromIgdb, addManualGame, LibraryLimitReachedError } from '@/db/repositories/gamesRepo';
 
 type Mode = 'search' | 'manual';
@@ -48,13 +49,19 @@ export default function AddGameScreen() {
       {mode === 'search' ? (
         <SearchList
           onSelect={(game) => {
-            void addGameFromIgdb(game, null).then(done).catch(onLimitReached);
+            void addGameFromIgdb(game, null)
+              .then(() => getAnalyticsGateway().capture('game_added', { method: 'igdb' }))
+              .then(done)
+              .catch(onLimitReached);
           }}
         />
       ) : (
         <ManualForm
           onSubmit={(input) => {
-            void addManualGame(input).then(done).catch(onLimitReached);
+            void addManualGame(input)
+              .then(() => getAnalyticsGateway().capture('game_added', { method: 'manual' }))
+              .then(done)
+              .catch(onLimitReached);
           }}
         />
       )}

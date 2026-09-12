@@ -10,6 +10,7 @@ import { SwipeDeck } from '@/components/swipe/SwipeDeck';
 import { t } from '@/i18n';
 import { dismissForWeek, getSwipeCandidates, hideForever } from '@/db/repositories/swipeRepo';
 import type { SwipeCandidate } from '@/db/repositories/swipeRepo';
+import { getAnalyticsGateway } from '@/lib/analytics';
 import { maxSwipeRecommendations } from '@/lib/entitlements/limits';
 import { getRecommendations } from '@/lib/recommendation';
 import type { RecommendationInput } from '@/lib/recommendation';
@@ -75,6 +76,7 @@ export default function SwipeScreen() {
 
   const handleSwipe = (candidate: SwipeCandidate, direction: SwipeDirection) => {
     setDeck((prev) => prev.filter((entry) => entry.userGameId !== candidate.userGameId));
+    getAnalyticsGateway().capture('swipe_decision', { direction });
 
     if (direction === 'left') void dismissForWeek(candidate.userGameId);
     else if (direction === 'up') void hideForever(candidate.userGameId);

@@ -23,6 +23,7 @@ import { SESSION_RATINGS } from '@/db/schema';
 import type { SessionRating } from '@/db/schema';
 import { pickCalibrationQuestionId, shouldAskCalibrationQuestion } from '@/lib/calibration/pickQuestion';
 import type { CalibrationQuestionId } from '@/lib/calibration/pickQuestion';
+import { getAnalyticsGateway } from '@/lib/analytics';
 import { canAddStoppedNote } from '@/lib/entitlements/limits';
 import { useLibraryEntry } from '@/lib/library/useLibraryEntry';
 import { useActiveSessionStore } from '@/store/useActiveSessionStore';
@@ -95,6 +96,10 @@ export default function SessionLogScreen() {
       stoppedNote: noteAllowed ? note : '',
       finished,
     });
+    getAnalyticsGateway().capture('session_logged', { rating, finished });
+    if (questionId && calibrationAnswer) {
+      getAnalyticsGateway().capture('calibration_question_answered', { questionId });
+    }
     clearActiveSession();
 
     // §5 — ה-paywall מוצג אחרי הסשן הראשון, לא לפני. גם נפתח אם ההערה נחסמה.
