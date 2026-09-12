@@ -10,11 +10,11 @@ import { Title } from '@/components/ui/Title';
 import { RATING_ICONS } from '@/constants/ratingIcons';
 import { palette } from '@/constants/theme';
 import { t } from '@/i18n';
-import { getLibraryEntry } from '@/db/repositories/gamesRepo';
 import type { LibraryEntry } from '@/db/repositories/gamesRepo';
 import { getSessionHistory, getStoppedNotes } from '@/db/repositories/sessionsRepo';
 import type { SessionRow } from '@/db/schema';
 import { formatHltbHours } from '@/lib/hltb/formatHours';
+import { useLibraryEntry } from '@/lib/library/useLibraryEntry';
 import { formatTimeAgo } from '@/lib/timeAgo';
 import { useActiveSessionStore } from '@/store/useActiveSessionStore';
 
@@ -27,26 +27,20 @@ export default function GameScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
   const beginSession = useActiveSessionStore((state) => state.begin);
-  const [entry, setEntry] = useState<LibraryEntry | null>(null);
+  const { entry, loading } = useLibraryEntry(id);
   const [sessions, setSessions] = useState<SessionRow[]>([]);
   const [notes, setNotes] = useState<SessionRow[]>([]);
-  const [loaded, setLoaded] = useState(false);
+  const loaded = !loading;
 
   useEffect(() => {
+    if (!entry) return;
     let cancelled = false;
-    getLibraryEntry(id).then((result) => {
-      if (cancelled) return;
-      setEntry(result);
-      setLoaded(true);
-      if (result) {
-        getSessionHistory(result.gameId).then((rows) => !cancelled && setSessions(rows));
-        getStoppedNotes(result.gameId).then((rows) => !cancelled && setNotes(rows));
-      }
-    });
+    getSessionHistory(entry.gameId).then((rows) => !cancelled && setSessions(rows));
+    getStoppedNotes(entry.gameId).then((rows) => !cancelled && setNotes(rows));
     return () => {
       cancelled = true;
     };
-  }, [id]);
+  }, [entry]);
 
   const playNow = () => {
     beginSession(id);
