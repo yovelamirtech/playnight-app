@@ -1,4 +1,4 @@
-import { and, desc, eq } from 'drizzle-orm';
+import { eq } from 'drizzle-orm';
 
 import { canAddGame } from '@/lib/entitlements/limits';
 import type { IgdbGame } from '@/lib/igdb';
@@ -50,19 +50,6 @@ export const LIBRARY_COLUMNS = {
   hltbMainExtraMinutes: games.hltbMainExtraMinutes,
   hltbCompletionistMinutes: games.hltbCompletionistMinutes,
 };
-
-export async function listLibrary(status?: UserGameStatus): Promise<LibraryEntry[]> {
-  const scope = status
-    ? and(eq(userGames.userId, LOCAL_USER_ID), eq(userGames.status, status))
-    : eq(userGames.userId, LOCAL_USER_ID);
-
-  return db
-    .select(LIBRARY_COLUMNS)
-    .from(userGames)
-    .innerJoin(games, eq(userGames.gameId, games.id))
-    .where(scope)
-    .orderBy(desc(userGames.addedAt));
-}
 
 export async function getLibraryEntry(userGameId: string): Promise<LibraryEntry | null> {
   const rows = await db
