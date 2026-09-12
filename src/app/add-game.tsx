@@ -6,6 +6,7 @@ import { ManualForm } from '@/components/addGame/ManualForm';
 import { SearchList } from '@/components/addGame/SearchList';
 import { Screen } from '@/components/ui/Screen';
 import { ScreenHeader } from '@/components/ui/ScreenHeader';
+import { selectedPillClassName } from '@/components/ui/selectedPill';
 import { t } from '@/i18n';
 import { addGameFromIgdb, addManualGame, LibraryLimitReachedError } from '@/db/repositories/gamesRepo';
 
@@ -35,9 +36,7 @@ export default function AddGameScreen() {
             accessibilityRole="tab"
             accessibilityState={{ selected: mode === option }}
             onPress={() => setMode(option)}
-            className={`h-10 flex-1 items-center justify-center rounded-full border ${
-              mode === option ? 'border-accent bg-accent/20' : 'border-border bg-surface'
-            }`}
+            className={`h-10 flex-1 items-center justify-center rounded-full border ${selectedPillClassName(mode === option)}`}
           >
             <Text className={mode === option ? 'font-bold text-text' : 'text-muted'}>
               {option === 'search' ? t.addGame.searchTab : t.addGame.manualTab}

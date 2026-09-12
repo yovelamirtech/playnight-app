@@ -1,6 +1,8 @@
 import type { LucideIcon } from 'lucide-react-native';
 import { Pressable, Text, View } from 'react-native';
 
+import { selectedPillClassName } from '@/components/ui/selectedPill';
+
 // תואם לצבעי text/muted ב-tailwind.config.js — RN לא מיישם className על ה-stroke של אייקוני SVG.
 const TEXT_COLOR = '#F2F4F8';
 const MUTED_COLOR = '#8B93A3';
@@ -22,9 +24,7 @@ export function ChoiceChip({ label, selected, onPress, icon: Icon, size = 'md' }
       accessibilityRole="button"
       accessibilityState={{ selected }}
       onPress={onPress}
-      className={`${height} flex-1 items-center justify-center rounded-2xl border px-2 ${
-        selected ? 'border-accent bg-accent/20' : 'border-border bg-surface'
-      }`}
+      className={`${height} flex-1 items-center justify-center rounded-2xl border px-2 ${selectedPillClassName(selected)}`}
     >
       <View className="flex-row items-center gap-2">
         {Icon ? <Icon size={18} color={color} strokeWidth={selected ? 2.25 : 2} /> : null}

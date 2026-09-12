@@ -5,6 +5,7 @@ import { Pressable, Text, View } from 'react-native';
 import { SyncSection } from '@/components/settings/SyncSection';
 import { Screen } from '@/components/ui/Screen';
 import { ScreenHeader } from '@/components/ui/ScreenHeader';
+import { selectedPillClassName } from '@/components/ui/selectedPill';
 import { t } from '@/i18n';
 import { getOptedOutOfCalibration, setOptedOutOfCalibration } from '@/db/repositories/sessionsRepo';
 import { useIsPro } from '@/lib/revenuecat/useIsPro';
@@ -52,9 +53,7 @@ export default function SettingsScreen() {
           accessibilityState={{ checked: optedOut ?? false }}
           onPress={toggleOptOut}
           disabled={optedOut === null}
-          className={`justify-center gap-1 rounded-2xl border px-4 py-3 ${
-            optedOut ? 'border-accent bg-accent/20' : 'border-border bg-surface'
-          }`}
+          className={`justify-center gap-1 rounded-2xl border px-4 py-3 ${selectedPillClassName(!!optedOut)}`}
         >
           <Text className="text-base text-text">{t.settings.calibrationOptOut}</Text>
           <Text className="text-xs text-muted">{t.settings.calibrationOptOutHint}</Text>
