@@ -1,3 +1,5 @@
+import { fetchJson } from '@/lib/httpJson';
+
 import { IGDB_PROXY_URL } from './config';
 import { IgdbNotConfiguredError } from './types';
 import type { IgdbGame, IgdbGateway, IgdbSearchOptions } from './types';
@@ -39,13 +41,13 @@ export const createHttpIgdbGateway = (baseUrl: string): IgdbGateway => ({
   async searchGames(query, options: IgdbSearchOptions = {}) {
     if (!baseUrl) throw new IgdbNotConfiguredError();
     const params = new URLSearchParams({ q: query, limit: String(options.limit ?? 20) });
-    const response = await fetch(`${baseUrl}/search?${params.toString()}`, {
-      signal: options.signal,
-    });
-    if (!response.ok) {
-      throw new Error(`IGDB proxy responded ${response.status}`);
-    }
-    const raw = (await response.json()) as RawIgdbGame[];
+    const raw = await fetchJson<RawIgdbGame[]>(
+      `${baseUrl}/search?${params.toString()}`,
+      { signal: options.signal },
+      (status) => {
+        throw new Error(`IGDB proxy responded ${status}`);
+      }
+    );
     return raw.map(normalize);
   },
 });
