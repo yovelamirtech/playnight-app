@@ -102,12 +102,15 @@ export default function SessionLogScreen() {
     clearActiveSession();
 
     // §5 — ה-paywall מוצג אחרי הסשן הראשון, לא לפני. גם נפתח אם ההערה נחסמה.
+    // מעביר gameId כדי ש-paywall.tsx ידע לאן "Not now" חוזר — לא back(),
+    // כי useActiveSessionStore כבר נוקה (clearActiveSession למעלה) והמסך
+    // הקודם ב-stack (session-confirm) נשאר בלי סשן פעיל ומציג מסך ריק.
     if (!noteAllowed) {
-      router.replace({ pathname: '/paywall', params: { reason: 'notes' } });
+      router.replace({ pathname: '/paywall', params: { reason: 'notes', gameId: userGameId } });
       return;
     }
     if (!isPro && priorSessionsCount === 0) {
-      router.replace({ pathname: '/paywall', params: { reason: 'firstSession' } });
+      router.replace({ pathname: '/paywall', params: { reason: 'firstSession', gameId: userGameId } });
       return;
     }
     router.replace({ pathname: '/game/[id]', params: { id: userGameId } });

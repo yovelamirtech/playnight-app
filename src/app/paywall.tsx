@@ -19,7 +19,7 @@ export type PaywallReason = 'firstSession' | 'library' | 'platform' | 'notes';
 /** SPEC §5 — paywall, מוצג אחרי הסשן הראשון או כשמגבלת חינם נחצית (§8 שלב 4). */
 export default function PaywallScreen() {
   const router = useRouter();
-  const { reason } = useLocalSearchParams<{ reason?: PaywallReason }>();
+  const { reason, gameId } = useLocalSearchParams<{ reason?: PaywallReason; gameId?: string }>();
   const [packages, setPackages] = useState<SubscriptionPackage[]>([]);
   const [status, setStatus] = useState<Status>({ kind: 'idle' });
 
@@ -38,7 +38,15 @@ export default function PaywallScreen() {
     };
   }, []);
 
-  const close = () => (router.canGoBack() ? router.back() : router.replace('/'));
+  // אם הגענו מ-session-log (§5, "אחרי הסשן הראשון"/הערה חסומה) — הסשן הפעיל
+  // כבר נוקה שם, אז back() היה נוחת על session-confirm ריק (מסך שחור תקוע).
+  // gameId מעביר אותנו במקום זאת בדיוק לאן שהזרימה הרגילה הייתה הולכת.
+  const close = () =>
+    gameId
+      ? router.replace({ pathname: '/game/[id]', params: { id: gameId } })
+      : router.canGoBack()
+        ? router.back()
+        : router.replace('/');
 
   const purchase = async (pkg: SubscriptionPackage) => {
     setStatus({ kind: 'busy' });

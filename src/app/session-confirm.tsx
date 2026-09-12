@@ -47,6 +47,13 @@ export default function SessionConfirmScreen() {
     };
   }, [userGameId]);
 
+  // מגן נגד מסך ריק תקוע — אם מגיעים לכאן בלי סשן פעיל (למשל back() אחרי
+  // שה-store כבר נוקה ב-session-log.tsx), עדיף לחזור הביתה מאשר להישאר
+  // על מסך שחור בלי שום דרך יציאה.
+  useEffect(() => {
+    if (!userGameId) router.replace('/');
+  }, [userGameId, router]);
+
   useEffect(() => {
     if (startedAt === null) return;
     const id = setInterval(() => setNowTick(Date.now()), 1000);
