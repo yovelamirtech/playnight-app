@@ -32,7 +32,7 @@ export type LibraryEntry = {
   hltbCompletionistMinutes: number | null;
 };
 
-const LIBRARY_COLUMNS = {
+export const LIBRARY_COLUMNS = {
   userGameId: userGames.id,
   gameId: games.id,
   name: games.name,

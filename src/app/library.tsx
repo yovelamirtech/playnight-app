@@ -12,6 +12,7 @@ import { ScreenHeader } from '@/components/ui/ScreenHeader';
 import { t } from '@/i18n';
 import { LOCAL_USER_ID } from '@/db/bootstrap';
 import { db } from '@/db/client';
+import { LIBRARY_COLUMNS } from '@/db/repositories/gamesRepo';
 import { games, userGames } from '@/db/schema';
 import type { UserGameStatus } from '@/db/schema';
 import { EMPTY_LIBRARY_FILTERS, filterLibrary, sortLibrary } from '@/lib/library/filterSort';
@@ -26,25 +27,10 @@ export default function LibraryScreen() {
   const { data } = useLiveQuery(
     db
       .select({
-        userGameId: userGames.id,
-        gameId: games.id,
-        name: games.name,
-        coverUrl: games.coverUrl,
-        releaseYear: games.releaseYear,
-        platform: userGames.platform,
-        status: userGames.status,
-        genres: games.genres,
-        typicalSessionMinutes: games.typicalSessionMinutes,
-        interruptible: games.interruptible,
-        hoursPlayed: userGames.hoursPlayed,
-        sessionReportsCount: games.sessionReportsCount,
-        interruptibleReportsCount: games.interruptibleReportsCount,
+        ...LIBRARY_COLUMNS,
         communityRating: games.communityRating,
         addedAt: userGames.addedAt,
         lastPlayedAt: userGames.lastPlayedAt,
-        hltbMainStoryMinutes: games.hltbMainStoryMinutes,
-        hltbMainExtraMinutes: games.hltbMainExtraMinutes,
-        hltbCompletionistMinutes: games.hltbCompletionistMinutes,
       })
       .from(userGames)
       .innerJoin(games, eq(userGames.gameId, games.id))
