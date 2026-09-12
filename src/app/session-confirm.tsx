@@ -9,6 +9,7 @@ import { Screen } from '@/components/ui/Screen';
 import { ScreenHeader } from '@/components/ui/ScreenHeader';
 import { TextField } from '@/components/ui/TextField';
 import { t } from '@/i18n';
+import { getAnalyticsGateway } from '@/lib/analytics';
 import { useLibraryEntry } from '@/lib/library/useLibraryEntry';
 import {
   cancelSessionEndNotification,
@@ -78,6 +79,7 @@ export default function SessionConfirmScreen() {
     const now = Date.now();
     startTimer(now);
     setNowTick(now);
+    getAnalyticsGateway().capture('session_started', { plannedMinutes: totalMinutes });
     scheduleSessionEndNotification(entry.name, new Date(now + totalMinutes * 60_000)).then(
       setNotificationId
     );

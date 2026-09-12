@@ -9,6 +9,7 @@ import { ScreenHeader } from '@/components/ui/ScreenHeader';
 import { Subtitle, Title } from '@/components/ui/Title';
 import { t } from '@/i18n';
 import { setIsPro } from '@/db/repositories/proRepo';
+import { getAnalyticsGateway } from '@/lib/analytics';
 import { getRevenueCatGateway, isRevenueCatConfigured } from '@/lib/revenuecat';
 import type { SubscriptionPackage } from '@/lib/revenuecat';
 
@@ -25,6 +26,7 @@ export default function PaywallScreen() {
   const [status, setStatus] = useState<Status>({ kind: 'idle' });
 
   useEffect(() => {
+    getAnalyticsGateway().capture('paywall_shown', { reason: reason ?? null });
     let cancelled = false;
     const gateway = getRevenueCatGateway();
     gateway
@@ -37,6 +39,7 @@ export default function PaywallScreen() {
     return () => {
       cancelled = true;
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // אם הגענו מ-session-log (§5, "אחרי הסשן הראשון"/הערה חסומה) — הסשן הפעיל
@@ -55,6 +58,7 @@ export default function PaywallScreen() {
       const gateway = getRevenueCatGateway();
       const result = await gateway.purchase(pkg.identifier);
       await setIsPro(result.isPro);
+      getAnalyticsGateway().capture('paywall_purchase_completed', { period: pkg.period });
       close();
     } catch (cause) {
       setStatus({
@@ -71,7 +75,10 @@ export default function PaywallScreen() {
       const result = await gateway.restorePurchases();
       await setIsPro(result.isPro);
       setStatus(result.isPro ? { kind: 'idle' } : { kind: 'error', message: t.paywall.restoreSuccess });
-      if (result.isPro) close();
+      if (result.isPro) {
+        getAnalyticsGateway().capture('paywall_restore_completed', {});
+        close();
+      }
     } catch (cause) {
       setStatus({
         kind: 'error',

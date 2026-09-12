@@ -10,7 +10,11 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import '../global.css';
 import { palette } from '@/constants/theme';
 import { t } from '@/i18n';
+import { getAnalyticsGateway } from '@/lib/analytics';
 import { useDatabaseReady } from '@/db/useDatabaseReady';
+
+// best-effort, לא חוסם עלייה — אם PostHog לא מוגדר (config.ts) זה no-op.
+getAnalyticsGateway().configure().catch(() => undefined);
 
 SplashScreen.preventAutoHideAsync().catch(() => undefined);
 // המסך האנימציה של האפליקציה מציג לרגע את רקע החלון המקורי (לבן) מאחורי

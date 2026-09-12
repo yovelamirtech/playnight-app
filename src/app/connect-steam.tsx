@@ -11,6 +11,7 @@ import { getConnectedPlatforms } from '@/db/repositories/gamesRepo';
 import { getIsPro } from '@/db/repositories/proRepo';
 import { importSteamGames } from '@/db/repositories/steamImportRepo';
 import { t } from '@/i18n';
+import { getAnalyticsGateway } from '@/lib/analytics';
 import { canConnectPlatform } from '@/lib/entitlements/limits';
 import { getSteamGateway, SteamImportError } from '@/lib/steam';
 
@@ -63,6 +64,7 @@ export default function ConnectSteamScreen() {
       const result = await importSteamGames(ownedGames, (done, total) =>
         setStatus({ kind: 'importing', done, total }),
       );
+      if (result.imported > 0) getAnalyticsGateway().capture('game_added', { method: 'steam' });
       setStatus({ kind: 'done', imported: result.imported, updated: result.updated });
     } catch (error) {
       const message =

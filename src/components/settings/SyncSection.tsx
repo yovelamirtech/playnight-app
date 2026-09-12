@@ -6,6 +6,7 @@ import { PrimaryButton } from '@/components/ui/PrimaryButton';
 import { TextField } from '@/components/ui/TextField';
 import { syncNow } from '@/db/repositories/syncRepo';
 import { t } from '@/i18n';
+import { getAnalyticsGateway } from '@/lib/analytics';
 import { formatTimeAgo } from '@/lib/timeAgo';
 import { requestSignInCode, signOut, verifySignInCode } from '@/lib/supabase';
 import { isSupabaseConfigured } from '@/lib/supabase/config';
@@ -19,6 +20,12 @@ import { getLastSyncedAt } from '@/lib/sync/lastSyncedAt';
  */
 export function SyncSection() {
   const { session, loading } = useAuthSession();
+
+  useEffect(() => {
+    if (loading) return;
+    if (session) getAnalyticsGateway().identify(session.user.id);
+    else getAnalyticsGateway().reset();
+  }, [session, loading]);
 
   if (!isSupabaseConfigured()) return null;
   if (loading) return null;
@@ -114,6 +121,7 @@ function SignedInPanel({ email }: { email: string }) {
     if (result.status === 'error') {
       setStatus(t.sync.syncError(result.message));
     } else if (result.status === 'success') {
+      getAnalyticsGateway().capture('sync_completed', {});
       setLastSyncedAtState(await getLastSyncedAt());
     }
     setSyncing(false);
