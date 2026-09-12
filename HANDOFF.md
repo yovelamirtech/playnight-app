@@ -574,6 +574,48 @@ Supabase.
 במכשיר אחד, ובדיקה שהוא מופיע אחרי סנכרון במכשיר/התקנה שנייה עם אותו
 אימייל.
 
+### באג שנתגלה ותוקן: `npx expo start` קרס על `could not open database`
+
+הריצה הראשונה בפועל על מכשיר אמיתי (המשתמש, לא סימולציה) גילתה שה-DB
+המקומי (SQLite, לא Supabase) לא עלה בכלל: `failed to run the query
+'ALTER TABLE user_games ADD updated_at integer DEFAULT (unixepoch())
+NOT NULL'`. **סיבת שורש:** SQLite אוסר `DEFAULT` שהוא ביטוי לא-קבוע
+(כמו קריאה לפונקציה `unixepoch()`) ב-`ALTER TABLE ... ADD COLUMN` —
+הגבלה שלא קיימת ב-`CREATE TABLE`. `drizzle-kit` יצר את המיגרציה
+`0002_odd_squadron_sinister.sql` (הוספת `updated_at` ל-`users`/
+`user_games` לצורך last-write-wins, §16) בצורה הנאיבית (`ALTER TABLE
+ADD`) שלא עומדת בהגבלה הזו. **מכיוון שכל שלוש המיגרציות רצות בתוך
+טרנזקציה אחת** (`drizzle-orm/expo-sqlite/migrator`), כשל 0002 גרם
+ל-rollback גם ל-0000/0001 — ה-DB נשאר לגמרי ריק, מכאן "could not
+open database" (לא רק אזהרה, קריסה מוחלטת של הבוט-סטרפ).
+
+**התיקון:** נכתב מחדש `drizzle/0002_odd_squadron_sinister.sql`
+לפי הטכניקה הרשמית של SQLite ל"שינוי לא-נתמך ב-ALTER" — בניית טבלה
+חדשה (`__new_users`/`__new_user_games`) עם העמודה הרצויה,
+`INSERT ... SELECT` מהטבלה הישנה (עם `unixepoch()` בפועל בזמן
+המיגרציה, לא כ-DEFAULT), `DROP` לישנה, `RENAME` לחדשה. זה משמר את
+ה-`DEFAULT (unixepoch())` בסכימה הסופית (חשוב! שלוש נקודות הכנסה —
+`bootstrap.ts.ensureLocalUser`, `gamesRepo.ts` הוספת משחק,
+`steamImportRepo.ts` ייבוא משחק חדש — נשענות על ה-DEFAULT הזה בשורת
+DDL, לא מגדירות `updatedAt` בעצמן ב-insert). `drizzle/meta/
+0002_snapshot.json` לא שונה — הוא מתאר את מצב הסכימה הסופי (target
+state), שנשאר זהה; רק ה-SQL שמייצר אותו השתנה.
+
+**אומת בפועל (לא רק בקוד):** כתבתי סקריפט Python חד-פעמי (לא נכנס
+לריפו) שהריץ את שלושת קבצי המיגרציה במלואם על DB ריק עם `sqlite3`
+המובנה של Python, בדק ש-3 השלבים רצים בלי שגיאה, ושהוספת שורה חדשה
+ל-`users`/`user_games` בלי לציין `updated_at` מקבלת ערך timestamp
+אמיתי (לא NULL, לא 0) — בדיוק ההתנהגות שהקוד מצפה לה. **זה עדיין לא
+אותו דבר כמו להריץ בפועל דרך `expo-sqlite` על מכשיר** (מנוע SQLite
+שונה, אמנם אותה גרסת שפה) — הצעד הבא בפועל: המשתמש מריץ `npx expo
+start` מחדש (אולי צריך למחוק את האפליקציה/ה-DB הקיים במכשיר קודם אם
+יש שאריות מהניסיון הכושל — לבדוק אם `expo start -c` מנקה cache
+מספיק, או אם צריך למחוק את האפליקציה מהטלפון ולהתקין מחדש) ומאשר
+שהאפליקציה עולה בלי קריסה.
+
+**נבדק:** typecheck + lint + 118 טסטים (ללא שינוי — זה תיקון SQL גולמי,
+לא לוגיקה ב-TS) — כולם עברו.
+
 ---
 
 ## 10. בדיקות לפני שמכריזים "עובד"
