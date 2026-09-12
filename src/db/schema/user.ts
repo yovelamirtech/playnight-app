@@ -54,4 +54,3 @@ export const userGames = sqliteTable('user_games', {
 
 export type UserRow = typeof users.$inferSelect;
 export type UserGameRow = typeof userGames.$inferSelect;
-export type NewUserGameRow = typeof userGames.$inferInsert;
