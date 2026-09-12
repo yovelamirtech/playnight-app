@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { View } from 'react-native';
 
+import { ChipGrid } from '@/components/ui/ChipGrid';
 import { ChoiceChip } from '@/components/ui/ChoiceChip';
 import { MOODS } from '@/constants/session';
 import { t } from '@/i18n';
@@ -83,20 +84,18 @@ export function CalibrationQuestion({ questionId, value, onChange }: Calibration
         />
       </View>
       {moodListOpen ? (
-        <View className="gap-2">
-          {MOOD_ROWS.map((row, index) => (
-            <View key={index} className="flex-row gap-2">
-              {row.map((mood) => (
-                <ChoiceChip
-                  key={mood.id}
-                  label={t.home.moods[mood.id]}
-                  selected={value === mood.id}
-                  onPress={() => onChange(mood.id)}
-                />
-              ))}
-            </View>
-          ))}
-        </View>
+        <ChipGrid
+          rows={MOOD_ROWS}
+          keyFor={(mood) => mood.id}
+          gapClassName="gap-2"
+          renderItem={(mood) => (
+            <ChoiceChip
+              label={t.home.moods[mood.id]}
+              selected={value === mood.id}
+              onPress={() => onChange(mood.id)}
+            />
+          )}
+        />
       ) : null}
     </View>
   );
