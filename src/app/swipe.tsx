@@ -10,23 +10,26 @@ import { SwipeDeck } from '@/components/swipe/SwipeDeck';
 import { t } from '@/i18n';
 import { dismissForWeek, getSwipeCandidates, hideForever } from '@/db/repositories/swipeRepo';
 import type { SwipeCandidate } from '@/db/repositories/swipeRepo';
+import { maxSwipeRecommendations } from '@/lib/entitlements/limits';
 import { getRecommendations } from '@/lib/recommendation';
 import type { RecommendationInput } from '@/lib/recommendation';
+import { useIsPro } from '@/lib/revenuecat/useIsPro';
 import { useActiveSessionStore } from '@/store/useActiveSessionStore';
 import { useDecisionStore } from '@/store/useDecisionStore';
 
-/** מוציאה עד 5 כרטיסים חדשים (§4.1) מתוך מה שעוד לא הוצג בערב הזה. */
+/** מוציאה עד 5 כרטיסים חדשים (§4.1, מוגבל ל-3 בחינם — §5) מתוך מה שעוד לא הוצג בערב הזה. */
 function drawDeck(
   pool: SwipeCandidate[],
   input: RecommendationInput,
-  shownIds: Set<string>
+  shownIds: Set<string>,
+  limit: number
 ): SwipeCandidate[] {
   const remaining = pool.filter((candidate) => !shownIds.has(candidate.userGameId));
   // recommend.ts מחזיר את אותם אובייקטי candidate שהוזנו לו — הטיפוס
   // הבסיסי RecommendationCandidate נשאר טהור, וכאן משחזרים את שדות התצוגה.
-  const picked = getRecommendations(remaining, input).map(
-    (scored) => scored.candidate as SwipeCandidate
-  );
+  const picked = getRecommendations(remaining, input)
+    .slice(0, limit)
+    .map((scored) => scored.candidate as SwipeCandidate);
   picked.forEach((candidate) => shownIds.add(candidate.userGameId));
   return picked;
 }
@@ -36,6 +39,8 @@ export default function SwipeScreen() {
   const availableMinutes = useDecisionStore((state) => state.availableMinutes);
   const mood = useDecisionStore((state) => state.mood);
   const input: RecommendationInput = { availableMinutes, mood };
+  const isPro = useIsPro();
+  const deckLimit = maxSwipeRecommendations(isPro);
 
   const [pool, setPool] = useState<SwipeCandidate[] | null>(null);
   const [deck, setDeck] = useState<SwipeCandidate[]>([]);
@@ -47,7 +52,7 @@ export default function SwipeScreen() {
     getSwipeCandidates().then((candidates) => {
       if (cancelled) return;
       setPool(candidates);
-      const next = drawDeck(candidates, input, shownIds.current);
+      const next = drawDeck(candidates, input, shownIds.current, deckLimit);
       setDeck(next);
       if (next.length > 0) setHasShownAny(true);
     });
@@ -79,7 +84,7 @@ export default function SwipeScreen() {
 
   const handleMoreOptions = () => {
     if (!pool) return;
-    const next = drawDeck(pool, input, shownIds.current);
+    const next = drawDeck(pool, input, shownIds.current, deckLimit);
     setDeck(next);
     if (next.length > 0) setHasShownAny(true);
   };

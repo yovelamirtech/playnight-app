@@ -7,9 +7,11 @@ import { Screen } from '@/components/ui/Screen';
 import { ScreenHeader } from '@/components/ui/ScreenHeader';
 import { t } from '@/i18n';
 import { getOptedOutOfCalibration, setOptedOutOfCalibration } from '@/db/repositories/sessionsRepo';
+import { useIsPro } from '@/lib/revenuecat/useIsPro';
 
 export default function SettingsScreen() {
   const router = useRouter();
+  const isPro = useIsPro();
   const [optedOut, setOptedOut] = useState<boolean | null>(null);
 
   useEffect(() => {
@@ -26,6 +28,17 @@ export default function SettingsScreen() {
     <Screen>
       <ScreenHeader title={t.settings.title} />
       <View className="gap-4 pt-4">
+        <Pressable
+          accessibilityRole="button"
+          onPress={() => router.push('/paywall')}
+          className="h-14 flex-row items-center justify-between rounded-2xl border border-border bg-surface px-4"
+        >
+          <Text className="text-base text-text">
+            {isPro ? t.settings.proStatus : t.settings.freeStatus}
+          </Text>
+          {!isPro ? <Text className="text-base text-accentSoft">{t.settings.upgrade}</Text> : null}
+        </Pressable>
+
         <Pressable
           accessibilityRole="button"
           onPress={() => router.push('/connect-steam')}

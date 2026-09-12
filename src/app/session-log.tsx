@@ -10,8 +10,10 @@ import { ScreenHeader } from '@/components/ui/ScreenHeader';
 import { TextField } from '@/components/ui/TextField';
 import { RATING_ICONS } from '@/constants/ratingIcons';
 import { t } from '@/i18n';
+import { countStoppedNotes, getTotalSessionsCount } from '@/db/repositories/entitlementsRepo';
 import { getLibraryEntry } from '@/db/repositories/gamesRepo';
 import type { LibraryEntry } from '@/db/repositories/gamesRepo';
+import { getIsPro } from '@/db/repositories/proRepo';
 import {
   countCalibrationAnswersToday,
   getOptedOutOfCalibration,
@@ -23,6 +25,7 @@ import { SESSION_RATINGS } from '@/db/schema';
 import type { SessionRating } from '@/db/schema';
 import { pickCalibrationQuestionId, shouldAskCalibrationQuestion } from '@/lib/calibration/pickQuestion';
 import type { CalibrationQuestionId } from '@/lib/calibration/pickQuestion';
+import { canAddStoppedNote } from '@/lib/entitlements/limits';
 import { useActiveSessionStore } from '@/store/useActiveSessionStore';
 
 /** §3.5 — מסך לוג מהיר. שאלת כיול אחת (§4.5, רוטציה בין הבנק) מוצגת רק כשהיא רלוונטית. */
@@ -79,15 +82,37 @@ export default function SessionLogScreen() {
   const submit = async () => {
     if (!userGameId || !rating || finished === null || submitting) return;
     setSubmitting(true);
+
+    const isPro = await getIsPro();
+    const [priorSessionsCount, priorNotesCount] = await Promise.all([
+      getTotalSessionsCount(),
+      countStoppedNotes(),
+    ]);
+    // §5 — 20 הערות "איפה עצרתי" בחינם. הסשן עצמו לא נחסם, רק ההערה.
+    const noteAllowed = !note.trim() || canAddStoppedNote(priorNotesCount, isPro);
+
     await logSession({
       userGameId,
       startedAt: startedAt ? new Date(startedAt) : null,
       rating,
       calibrationAnswer: questionId && calibrationAnswer ? { questionId, value: calibrationAnswer } : null,
-      stoppedNote: note,
+      stoppedNote: noteAllowed ? note : '',
       finished,
     });
     clearActiveSession();
+
+    // §5 — ה-paywall מוצג אחרי הסשן הראשון, לא לפני. גם נפתח אם ההערה נחסמה.
+    // מעביר gameId כדי ש-paywall.tsx ידע לאן "Not now" חוזר — לא back(),
+    // כי useActiveSessionStore כבר נוקה (clearActiveSession למעלה) והמסך
+    // הקודם ב-stack (session-confirm) נשאר בלי סשן פעיל ומציג מסך ריק.
+    if (!noteAllowed) {
+      router.replace({ pathname: '/paywall', params: { reason: 'notes', gameId: userGameId } });
+      return;
+    }
+    if (!isPro && priorSessionsCount === 0) {
+      router.replace({ pathname: '/paywall', params: { reason: 'firstSession', gameId: userGameId } });
+      return;
+    }
     router.replace({ pathname: '/game/[id]', params: { id: userGameId } });
   };
 

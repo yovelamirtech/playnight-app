@@ -1,6 +1,6 @@
 import { Image } from 'expo-image';
-import { useRouter } from 'expo-router';
-import { useEffect, useState } from 'react';
+import { useFocusEffect, useRouter } from 'expo-router';
+import { useCallback, useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
 
 import { ChoiceChip } from '@/components/ui/ChoiceChip';
@@ -46,6 +46,19 @@ export default function SessionConfirmScreen() {
       cancelled = true;
     };
   }, [userGameId]);
+
+  // מגן נגד מסך ריק תקוע — אם המסך הזה עצמו מקבל focus בלי סשן פעיל
+  // (למשל back() ידני אחרי שה-store כבר נוקה), עדיף לחזור הביתה מאשר
+  // להישאר על מסך שחור בלי שום דרך יציאה. useFocusEffect (לא useEffect
+  // רגיל!) בכוונה: session-log.tsx מנקה את אותו store הגלובלי כשהוא
+  // עצמו מסיים סשן — useEffect רגיל היה יורה גם אז, כשהמסך הזה עדיין
+  // רק יושב ברקע ב-stack (לא focused), ומריץ replace() שמתחרה עם
+  // הניווט של session-log עצמו (בדיוק הבאג שגרם ל-paywall "להיעלם").
+  useFocusEffect(
+    useCallback(() => {
+      if (!userGameId) router.replace('/');
+    }, [userGameId, router])
+  );
 
   useEffect(() => {
     if (startedAt === null) return;

@@ -1,5 +1,6 @@
 import { and, desc, eq } from 'drizzle-orm';
 
+import { canAddGame } from '@/lib/entitlements/limits';
 import type { IgdbGame } from '@/lib/igdb';
 import { igdbGameId, localGameId, newId } from '@/lib/id';
 import { resolveSessionProfile } from '@/lib/sessionProfile/archetype';
@@ -10,6 +11,7 @@ import { db } from '../client';
 import { games, userGames } from '../schema';
 import type { UserGameStatus } from '../schema';
 import { enrichGameWithHltb } from './hltbRepo';
+import { getIsPro } from './proRepo';
 
 export type LibraryEntry = {
   userGameId: string;
@@ -78,8 +80,23 @@ type ManualGameInput = {
   releaseYear: number | null;
 };
 
+/** נזרק כש-§5 (מגבלת 50 משחקים בחינם) נחצית — הקורא מנתב ל-/paywall. */
+export class LibraryLimitReachedError extends Error {
+  constructor() {
+    super('Free library limit reached');
+    this.name = 'LibraryLimitReachedError';
+  }
+}
+
+async function assertCanAddGame(): Promise<void> {
+  const isPro = await getIsPro();
+  const currentCount = await countLibrary();
+  if (!canAddGame(currentCount, isPro)) throw new LibraryLimitReachedError();
+}
+
 /** הוספה ידנית (§8 שלב 1) — לא תלויה באף API חיצוני. */
 export async function addManualGame(input: ManualGameInput): Promise<string> {
+  await assertCanAddGame();
   const gameId = localGameId();
   await db.insert(games).values({
     id: gameId,
@@ -92,6 +109,7 @@ export async function addManualGame(input: ManualGameInput): Promise<string> {
 }
 
 export async function addGameFromIgdb(game: IgdbGame, platform: string | null): Promise<string> {
+  await assertCanAddGame();
   const gameId = igdbGameId(game.igdbId);
   // פרופיל הסשן נקבע פעם אחת בייבוא: תיוג ידני אמיתי (seed, §4.5) אם קיים
   // למשחק הזה, אחרת ברירת המחדל של הארכיטיפ (§4.4). בשני המקרים §4.5
@@ -144,4 +162,13 @@ export async function countLibrary(): Promise<number> {
     .from(userGames)
     .where(eq(userGames.userId, LOCAL_USER_ID));
   return rows.length;
+}
+
+/** הפלטפורמות השונות שכבר קיימות בספרייה — משמש למגבלת "פלטפורמה אחת" בחינם (§5). */
+export async function getConnectedPlatforms(): Promise<string[]> {
+  const rows = await db
+    .select({ platform: userGames.platform })
+    .from(userGames)
+    .where(eq(userGames.userId, LOCAL_USER_ID));
+  return Array.from(new Set(rows.map((row) => row.platform).filter((v): v is string => !!v)));
 }

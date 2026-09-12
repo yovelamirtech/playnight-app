@@ -202,7 +202,45 @@ export const en = {
     calibrationOptOut: 'Stop asking me calibration questions',
     calibrationOptOutHint:
       "You'll still benefit from what other players contribute (§4.5).",
+    proStatus: 'PlayNight Pro',
+    freeStatus: 'Free plan',
+    upgrade: 'Upgrade to Pro',
     placeholder: 'More settings arrive in a later phase.',
+  },
+
+  paywall: {
+    title: 'PlayNight Pro',
+    afterFirstSessionTitle: 'How was that?',
+    afterFirstSessionBody: "You just finished your first session — this is what Pro unlocks.",
+    freeTitle: 'Free',
+    freeFeatures: [
+      'Up to 50 games in your library',
+      'One connected platform',
+      '3 swipe recommendations',
+      'Up to 20 "where I stopped" notes',
+    ],
+    proTitle: 'Pro',
+    proFeatures: [
+      'Unlimited library',
+      'All platforms',
+      'Unlimited recommendations + advanced filters',
+      'Unlimited notes + screenshots',
+      'Game Night with friends',
+      'Stats: hours played, backlog value',
+      'No ads',
+    ],
+    notConfigured: 'Subscriptions are not set up in this build yet.',
+    purchaseCta: (priceString: string) => `Continue — ${priceString}`,
+    restorePurchases: 'Restore purchases',
+    notNow: 'Not now',
+    purchaseError: (message: string) => `Purchase failed: ${message}`,
+    restoreError: (message: string) => `Nothing to restore: ${message}`,
+    restoreSuccess: "You're on Pro — restored.",
+    limitReached: {
+      library: 'Free library is limited to 50 games — upgrade for unlimited.',
+      platform: 'Free plan connects one platform — upgrade to connect more.',
+      notes: 'Free plan keeps up to 20 "where I stopped" notes — upgrade for unlimited.',
+    },
   },
 
   sync: {
