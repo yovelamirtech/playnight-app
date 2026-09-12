@@ -43,7 +43,11 @@ export const calibrationAnswers = sqliteTable('calibration_answers', {
 export const RECOMMENDATION_ACTIONS = ['accepted', 'dismissed', 'hidden'] as const;
 export type RecommendationAction = (typeof RECOMMENDATION_ACTIONS)[number];
 
-/** recommendations_log — לשיפור המנוע (§6). */
+/**
+ * recommendations_log — לוג הצעות שהוצגו, לשיפור עתידי של מנוע ההמלצה
+ * (§6). כמו friends/game_nights ב-social.ts: הטבלה קיימת בסכמה בלבד,
+ * בלי שימוש בקוד עדיין — לפי PLAYNIGHT_SPEC.md שורה 487.
+ */
 export const recommendationsLog = sqliteTable('recommendations_log', {
   id: text('id').primaryKey(),
   userId: text('user_id')

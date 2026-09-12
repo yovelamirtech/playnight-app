@@ -2,6 +2,7 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { ActivityIndicator, ScrollView, Text, View } from 'react-native';
 
+import { Card } from '@/components/ui/Card';
 import { PrimaryButton } from '@/components/ui/PrimaryButton';
 import { Screen } from '@/components/ui/Screen';
 import { ScreenHeader } from '@/components/ui/ScreenHeader';
@@ -95,12 +96,12 @@ export default function PaywallScreen() {
         <Title>{reason === 'firstSession' ? t.paywall.afterFirstSessionTitle : t.paywall.title}</Title>
         {subtitle ? <Subtitle>{subtitle}</Subtitle> : null}
 
-        <View className="gap-3 rounded-2xl border border-border bg-surface p-4">
+        <Card className="gap-3">
           <Text className="text-base font-bold text-text">{t.paywall.freeTitle}</Text>
           {t.paywall.freeFeatures.map((feature) => (
             <Text key={feature} className="text-sm text-muted">{`• ${feature}`}</Text>
           ))}
-        </View>
+        </Card>
 
         <View className="gap-3 rounded-2xl border border-accent bg-accent/10 p-4">
           <Text className="text-base font-bold text-text">{t.paywall.proTitle}</Text>

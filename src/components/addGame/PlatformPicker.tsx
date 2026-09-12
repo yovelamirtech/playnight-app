@@ -1,5 +1,6 @@
 import { Pressable, ScrollView, Text } from 'react-native';
 
+import { selectedPillClassName } from '@/components/ui/selectedPill';
 import { PLATFORMS } from '@/constants/session';
 import type { PlatformName } from '@/constants/session';
 
@@ -17,9 +18,7 @@ export function PlatformPicker({ value, onChange }: PlatformPickerProps) {
           accessibilityRole="button"
           accessibilityState={{ selected: value === platform }}
           onPress={() => onChange(platform)}
-          className={`h-10 justify-center rounded-full border px-4 ${
-            value === platform ? 'border-accent bg-accent/20' : 'border-border bg-surface'
-          }`}
+          className={`h-10 justify-center rounded-full border px-4 ${selectedPillClassName(value === platform)}`}
         >
           <Text className={value === platform ? 'font-bold text-text' : 'text-muted'}>
             {platform}

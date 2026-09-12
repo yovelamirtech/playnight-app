@@ -2,17 +2,19 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { ScrollView, Text, View } from 'react-native';
 
+import { Card } from '@/components/ui/Card';
 import { PrimaryButton } from '@/components/ui/PrimaryButton';
 import { Screen } from '@/components/ui/Screen';
 import { ScreenHeader } from '@/components/ui/ScreenHeader';
 import { Title } from '@/components/ui/Title';
 import { RATING_ICONS } from '@/constants/ratingIcons';
+import { palette } from '@/constants/theme';
 import { t } from '@/i18n';
-import { getLibraryEntry } from '@/db/repositories/gamesRepo';
 import type { LibraryEntry } from '@/db/repositories/gamesRepo';
 import { getSessionHistory, getStoppedNotes } from '@/db/repositories/sessionsRepo';
 import type { SessionRow } from '@/db/schema';
 import { formatHltbHours } from '@/lib/hltb/formatHours';
+import { useLibraryEntry } from '@/lib/library/useLibraryEntry';
 import { formatTimeAgo } from '@/lib/timeAgo';
 import { useActiveSessionStore } from '@/store/useActiveSessionStore';
 
@@ -25,26 +27,20 @@ export default function GameScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
   const beginSession = useActiveSessionStore((state) => state.begin);
-  const [entry, setEntry] = useState<LibraryEntry | null>(null);
+  const { entry, loading } = useLibraryEntry(id);
   const [sessions, setSessions] = useState<SessionRow[]>([]);
   const [notes, setNotes] = useState<SessionRow[]>([]);
-  const [loaded, setLoaded] = useState(false);
+  const loaded = !loading;
 
   useEffect(() => {
+    if (!entry) return;
     let cancelled = false;
-    getLibraryEntry(id).then((result) => {
-      if (cancelled) return;
-      setEntry(result);
-      setLoaded(true);
-      if (result) {
-        getSessionHistory(result.gameId).then((rows) => !cancelled && setSessions(rows));
-        getStoppedNotes(result.gameId).then((rows) => !cancelled && setNotes(rows));
-      }
-    });
+    getSessionHistory(entry.gameId).then((rows) => !cancelled && setSessions(rows));
+    getStoppedNotes(entry.gameId).then((rows) => !cancelled && setNotes(rows));
     return () => {
       cancelled = true;
     };
-  }, [id]);
+  }, [entry]);
 
   const playNow = () => {
     beginSession(id);
@@ -84,7 +80,7 @@ export default function GameScreen() {
         {entry ? <PrimaryButton label={t.game.playNow} onPress={playNow} /> : null}
 
         {entry && hasHltbData(entry) ? (
-          <View className="gap-2 rounded-2xl border border-border bg-surface p-4">
+          <Card className="gap-2">
             <Text className="text-base font-bold text-text">{t.game.timeToBeatTitle}</Text>
             <View className="flex-row justify-between">
               {formatHltbHours(entry.hltbMainStoryMinutes) ? (
@@ -112,10 +108,10 @@ export default function GameScreen() {
                 </View>
               ) : null}
             </View>
-          </View>
+          </Card>
         ) : null}
 
-        <View className="gap-2 rounded-2xl border border-border bg-surface p-4">
+        <Card className="gap-2">
           <Text className="text-base font-bold text-text">{t.game.notesTitle}</Text>
           {notes.length === 0 ? (
             <Text className="text-sm text-muted">{t.game.noNotes}</Text>
@@ -129,9 +125,9 @@ export default function GameScreen() {
               </View>
             ))
           )}
-        </View>
+        </Card>
 
-        <View className="gap-2 rounded-2xl border border-border bg-surface p-4">
+        <Card className="gap-2">
           <Text className="text-base font-bold text-text">{t.game.sessionsTitle}</Text>
           {sessions.length === 0 ? (
             <Text className="text-sm text-muted">{t.game.noSessions}</Text>
@@ -140,7 +136,7 @@ export default function GameScreen() {
               const RatingIcon = session.rating ? RATING_ICONS[session.rating] : null;
               return (
                 <View key={session.id} className="flex-row items-center gap-1.5">
-                  {RatingIcon ? <RatingIcon size={14} color="#8B93A3" /> : null}
+                  {RatingIcon ? <RatingIcon size={14} color={palette.muted} /> : null}
                   <Text className="text-sm text-muted">
                     {t.game.sessionEntry(
                       formatTimeAgo(session.endedAt ?? session.startedAt),
@@ -151,7 +147,7 @@ export default function GameScreen() {
               );
             })
           )}
-        </View>
+        </Card>
       </ScrollView>
     </Screen>
   );

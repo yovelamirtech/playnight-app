@@ -15,5 +15,3 @@ export const palette = {
   good: '#2ECC71',
   warn: '#F1C40F',
 } as const;
-
-export type PaletteColor = keyof typeof palette;

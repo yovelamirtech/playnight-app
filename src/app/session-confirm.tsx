@@ -9,8 +9,7 @@ import { Screen } from '@/components/ui/Screen';
 import { ScreenHeader } from '@/components/ui/ScreenHeader';
 import { TextField } from '@/components/ui/TextField';
 import { t } from '@/i18n';
-import { getLibraryEntry } from '@/db/repositories/gamesRepo';
-import type { LibraryEntry } from '@/db/repositories/gamesRepo';
+import { useLibraryEntry } from '@/lib/library/useLibraryEntry';
 import {
   cancelSessionEndNotification,
   scheduleSessionEndNotification,
@@ -31,21 +30,10 @@ export default function SessionConfirmScreen() {
   const startTimer = useActiveSessionStore((state) => state.startTimer);
   const setStoppedNote = useActiveSessionStore((state) => state.setStoppedNote);
 
-  const [entry, setEntry] = useState<LibraryEntry | null>(null);
+  const { entry } = useLibraryEntry(userGameId);
   const [nowTick, setNowTick] = useState(() => Date.now());
   const [selectedMinutes, setSelectedMinutes] = useState<number | null>(null);
   const [notificationId, setNotificationId] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (!userGameId) return;
-    let cancelled = false;
-    getLibraryEntry(userGameId).then((result) => {
-      if (!cancelled) setEntry(result);
-    });
-    return () => {
-      cancelled = true;
-    };
-  }, [userGameId]);
 
   // מגן נגד מסך ריק תקוע — אם המסך הזה עצמו מקבל focus בלי סשן פעיל
   // (למשל back() ידני אחרי שה-store כבר נוקה), עדיף לחזור הביתה מאשר

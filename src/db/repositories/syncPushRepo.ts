@@ -8,6 +8,7 @@ import {
   toRemoteUserGame,
 } from '@/lib/sync/mapping';
 import { getSupabaseClient } from '@/lib/supabase';
+import { unwrap } from '@/lib/supabase/unwrap';
 
 import { LOCAL_USER_ID } from '../bootstrap';
 import { db } from '../client';
@@ -24,8 +25,7 @@ export async function pushLocalChanges(authUserId: string): Promise<void> {
 
   const [user] = await db.select().from(users).where(eq(users.id, LOCAL_USER_ID));
   if (user) {
-    const { error } = await client.from('profiles').upsert(toRemoteProfile(user, authUserId));
-    if (error) throw error;
+    await unwrap(client.from('profiles').upsert(toRemoteProfile(user, authUserId)));
   }
 
   const ownedUserGames = await db.select().from(userGames).where(eq(userGames.userId, LOCAL_USER_ID));
@@ -33,27 +33,20 @@ export async function pushLocalChanges(authUserId: string): Promise<void> {
     const gameIds = [...new Set(ownedUserGames.map((row) => row.gameId))];
     const ownedGames = await db.select().from(games).where(inArray(games.id, gameIds));
     if (ownedGames.length > 0) {
-      const { error } = await client
-        .from('games')
-        .upsert(
+      await unwrap(
+        client.from('games').upsert(
           ownedGames.map((game) => toRemoteGame(game)),
           { ignoreDuplicates: true }
-        );
-      if (error) throw error;
+        )
+      );
     }
 
-    const { error } = await client
-      .from('user_games')
-      .upsert(ownedUserGames.map((row) => toRemoteUserGame(row, authUserId)));
-    if (error) throw error;
+    await unwrap(client.from('user_games').upsert(ownedUserGames.map((row) => toRemoteUserGame(row, authUserId))));
   }
 
   const ownedSessions = await db.select().from(sessions).where(eq(sessions.userId, LOCAL_USER_ID));
   if (ownedSessions.length > 0) {
-    const { error } = await client
-      .from('sessions')
-      .upsert(ownedSessions.map((row) => toRemoteSession(row, authUserId)));
-    if (error) throw error;
+    await unwrap(client.from('sessions').upsert(ownedSessions.map((row) => toRemoteSession(row, authUserId))));
   }
 
   const ownedAnswers = await db
@@ -61,9 +54,10 @@ export async function pushLocalChanges(authUserId: string): Promise<void> {
     .from(calibrationAnswers)
     .where(eq(calibrationAnswers.userId, LOCAL_USER_ID));
   if (ownedAnswers.length > 0) {
-    const { error } = await client
-      .from('calibration_answers')
-      .upsert(ownedAnswers.map((row) => toRemoteCalibrationAnswer(row, authUserId)));
-    if (error) throw error;
+    await unwrap(
+      client
+        .from('calibration_answers')
+        .upsert(ownedAnswers.map((row) => toRemoteCalibrationAnswer(row, authUserId)))
+    );
   }
 }

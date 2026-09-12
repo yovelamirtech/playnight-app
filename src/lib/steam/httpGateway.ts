@@ -1,3 +1,5 @@
+import { fetchJson } from '@/lib/httpJson';
+
 import { STEAM_PROXY_URL } from './config';
 import { SteamImportError, SteamNotConfiguredError } from './types';
 import type { SteamGateway, SteamOwnedGame } from './types';
@@ -19,12 +21,14 @@ const normalize = (raw: RawSteamGame): SteamOwnedGame => ({
 });
 
 async function getJson(baseUrl: string, path: string): Promise<unknown> {
-  const response = await fetch(`${baseUrl}${path}`);
-  const body = (await response.json().catch(() => ({}))) as { error?: string };
-  if (!response.ok) {
-    throw new SteamImportError(body.error ?? `Steam proxy responded ${response.status}`);
-  }
-  return body;
+  return fetchJson(
+    `${baseUrl}${path}`,
+    undefined,
+    (status, body) => {
+      throw new SteamImportError((body as { error?: string }).error ?? `Steam proxy responded ${status}`);
+    },
+    { fallback: {} }
+  );
 }
 
 export const createHttpSteamGateway = (baseUrl: string): SteamGateway => ({

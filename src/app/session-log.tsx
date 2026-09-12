@@ -11,8 +11,6 @@ import { TextField } from '@/components/ui/TextField';
 import { RATING_ICONS } from '@/constants/ratingIcons';
 import { t } from '@/i18n';
 import { countStoppedNotes, getTotalSessionsCount } from '@/db/repositories/entitlementsRepo';
-import { getLibraryEntry } from '@/db/repositories/gamesRepo';
-import type { LibraryEntry } from '@/db/repositories/gamesRepo';
 import { getIsPro } from '@/db/repositories/proRepo';
 import {
   countCalibrationAnswersToday,
@@ -26,6 +24,7 @@ import type { SessionRating } from '@/db/schema';
 import { pickCalibrationQuestionId, shouldAskCalibrationQuestion } from '@/lib/calibration/pickQuestion';
 import type { CalibrationQuestionId } from '@/lib/calibration/pickQuestion';
 import { canAddStoppedNote } from '@/lib/entitlements/limits';
+import { useLibraryEntry } from '@/lib/library/useLibraryEntry';
 import { useActiveSessionStore } from '@/store/useActiveSessionStore';
 
 /** §3.5 — מסך לוג מהיר. שאלת כיול אחת (§4.5, רוטציה בין הבנק) מוצגת רק כשהיא רלוונטית. */
@@ -36,7 +35,7 @@ export default function SessionLogScreen() {
   const initialNote = useActiveSessionStore((state) => state.stoppedNote);
   const clearActiveSession = useActiveSessionStore((state) => state.clear);
 
-  const [entry, setEntry] = useState<LibraryEntry | null>(null);
+  const { entry } = useLibraryEntry(userGameId);
   const [questionId, setQuestionId] = useState<CalibrationQuestionId | null>(null);
   const [rating, setRating] = useState<SessionRating | null>(null);
   const [calibrationAnswer, setCalibrationAnswer] = useState<CalibrationAnswerRawValue | null>(null);
@@ -45,34 +44,31 @@ export default function SessionLogScreen() {
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
-    if (!userGameId) return;
+    if (!entry) return;
     let cancelled = false;
-    Promise.all([
-      getLibraryEntry(userGameId),
-      countCalibrationAnswersToday(),
-      getOptedOutOfCalibration(),
-    ]).then(async ([libraryEntry, todayCount, optedOut]) => {
-      if (cancelled || !libraryEntry) return;
-      setEntry(libraryEntry);
-      const askCalibration = shouldAskCalibrationQuestion({
-        gameSessionReportsCount: libraryEntry.sessionReportsCount,
-        calibrationQuestionsAnsweredTodayByUser: todayCount,
-        userOptedOutOfCalibration: optedOut,
-      });
-      if (!askCalibration) return;
-      const rotatingCounts = await getRotatingQuestionAnsweredCounts(libraryEntry.gameId);
-      if (cancelled) return;
-      setQuestionId(
-        pickCalibrationQuestionId({
-          interruptibleReportsCount: libraryEntry.interruptibleReportsCount,
-          questionAnsweredCounts: rotatingCounts,
-        })
-      );
-    });
+    Promise.all([countCalibrationAnswersToday(), getOptedOutOfCalibration()]).then(
+      async ([todayCount, optedOut]) => {
+        if (cancelled) return;
+        const askCalibration = shouldAskCalibrationQuestion({
+          gameSessionReportsCount: entry.sessionReportsCount,
+          calibrationQuestionsAnsweredTodayByUser: todayCount,
+          userOptedOutOfCalibration: optedOut,
+        });
+        if (!askCalibration) return;
+        const rotatingCounts = await getRotatingQuestionAnsweredCounts(entry.gameId);
+        if (cancelled) return;
+        setQuestionId(
+          pickCalibrationQuestionId({
+            interruptibleReportsCount: entry.interruptibleReportsCount,
+            questionAnsweredCounts: rotatingCounts,
+          })
+        );
+      }
+    );
     return () => {
       cancelled = true;
     };
-  }, [userGameId]);
+  }, [entry]);
 
   const skip = () => {
     clearActiveSession();

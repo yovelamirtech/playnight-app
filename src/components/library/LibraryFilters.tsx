@@ -1,5 +1,6 @@
 import { Pressable, ScrollView, Text, View } from 'react-native';
 
+import { selectedPillClassName } from '@/components/ui/selectedPill';
 import { t } from '@/i18n';
 import type { LibraryFilters as Filters, SortOption } from '@/lib/library/filterSort';
 import { SORT_OPTIONS } from '@/lib/library/filterSort';
@@ -24,9 +25,7 @@ function ChipRow<TValue extends string | number>({
       <Pressable
         onPress={() => onChange(null)}
         accessibilityRole="button"
-        className={`h-7 justify-center rounded-full border px-2.5 ${
-          value === null ? 'border-accent bg-accent/20' : 'border-border bg-surface'
-        }`}
+        className={`h-7 justify-center rounded-full border px-2.5 ${selectedPillClassName(value === null)}`}
       >
         <Text className={value === null ? 'text-xs font-bold text-text' : 'text-xs text-muted'}>
           {allLabel}
@@ -37,9 +36,7 @@ function ChipRow<TValue extends string | number>({
           key={option}
           onPress={() => onChange(option)}
           accessibilityRole="button"
-          className={`h-7 justify-center rounded-full border px-2.5 ${
-            value === option ? 'border-accent bg-accent/20' : 'border-border bg-surface'
-          }`}
+          className={`h-7 justify-center rounded-full border px-2.5 ${selectedPillClassName(value === option)}`}
         >
           <Text className={value === option ? 'text-xs font-bold text-text' : 'text-xs text-muted'}>
             {labelFor(option)}
@@ -111,9 +108,7 @@ export function LibraryFilters({
             key={option}
             onPress={() => onSortChange(option)}
             accessibilityRole="button"
-            className={`h-7 justify-center rounded-full border px-2.5 ${
-              sort === option ? 'border-accent bg-accent/20' : 'border-border bg-surface'
-            }`}
+            className={`h-7 justify-center rounded-full border px-2.5 ${selectedPillClassName(sort === option)}`}
           >
             <Text className={sort === option ? 'text-xs font-bold text-text' : 'text-xs text-muted'}>
               {SORT_LABELS[option]}

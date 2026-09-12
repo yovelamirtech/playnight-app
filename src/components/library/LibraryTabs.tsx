@@ -1,5 +1,6 @@
 import { Pressable, ScrollView, Text } from 'react-native';
 
+import { selectedPillClassName } from '@/components/ui/selectedPill';
 import { t } from '@/i18n';
 import type { UserGameStatus } from '@/db/schema';
 
@@ -29,9 +30,7 @@ export function LibraryTabs({ value, onChange }: LibraryTabsProps) {
           accessibilityRole="tab"
           accessibilityState={{ selected: value === tab.status }}
           onPress={() => onChange(tab.status)}
-          className={`h-10 justify-center rounded-full border px-4 ${
-            value === tab.status ? 'border-accent bg-accent/20' : 'border-border bg-surface'
-          }`}
+          className={`h-10 justify-center rounded-full border px-4 ${selectedPillClassName(value === tab.status)}`}
         >
           <Text className={value === tab.status ? 'font-bold text-text' : 'text-muted'}>
             {tab.label}
