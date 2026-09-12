@@ -2,6 +2,7 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { ScrollView, Text, View } from 'react-native';
 
+import { Card } from '@/components/ui/Card';
 import { PrimaryButton } from '@/components/ui/PrimaryButton';
 import { Screen } from '@/components/ui/Screen';
 import { ScreenHeader } from '@/components/ui/ScreenHeader';
@@ -84,7 +85,7 @@ export default function GameScreen() {
         {entry ? <PrimaryButton label={t.game.playNow} onPress={playNow} /> : null}
 
         {entry && hasHltbData(entry) ? (
-          <View className="gap-2 rounded-2xl border border-border bg-surface p-4">
+          <Card className="gap-2">
             <Text className="text-base font-bold text-text">{t.game.timeToBeatTitle}</Text>
             <View className="flex-row justify-between">
               {formatHltbHours(entry.hltbMainStoryMinutes) ? (
@@ -112,10 +113,10 @@ export default function GameScreen() {
                 </View>
               ) : null}
             </View>
-          </View>
+          </Card>
         ) : null}
 
-        <View className="gap-2 rounded-2xl border border-border bg-surface p-4">
+        <Card className="gap-2">
           <Text className="text-base font-bold text-text">{t.game.notesTitle}</Text>
           {notes.length === 0 ? (
             <Text className="text-sm text-muted">{t.game.noNotes}</Text>
@@ -129,9 +130,9 @@ export default function GameScreen() {
               </View>
             ))
           )}
-        </View>
+        </Card>
 
-        <View className="gap-2 rounded-2xl border border-border bg-surface p-4">
+        <Card className="gap-2">
           <Text className="text-base font-bold text-text">{t.game.sessionsTitle}</Text>
           {sessions.length === 0 ? (
             <Text className="text-sm text-muted">{t.game.noSessions}</Text>
@@ -151,7 +152,7 @@ export default function GameScreen() {
               );
             })
           )}
-        </View>
+        </Card>
       </ScrollView>
     </Screen>
   );

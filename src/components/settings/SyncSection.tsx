@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { ActivityIndicator, Text, View } from 'react-native';
 
+import { Card } from '@/components/ui/Card';
 import { PrimaryButton } from '@/components/ui/PrimaryButton';
 import { TextField } from '@/components/ui/TextField';
 import { syncNow } from '@/db/repositories/syncRepo';
@@ -23,11 +24,11 @@ export function SyncSection() {
   if (loading) return null;
 
   return (
-    <View className="gap-3 rounded-2xl border border-border bg-surface p-4">
+    <Card className="gap-3">
       <Text className="text-base font-semibold text-text">{t.sync.title}</Text>
       <Text className="text-xs text-muted">{t.sync.hint}</Text>
       {session ? <SignedInPanel email={session.user.email ?? ''} /> : <SignInPanel />}
-    </View>
+    </Card>
   );
 }
 
