@@ -9,6 +9,7 @@ import {
 } from '@/lib/sync/mapping';
 import { findMissingRemoteIds, shouldApplyRemote } from '@/lib/sync/resolveConflict';
 import { getSupabaseClient } from '@/lib/supabase';
+import { unwrap } from '@/lib/supabase/unwrap';
 
 import { LOCAL_USER_ID } from '../bootstrap';
 import { db } from '../client';
@@ -35,8 +36,7 @@ export async function pullRemoteChanges(authUserId: string): Promise<void> {
 type SupabaseClientLike = ReturnType<typeof getSupabaseClient>;
 
 async function pullProfile(client: NonNullable<SupabaseClientLike>, authUserId: string): Promise<void> {
-  const { data, error } = await client.from('profiles').select('*').eq('id', authUserId).maybeSingle();
-  if (error) throw error;
+  const data = await unwrap(client.from('profiles').select('*').eq('id', authUserId).maybeSingle());
   if (!data) return;
 
   const [local] = await db.select().from(users).where(eq(users.id, LOCAL_USER_ID));
@@ -49,8 +49,7 @@ async function pullProfile(client: NonNullable<SupabaseClientLike>, authUserId: 
 }
 
 async function pullUserGames(client: NonNullable<SupabaseClientLike>, relevantGameIds: Set<string>) {
-  const { data, error } = await client.from('user_games').select('*');
-  if (error) throw error;
+  const data = await unwrap(client.from('user_games').select('*'));
   if (!data || data.length === 0) return;
 
   for (const remoteRow of data) {
@@ -79,8 +78,7 @@ async function pullGames(client: NonNullable<SupabaseClientLike>, relevantGameId
   );
   if (missing.length === 0) return;
 
-  const { data, error } = await client.from('games').select('*').in('id', missing);
-  if (error) throw error;
+  const data = await unwrap(client.from('games').select('*').in('id', missing));
   if (!data || data.length === 0) return;
 
   for (const remoteRow of data) {
@@ -89,8 +87,7 @@ async function pullGames(client: NonNullable<SupabaseClientLike>, relevantGameId
 }
 
 async function pullSessions(client: NonNullable<SupabaseClientLike>) {
-  const { data, error } = await client.from('sessions').select('*');
-  if (error) throw error;
+  const data = await unwrap(client.from('sessions').select('*'));
   if (!data || data.length === 0) return;
 
   const localIds = await db.select({ id: sessions.id }).from(sessions);
@@ -108,8 +105,7 @@ async function pullSessions(client: NonNullable<SupabaseClientLike>) {
 }
 
 async function pullCalibrationAnswers(client: NonNullable<SupabaseClientLike>) {
-  const { data, error } = await client.from('calibration_answers').select('*');
-  if (error) throw error;
+  const data = await unwrap(client.from('calibration_answers').select('*'));
   if (!data || data.length === 0) return;
 
   const localIds = await db.select({ id: calibrationAnswers.id }).from(calibrationAnswers);
