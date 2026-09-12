@@ -7,8 +7,11 @@ import { Screen } from '@/components/ui/Screen';
 import { ScreenHeader } from '@/components/ui/ScreenHeader';
 import { Subtitle } from '@/components/ui/Title';
 import { TextField } from '@/components/ui/TextField';
+import { getConnectedPlatforms } from '@/db/repositories/gamesRepo';
+import { getIsPro } from '@/db/repositories/proRepo';
 import { importSteamGames } from '@/db/repositories/steamImportRepo';
 import { t } from '@/i18n';
+import { canConnectPlatform } from '@/lib/entitlements/limits';
 import { getSteamGateway, SteamImportError } from '@/lib/steam';
 
 type Status =
@@ -36,6 +39,12 @@ export default function ConnectSteamScreen() {
   const submit = async () => {
     const trimmed = input.trim();
     if (!trimmed || isBusy) return;
+
+    const [connectedPlatforms, isPro] = await Promise.all([getConnectedPlatforms(), getIsPro()]);
+    if (!canConnectPlatform(connectedPlatforms, 'Steam', isPro)) {
+      router.push({ pathname: '/paywall', params: { reason: 'platform' } });
+      return;
+    }
 
     setStatus({ kind: 'resolving' });
     try {

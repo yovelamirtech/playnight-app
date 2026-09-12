@@ -281,8 +281,13 @@ declaration שנוצר בזמן build/codegen ולא נמצא כאן). לא תו
 5. **Supabase Auth + sync (§8 שלב 4)** — הושלם בסשן הזה, ראה §16.
    **לא אומת מול פרויקט Supabase אמיתי בכלל** — אין עדיין פרויקט קיים,
    צריך שהמשתמש ייצור אחד ויריץ את המיגרציה הידנית. §16 להוראות מלאות.
-6. עדיין לא בנוי משלב 4: RevenueCat (paywall), PostHog. לא התחלנו —
-   מחכה להחלטת המשתמש על סדר עדיפויות בתוך השלב.
+6. **RevenueCat + paywall (§5, §8 שלב 4)** — הושלם, ראה §19. **לא נבדק
+   בפועל בכלל** (native module, דורש Dev Build + חשבון RevenueCat +
+   מוצרים ב-App Store Connect/Google Play). PostHog עדיין לא התחיל —
+   מחכה להחלטת המשתמש.
+7. **פרסומות (banner ads, §5)** — נדחו בכוונה למשימה נפרדת. אינטגרציה
+   עצמאית (AdMob, native module, חשבון+ad unit IDs משלה) — לא נבנתה
+   כחלק מ-RevenueCat. ל-IDEAS.md אם ירצו להתחיל.
 
 ---
 
@@ -715,11 +720,109 @@ start` מחדש (אולי צריך למחוק את האפליקציה/ה-DB הק
 
 ---
 
+## 19. RevenueCat + Paywall (§5, §8 שלב 4) — הושלם, לא נבדק בפועל בכלל
+
+פריט #6 מ-§9. אותו דפוס בדיוק כמו IGDB/Steam/HLTB: `src/lib/revenuecat/`
+(`types.ts`, `config.ts` — `EXPO_PUBLIC_REVENUECAT_IOS_KEY`/`_ANDROID_KEY`,
+אופציונלי כמו Supabase — ריק = mock gateway, האפליקציה ממשיכה בלי
+לגעת ב-SDK), `mockGateway.ts`, `nativeGateway.ts` (עוטף
+`react-native-purchases`), `index.ts` (`getRevenueCatGateway()`).
+
+- **`nativeGateway.web.ts`** — `react-native-purchases` הוא native-only.
+  Metro בוחר את הקובץ הזה אוטומטית על `expo export --platform web`
+  (convention של `.web.ts`), כך שה-SDK האמיתי אף פעם לא נכנס ל-bundle
+  של web. **אומת בפועל:** `expo export` לשלוש הפלטפורמות (android/ios/
+  web) עבר נקי אחרי ההתקנה.
+- **`isPro` (`src/db/schema/user.ts`) נשאר מקור האמת** (AGENTS.md כלל 4)
+  — לא נוסף store נפרד. `src/lib/revenuecat/useIsPro.ts` קורא `isPro`
+  כ-live query מה-DB, ובמקביל מאזין ל-`customerInfo` updates מ-RevenueCat
+  (רכישה/חידוש/ביטול/restore) וכותב אותם חזרה דרך
+  `src/db/repositories/proRepo.ts` (`setIsPro`). זה מה שדוחף את הסטטוס
+  ל-Supabase sync הקיים — `isPro`/`is_pro` כבר היו ב-mapping (§16) לפני
+  הסשן הזה, לא נגעתי בזה.
+- **entitlement identifier קבוע: `"pro"`** (`nativeGateway.ts`,
+  `PRO_ENTITLEMENT_ID`) — **חייב** להיות מוגדר בדיוק בשם הזה ב-RevenueCat
+  dashboard (Entitlements → "pro"), משויך לשני המוצרים. אם ייווצר בשם
+  אחר, `isPro` פשוט יישאר `false` תמיד בלי שגיאה גלויה — לבדוק את זה
+  ראשון אם הרכישה "עובדת" אבל הסטטוס לא מתעדכן.
+
+### אכיפה — חסימה קשיחה (הוחלט עם המשתמש, לא רק אינדיקציה)
+
+`src/lib/entitlements/limits.ts` (+ `limits.test.ts`, 12 טסטים) —
+פונקציות טהורות לפי §5: `canAddGame` (50), `canConnectPlatform` (פלטפורמה
+אחת), `canAddStoppedNote` (20), `maxSwipeRecommendations` (3). מחוברות:
+
+- **ספרייה** — `gamesRepo.ts` (`addManualGame`/`addGameFromIgdb`) זורק
+  `LibraryLimitReachedError` אם המגבלה נחצית; `add-game.tsx` תופס ומנתב
+  ל-`/paywall?reason=library`.
+- **פלטפורמה** — `connect-steam.tsx` בודק `canConnectPlatform` מול
+  `getConnectedPlatforms()` (חדש ב-`gamesRepo.ts`, distinct platforms
+  ב-`user_games`) לפני הייבוא; אם חסום → `/paywall?reason=platform`.
+- **הערות "איפה עצרתי"** — `session-log.tsx` בודק `canAddStoppedNote`
+  מול `countStoppedNotes()` (`src/db/repositories/entitlementsRepo.ts`,
+  קובץ חדש — `sessionsRepo.ts` כבר היה מעל 200 שורות לפני הסשן הזה,
+  לא רציתי להוסיף עליו עוד). **הסשן עצמו לא נחסם, רק ההערה** — אם
+  חסום, `logSession` נקרא עם `stoppedNote: ''` ומנתבים ל-
+  `/paywall?reason=notes`.
+- **סוואיפ** — `swipe.tsx.drawDeck` עושה `slice(0, maxSwipeRecommendations(isPro))`
+  על התוצאה הממוינת של `getRecommendations` (§4.1) — משתמש חינמי רואה
+  3 מתוך 5, לא רק אינדיקציה.
+- **אחרי הסשן הראשון (§5: "אחרי שהמשתמש סיים, לא לפני")** —
+  `entitlementsRepo.getTotalSessionsCount()` נבדק **לפני** ה-insert
+  ב-`session-log.tsx.submit()`; אם 0 וגם לא Pro → `/paywall?reason=firstSession`
+  במקום מסך פרטי המשחק. לא חוסם לצמיתות — "Not now" סוגר וממשיכים.
+
+### מסך `src/app/paywall.tsx`
+
+מציג Free מול Pro (טקסט/תכונות לפי §5), כפתורי רכישה לכל package
+מ-`getPackages()` (נופל בחזרה לטקסט "not configured" אם RevenueCat לא
+מוגדר — לא נעלם, ה-mock gateway עדיין מחזיר 2 חבילות דמה כדי שאפשר
+יהיה לבנות/לבדוק את המסך בלי Dev Build), "Restore purchases", "Not
+now". פרמטר `?reason=` (`firstSession`/`library`/`platform`/`notes`)
+קובע רק את שורת ההסבר העליונה, לא את שאר ההתנהגות.
+
+### מה המשתמש חייב לעשות ידנית לפני שזה עובד בפועל
+
+בדיוק כמו Supabase (§17) — קוד מוכן, אפס credentials עדיין:
+
+1. יצירת חשבון וproject ב-[revenuecat.com](https://app.revenuecat.com)
+   (חינמי עד $2.5K MTR).
+2. חיבור App Store Connect (iOS) ו/או Google Play Console (Android) —
+   RevenueCat דורש את זה כדי לקרוא את המוצרים.
+3. יצירת שני מוצרי מנוי בחנויות עצמן (App Store Connect/Play Console)
+   לפי §5: `playnight_pro_monthly` ($3.99), `playnight_pro_annual`
+   ($24.99) — מזהי המוצר יכולים להיות שונים, אבל **המזהים בפועל
+   שנוצרים חייבים להיות מקושרים ל-packages ב-RevenueCat dashboard**
+   (Offerings → Current → Packages).
+4. **Entitlement** ב-RevenueCat dashboard בשם **בדיוק** `pro` (ראה
+   למעלה — `PRO_ENTITLEMENT_ID`), משויך לשני המוצרים.
+5. API keys (Project Settings → API keys) — מפתח ציבורי נפרד לכל חנות
+   → `.env`: `EXPO_PUBLIC_REVENUECAT_IOS_KEY`/`EXPO_PUBLIC_REVENUECAT_ANDROID_KEY`
+   (ראה `.env.example`).
+6. **Development Build על ה-Mac** (AGENTS.md §2 — `react-native-purchases`
+   הוא native module, לא עובד ב-Expo Go). זה בדיוק התלות ש-RevenueCat
+   תמיד תוכנן סביבה — לא חדש.
+7. בדיקה בפועל: הוספת 51 משחקים (מגבלת ספרייה), ניסיון חיבור פלטפורמה
+   שנייה, סיום סשן ראשון (paywall אמור לקפוץ), רכישת sandbox (App
+   Store/Play Console sandbox testers), "Restore purchases" אחרי מחיקה
+   והתקנה מחדש.
+
+**לא נבדק בכלל מהסביבה הזו** — לא native module, לא Dev Build, אין
+credentials. שונה מ-HLTB (חסימת רשת) ומ-Supabase (חסר רק credentials):
+כאן חסרים גם ה-Dev Build וגם החשבון.
+
+**נבדק בסשן הזה:** typecheck + lint + 130 טסטים (118 היו, +12 ל-
+`limits.test.ts`) + `expo export` לשלוש הפלטפורמות (android/ios/web) —
+כולם עברו. **המימוש עצמו — mock בלבד, לא מול RevenueCat/App Store/
+Google Play חי בכלל.**
+
+---
+
 ## 10. בדיקות לפני שמכריזים "עובד"
 
 ```bash
 npm run typecheck   # אפליקציה + כלים. חייב exit 0 (מלבד global.css, ראה §8)
-npm test            # 118 טסטים
+npm test            # 130 טסטים
 npx expo export --platform android
 npx expo export --platform ios
 ```
@@ -770,6 +873,10 @@ API האמיתי.
    קטן ולא-קריטי: הבדיקה הדו-מכשירית המלאה (התקנה שנייה, לוודא
    שספרייה קיימת מסתנכרנת חזרה) — §17 מסביר את הדרך הקלה לבדוק את זה
    אם ירצו.
+9. **RevenueCat + paywall (§19, חדש) — לא נבדק בכלל, לא רק "לא על
+   מכשיר".** דורש גם חשבון RevenueCat + מוצרים בחנויות (עוד לא נוצרו)
+   וגם Development Build (עוד לא נבנה). §19 מפרט את כל 7 הצעדים
+   הידניים הנדרשים לפני שאפשר בכלל להתחיל לבדוק.
 
 ---
 
@@ -782,29 +889,35 @@ API האמיתי.
 1. PLAYNIGHT_SPEC.md (האפיון המלא)
 2. HANDOFF.md (מצב נוכחי, החלטות, מלכודות) — במיוחד §9 (מה נשאר
    פתוח), §17 (Supabase — אומת קצה-לקצה על מכשיר אמיתי, עובד), §18
-   (HLTB — נבדק, נמצא שבור בגלל אנטי-בוט, הוחלט לוותר בינתיים) ו-§13
-   (רשימה מרוכזת של מה שנשאר לבדוק במכשיר אמיתי)
+   (HLTB — נבדק, נמצא שבור בגלל אנטי-בוט, הוחלט לוותר בינתיים), §19
+   (RevenueCat + paywall — קוד מוכן, לא נבדק בכלל, 7 צעדים ידניים
+   נדרשים) ו-§13 (רשימה מרוכזת של מה שנשאר לבדוק במכשיר אמיתי)
 3. AGENTS.md (כללי עבודה קבועים)
 
 מצב נוכחי: שלבים 1-3 הושלמו במלואם. שלב 4 (§8 SPEC): Auth+sync מול
 Supabase (§16-17) **הושלם ואומת בפועל על מכשיר אמיתי — עובד**. HLTB
 (§15/§18) **נבדק מול האתר החי ונמצא שבור** (הגנת אנטי-בוט חדשה של
-HLTB, לא רק endpoint שהשתנה) — הוחלט **לוותר על סנכרון חי בינתיים**,
-הקוד נשאר כמו שהוא (נופל בחזרה ל"אין נתון" בשקט). RevenueCat/PostHog
-עדיין לא נגעו בהם כלל. typecheck + lint + 118 טסטים + expo export
-(android/ios/web) עוברים.
+HLTB) — הוחלט **לוותר על סנכרון חי בינתיים**. RevenueCat + paywall
+(§5, §19) **הושלם בקוד — מגבלות חינם/Pro אוכפות קשיחה, מסך paywall,
+מנוע gateway עם mock, אבל לא נבדק בפועל בכלל** (לא native module, לא
+Dev Build, אין חשבון RevenueCat). פרסומות (banner ads) נדחו בכוונה
+למשימה נפרדת. PostHog עדיין לא התחיל. typecheck + lint + 130 טסטים +
+expo export (android/ios/web) עוברים.
 
 מה שנשאר פתוח (HANDOFF.md §9, מעודכן):
-1. **RevenueCat + PostHog (שאר §8 שלב 4)** — לא התחלנו. לשאול את
-   המשתמש באיזה סדר לפני שמתחילים. RevenueCat דורש Development Build
-   שהמשתמש בונה בעצמו על ה-Mac (§2 AGENTS.md) — תלות דומה לזו של
-   Steam/HLTB, אל תתכנן EAS build ואל תניח גישה ל-Xcode.
-2. **הבדיקה הדו-מכשירית המלאה ל-Supabase sync** (§17, פחות קריטי) —
+1. **הקמת RevenueCat בפועל (§19)** — חשבון, App Store Connect/Google
+   Play, מוצרי מנוי, entitlement בשם **בדיוק** `pro`, API keys ל-`.env`,
+   ואז Development Build על ה-Mac (§2 AGENTS.md). §19 מפרט את כל 7
+   הצעדים. עד אז אי אפשר לבדוק רכישה בפועל בכלל.
+2. **PostHog (שאר §8 שלב 4)** — לא התחלנו.
+3. **פרסומות (banner ads, §5)** — נדחו בכוונה, לא ב-scope של RevenueCat.
+   אינטגרציה עצמאית (AdMob) — לשאול את המשתמש לפני שמתחילים.
+4. **הבדיקה הדו-מכשירית המלאה ל-Supabase sync** (§17, פחות קריטי) —
    התקנה שנייה עם אותו אימייל, לוודא שספרייה קיימת מסתנכרנת חזרה.
-3. שאר סעיפי הרשימה ב-§13 (Steam import עם מפתח אמיתי, מחוות ה-swipe,
+5. שאר סעיפי הרשימה ב-§13 (Steam import עם מפתח אמיתי, מחוות ה-swipe,
    טיימר הסשן, שאלות הכיול) — דורשים שהמשתמש ירוץ בעצמו על הטלפון.
    אם הוא מדווח תוצאה — תתקן לפי הדיווח, אל תנחש בלי דיווח.
-4. **HLTB (§18)** — לא לפתוח מחדש בלי סיבה טובה. אם המשתמש בכל זאת
+6. **HLTB (§18)** — לא לפתוח מחדש בלי סיבה טובה. אם המשתמש בכל זאת
    רוצה לנסות שוב, האפשרות היחידה שנשארה היא headless browser
    (Playwright) — לא ניסיון נוסף לחשב את ה-anti-bot hash ידנית.
 

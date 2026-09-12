@@ -7,7 +7,7 @@ import { SearchList } from '@/components/addGame/SearchList';
 import { Screen } from '@/components/ui/Screen';
 import { ScreenHeader } from '@/components/ui/ScreenHeader';
 import { t } from '@/i18n';
-import { addGameFromIgdb, addManualGame } from '@/db/repositories/gamesRepo';
+import { addGameFromIgdb, addManualGame, LibraryLimitReachedError } from '@/db/repositories/gamesRepo';
 
 type Mode = 'search' | 'manual';
 
@@ -16,6 +16,14 @@ export default function AddGameScreen() {
   const [mode, setMode] = useState<Mode>('search');
 
   const done = () => router.replace('/library');
+
+  const onLimitReached = (error: unknown) => {
+    if (error instanceof LibraryLimitReachedError) {
+      router.push({ pathname: '/paywall', params: { reason: 'library' } });
+      return;
+    }
+    throw error;
+  };
 
   return (
     <Screen>
@@ -41,13 +49,13 @@ export default function AddGameScreen() {
       {mode === 'search' ? (
         <SearchList
           onSelect={(game) => {
-            void addGameFromIgdb(game, null).then(done);
+            void addGameFromIgdb(game, null).then(done).catch(onLimitReached);
           }}
         />
       ) : (
         <ManualForm
           onSubmit={(input) => {
-            void addManualGame(input).then(done);
+            void addManualGame(input).then(done).catch(onLimitReached);
           }}
         />
       )}
