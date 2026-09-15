@@ -938,6 +938,38 @@ typecheck (מלבד `global.css` הידוע — מספר השגיאות זהה �
 השינוי, 37) + lint + 130 טסטים (ללא שינוי — זו תוספת I/O, לא לוגיקה
 טהורה, אין טסט יחידה חדש) + `expo export` לשלוש הפלטפורמות — כולם עברו.
 
+### אומת בפועל על מכשיר אמיתי — PostHog עובד קצה-לקצה ✅ (2026-09-15)
+
+המשתמש יצר פרויקט PostHog אמיתי (**EU cloud** — `EXPO_PUBLIC_POSTHOG_HOST=
+https://eu.i.posthog.com` ב-`.env` המקומי, לא ב-git), הכניס את ה-
+`EXPO_PUBLIC_POSTHOG_API_KEY`, הריץ `npx expo start` על הטלפון, ועבר
+בלולאה המרכזית. **אומת ישירות מייצוא CSV מה-dashboard:** `game_added`
+(method: igdb), `session_logged` (rating/finished), `paywall_shown`
+(reason: notes) הגיעו עם השדות הנכונים, בנוסף לאירועי lifecycle
+אוטומטיים של ה-SDK (`Application Opened`/`Backgrounded`/`Installed`).
+`swipe_decision`/`session_started`/`calibration_question_answered` לא
+נצפו בייצוא הזה — כנראה רק כי הפעולות המתאימות לא בוצעו בסשן הבדיקה
+הקצר, לא שיש בעיה בקוד (`src/lib/analytics/events.ts` מגדיר את כולם
+זהה לשלושת האירועים שכן הגיעו).
+
+**באג צדדי שנתגלה ותוקן באותו סשן:** מסך הספרייה קרס ב-Expo Go —
+`react-native-google-mobile-ads` (AdMob, §20) זורק
+`TurboModuleRegistry.getEnforcing` **בזמן ה-import של החבילה עצמה**,
+לא רק בזמן render, אז `AdErrorBoundary` הקיים (בנוי לתפוס שגיאות
+render בלבד) לא הגן על זה. **תוקן** ב-`LibraryBannerAd.tsx`: ה-`require`
+של החבילה נדחה לרנטיים, ומדולג לגמרי כש-`Constants.executionEnvironment
+=== ExecutionEnvironment.StoreClient` (כלומר Expo Go) — מסך הספרייה
+עובד תקין עכשיו ב-Expo Go, פשוט בלי הבאנר (בדיוק כמו שקורה גם כש-AdMob
+לא מוגדר ב-`.env`). ב-Dev Build אמיתי (עתידי, §20) ההתנהגות לא משתנה —
+`executionEnvironment` שם לא יהיה `StoreClient`. נמזג ב-PR #30
+(`fix/admob-expo-go-crash`). **מסקנה כללית לסוכן הבא:** רכיבים שעוטפים
+native module חייבים לדחות גם את ה-**import/require** לרנטיים ולא רק
+את הקריאה ל-API שלו — error boundary לא מספיק אם החבילה עצמה זורקת
+כבר בזמן טעינה.
+
+**מסקנה: §21 (PostHog) אומת קצה-לקצה, עובד.** זה סוגר את הפריט האחרון
+שנשאר פתוח משלב 4 שלא תלוי בחשבונות בתשלום/Dev Build.
+
 ---
 
 ## 10. בדיקות לפני שמכריזים "עובד"
@@ -1003,9 +1035,9 @@ API האמיתי.
     RevenueCat.** דורש חשבון AdMob + App ID אמיתי ב-`app.json` +
     Development Build. §20 מפרט את כל 6 הצעדים. לבדוק גם ש-Pro לא
     רואה באנר בכלל, וש-Free רואה אותו רק בספרייה (לא בבית/סוואיפ).
-11. **PostHog (§21, חדש) — לא נבדק בכלל, אבל בשונה מ-RevenueCat/AdMob
-    לא דורש Dev Build.** רק חשבון PostHog + API key ל-`.env`. §21
-    מפרט את 3 הצעדים ואת רשימת האירועים שאמורים להופיע.
+11. ~~PostHog (§21)~~ — **אומת קצה-לקצה, עובד** (2026-09-15). ראה §21
+    "אומת בפועל" — `game_added`/`session_logged`/`paywall_shown` +
+    lifecycle events נצפו ישירות בייצוא CSV מה-dashboard.
 
 ---
 
@@ -1021,23 +1053,26 @@ API האמיתי.
    (HLTB — נבדק, נמצא שבור בגלל אנטי-בוט, הוחלט לוותר בינתיים), §19
    (RevenueCat + paywall — קוד מוכן, לא נבדק בכלל, 7 צעדים ידניים
    נדרשים), §20 (פרסומות באנר — קוד מוכן, לא נבדק בכלל, 6 צעדים ידניים
-   נדרשים), §21 (PostHog — קוד מוכן, לא נבדק בכלל, אבל לא דורש Dev
-   Build, רק 3 צעדים) ו-§13 (רשימה מרוכזת של מה שנשאר לבדוק במכשיר אמיתי)
+   נדרשים — ראה גם באג AdMob/Expo Go שתוקן ב-PR #30), §21 (PostHog —
+   **אומת קצה-לקצה על מכשיר אמיתי, עובד**) ו-§13 (רשימה מרוכזת של מה
+   שנשאר לבדוק במכשיר אמיתי)
 3. AGENTS.md (כללי עבודה קבועים)
 
 מצב נוכחי: שלבים 1-3 הושלמו במלואם. **שלב 4 (§8 SPEC) הושלם במלואו
-בקוד** — Auth+sync מול Supabase (§16-17) **הושלם ואומת בפועל על
-מכשיר אמיתי — עובד**. HLTB (§15/§18, לא חלק רשמי משלב 4 אבל נבדק
-באותה תקופה) **נבדק מול האתר החי ונמצא שבור** (הגנת אנטי-בוט חדשה של
-HLTB) — הוחלט **לוותר על סנכרון חי בינתיים**. RevenueCat + paywall
-(§5, §19) **הושלם בקוד — מגבלות חינם/Pro אוכפות קשיחה, מסך paywall,
-מנוע gateway עם mock, אבל לא נבדק בפועל בכלל** (לא native module, לא
-Dev Build, אין חשבון RevenueCat). פרסומות באנר (§5, §20) **הושלם
-בקוד — באנר בתחתית הספרייה בלבד, Pro חסום, error boundary + web
-fallback, אבל לא נבדק בפועל בכלל** (native module, לא Dev Build, אין
-חשבון AdMob). **PostHog (§21) הושלם בקוד** — gateway עם mock, אירועי
-הליבה (הוספת משחק, swipe, סשן, כיול, paywall, sync) מחוברים ב-UI,
-**לא נבדק בכלל** (חסר רק חשבון + API key — לא דורש Dev Build).
+בקוד ואומת ברובו בפועל.** Auth+sync מול Supabase (§16-17) **הושלם
+ואומת בפועל על מכשיר אמיתי — עובד**. **PostHog (§21) הושלם ואומת
+בפועל על מכשיר אמיתי — עובד** (2026-09-15, אירועי game_added/
+session_logged/paywall_shown נצפו ישירות ב-dashboard). HLTB (§15/§18,
+לא חלק רשמי משלב 4 אבל נבדק באותה תקופה) **נבדק מול האתר החי ונמצא
+שבור** (הגנת אנטי-בוט חדשה של HLTB) — הוחלט **לוותר על סנכרון חי
+בינתיים**. RevenueCat + paywall (§5, §19) **הושלם בקוד — מגבלות
+חינם/Pro אוכפות קשיחה, מסך paywall, מנוע gateway עם mock, אבל לא נבדק
+בפועל בכלל** (לא native module, לא Dev Build, אין חשבון RevenueCat).
+פרסומות באנר (§5, §20) **הושלם בקוד — באנר בתחתית הספרייה בלבד, Pro
+חסום, error boundary + web fallback, אבל לא נבדק בפועל בכלל** (native
+module, לא Dev Build, אין חשבון AdMob). **תוקן בסשן ה-PostHog: באג
+שגרם למסך הספרייה לקרוס ב-Expo Go** (AdMob זורק בזמן import, לא רק
+render — ראה §21 "באג צדדי" למטה, PR #30).
 typecheck + lint + 130 טסטים + expo export (android/ios/web) עוברים.
 
 מה שנשאר פתוח (HANDOFF.md §9, מעודכן):
@@ -1048,9 +1083,7 @@ typecheck + lint + 130 טסטים + expo export (android/ios/web) עוברים.
 2. **הקמת AdMob בפועל (§20)** — חשבון, app, יחידות באנר לכל פלטפורמה,
    App ID אמיתי ב-`app.json` (**לפני** build — לא runtime), ad unit
    IDs ל-`.env`, ואז אותו Development Build. §20 מפרט את כל 6 הצעדים.
-3. **הקמת PostHog בפועל (§21)** — חשבון + project API key ל-`.env`.
-   **לא דורש Dev Build**, אפשר לבדוק גם ב-Expo Go/`npx expo start`.
-   §21 מפרט את 3 הצעדים ואת כל 9 האירועים שאמורים להופיע ב-dashboard.
+3. ~~הקמת PostHog~~ — **הושלם ואומת, ראה §21.**
 4. **הבדיקה הדו-מכשירית המלאה ל-Supabase sync** (§17, פחות קריטי) —
    התקנה שנייה עם אותו אימייל, לוודא שספרייה קיימת מסתנכרנת חזרה.
 5. שאר סעיפי הרשימה ב-§13 (Steam import עם מפתח אמיתי, מחוות ה-swipe,
@@ -1059,9 +1092,10 @@ typecheck + lint + 130 טסטים + expo export (android/ios/web) עוברים.
 6. **HLTB (§18)** — לא לפתוח מחדש בלי סיבה טובה. אם המשתמש בכל זאת
    רוצה לנסות שוב, האפשרות היחידה שנשארה היא headless browser
    (Playwright) — לא ניסיון נוסף לחשב את ה-anti-bot hash ידנית.
-7. **שלב 5 (§8 SPEC, שחרור)** — עכשיו ששלב 4 נסגר בקוד, זו ההמשך
-   הטבעי הבא: TestFlight/Google Play Internal Testing, גיוס בודקים —
-   אבל תלוי בכל ה-Dev Build/חשבונות שנשארו פתוחים למעלה קודם.
+7. **שלב 5 (§8 SPEC, שחרור)** — עכשיו ששלב 4 נסגר בקוד (ואומת ברובו
+   בפועל), זו ההמשך הטבעי הבא: TestFlight/Google Play Internal
+   Testing, גיוס בודקים — אבל תלוי בכל ה-Dev Build/חשבונות שנשארו
+   פתוחים למעלה קודם (RevenueCat/AdMob).
 
 לפני שמתחילים בפיצ'ר: הרץ npm install, npm run typecheck, npm test —
 ודא שהכל ירוק (typecheck נכשל רק על global.css הידוע — לא קשור, ראה
